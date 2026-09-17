@@ -1,0 +1,13 @@
+{
+  "_comment": "Kategoria tresci dla klipow tla strony glownej. Podzial ekranu laczy tylko klipy z tej samej kategorii: sam dobor po kolorze zestawial wnetrze z widokiem z dystansu albo taras z elewacja, i mimo zgodnej palety nie czytalo sie to jako jedna kompozycja. Klip bez wpisu albo jedyny w swojej kategorii nigdy nie jest parowany - leci sam na pelnym kadrze. Kolor pozostaje rozstrzygnieciem, gdy w kategorii jest wiecej niz jeden kandydat.",
+  "scenes": {
+    "animation-1": "interior",
+    "animation": "interior",
+    "animation-4": "terrace",
+    "animation-6": "terrace",
+    "kling-20251014-image-to-video-the-camer-5708-0": "facade",
+    "rogerscorp-video-4": "facade",
+    "rogerscorp-video-1": "aerial",
+    "animation4": "detail"
+  }
+}

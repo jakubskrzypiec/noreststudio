@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { colorDistance, type VideoAsset } from "@/lib/media";
+import { colorDistance, sceneOf, type VideoAsset } from "@/lib/media";
 import { AutoVideo } from "./AutoVideo";
 
 /**
@@ -15,9 +15,13 @@ import { AutoVideo } from "./AutoVideo";
  * maska (`clip-path`). Dzięki temu kadrowanie jest takie samo jak przy jednym
  * filmie — nie wciskamy ujęcia do połowy ekranu, co zjadałoby kompozycję.
  *
- * Partner podziału jest **dobierany po kolorze**, a nie losowo: z ośmiu klipów
- * siedem ma spójną, ciepłą paletę, a jeden (ciemny, mocno pomarańczowy) odstaje
- * na tyle, że zestawiony z czymkolwiek wygląda jak błąd. Taki klip leci sam.
+ * Partner podziału jest dobierany **najpierw po treści, potem po kolorze**. Kolor
+ * sam nie wystarczał: wszystkie ujęcia mają ciepłą paletę, więc zestawiał salon
+ * z widokiem z dystansu albo taras z elewacją i mimo zgodnych barw nie czytało się
+ * to jako jedna kompozycja. Kategorie siedzą w `data/hero.json`; klip jedyny
+ * w swojej kategorii (detal blatu, ujęcie z dystansu) leci zawsze sam.
+ *
+ * Podział wypada dokładnie pół na pół — środek skosu przechodzi przez środek ekranu.
  *
  * Czasy wynikają z długości konkretnego pliku, a nie ze stałej wartości. Wcześniej
  * każdy klip wisiał 6 s, a cztery z ośmiu mają 5,04 s — zapętlały się na ekranie
@@ -56,9 +60,13 @@ const SOLO_SHARE = 0.35;
 /** Pochylenie krawędzi: różnica między górą i dołem, w procentach szerokości. */
 const SKEW = 20;
 
-/** Pozycje krawędzi: poza kadrem, podział, pełne zakrycie. */
+/**
+ * Pozycje krawędzi: poza kadrem, podział, pełne zakrycie.
+ * Przy podziale środek skosu wypada dokładnie na 50% szerokości, więc oba kadry
+ * dostają równo pół ekranu — górny wierzchołek jest przesunięty o połowę pochylenia.
+ */
 const EDGE_OFFSCREEN = 130;
-const EDGE_SPLIT = 58;
+const EDGE_SPLIT = 50 + SKEW / 2;
 const EDGE_COVER = -30;
 
 type Layer = {
@@ -182,15 +190,22 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
   );
 
   /**
-   * Partner do podziału ekranu — najbliższy kolorystycznie klip spoza ekranu.
-   * Tu nie zależy nam na różnorodności, tylko na tym, żeby oba kadry czytały się
-   * jako jedna kompozycja. `undefined` znaczy „nie ma z czym zestawić" i klip
-   * zostaje sam na pełnym kadrze.
+   * Partner do podziału ekranu.
+   *
+   * Najpierw **treść**: bierzemy tylko klipy z tej samej kategorii (wnętrze do
+   * wnętrza, elewacja do elewacji). Sam kolor nie wystarczał — zestawiał salon
+   * z widokiem z lotu ptaka i mimo zgodnej palety nie czytało się to jako jedna
+   * kompozycja. Dopiero wśród zgodnych treściowo rozstrzyga kolor.
+   *
+   * `undefined` znaczy „nie ma z czym zestawić" i klip zostaje sam na pełnym kadrze —
+   * tak jest z detalem blatu i z ujęciem z dystansu, bo są jedyne w swoich kategoriach.
    */
   const takePartner = useCallback(
     (base: VideoAsset, naEkranie: Set<string>): VideoAsset | undefined => {
+      const scena = sceneOf(base.id);
+
       const najblizszy = playlist
-        .filter((clip) => !naEkranie.has(clip.id))
+        .filter((clip) => !naEkranie.has(clip.id) && sceneOf(clip.id) === scena)
         .map((clip) => ({ clip, dystans: colorDistance(base.color, clip.color) }))
         .sort((x, y) => x.dystans - y.dystans)[0];
 

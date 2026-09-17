@@ -9,6 +9,7 @@
 import { asset } from "./assets";
 import projectsData from "../../data/projects.json";
 import manifestData from "../../data/media.json";
+import heroData from "../../data/hero.json";
 
 /** Średni kolor kadru w Lab — pozwala dobierać ujęcia, które do siebie pasują. */
 export type LabColor = { L: number; a: number; b: number };
@@ -124,4 +125,18 @@ export function colorDistance(x: LabColor, y: LabColor): number {
   const da = x.a - y.a;
   const db = x.b - y.b;
   return Math.sqrt(dL * dL + da * da + db * db);
+}
+
+/**
+ * Kategoria treści klipu tła — czym w ogóle jest dane ujęcie (wnętrze, elewacja,
+ * taras, detal). Sam dobór po kolorze zestawiał wnętrze z widokiem z dystansu
+ * i mimo zgodnej palety nie czytało się to jako jedna kompozycja.
+ *
+ * Klasyfikacja jest ludzką oceną, więc siedzi w `data/hero.json` i da się ją
+ * poprawić bez ruszania kodu. Klip bez wpisu dostaje własną, unikalną kategorię,
+ * czyli nigdy nie trafi do pary.
+ */
+export function sceneOf(clipId: string): string {
+  const scenes = heroData.scenes as Record<string, string>;
+  return scenes[clipId] ?? `__bez-kategorii-${clipId}`;
 }
