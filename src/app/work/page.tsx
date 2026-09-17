@@ -41,10 +41,10 @@ export default function WorkPage() {
                       alt={project.title}
                       sizes="(max-width: 768px) 90vw, 40vw"
                       priority={index < 3}
-                      className="h-full w-auto max-w-none object-cover transition-opacity duration-500 group-hover:opacity-85"
+                      className="min-h-0 w-auto max-w-none flex-1 object-cover transition-opacity duration-500 group-hover:opacity-85"
                     />
                   ) : (
-                    <div className="h-full w-[60vw] bg-hairline md:w-[32vw]" />
+                    <div className="min-h-0 w-[60vw] flex-1 bg-hairline md:w-[32vw]" />
                   )}
 
                   <figcaption className="label flex items-baseline gap-4 text-muted">

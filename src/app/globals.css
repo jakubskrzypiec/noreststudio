@@ -73,3 +73,12 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/*
+ * Rendery bywają bardzo jasne (niebo, piasek, beton), więc biały tekst na nich
+ * potrafi zniknąć. Delikatny cień utrzymuje czytelność, nie dokładając przyciemnienia
+ * na całe zdjęcie.
+ */
+.on-image {
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.45);
+}

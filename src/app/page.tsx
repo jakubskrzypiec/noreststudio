@@ -18,10 +18,10 @@ export default function HomePage() {
 
       <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div
-          className="absolute right-10 flex flex-col gap-3 text-white/80"
+          className="on-image absolute right-10 flex flex-col gap-3 text-white/90"
           style={{ top: "calc(var(--header-h) + 5rem)" }}
         >
-          <p className="label text-white/60">Our services</p>
+          <p className="label text-white/70">Our services</p>
           <ul className="flex flex-col gap-2">
             {site.services.map((service) => (
               <li key={service} className="text-sm font-light tracking-[0.1em]">

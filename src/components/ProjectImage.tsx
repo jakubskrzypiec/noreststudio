@@ -20,6 +20,9 @@ type Props = {
 
 export function ProjectImage({ image, alt, sizes, className, priority = false }: Props) {
   return (
+    // Warianty i wymiary są policzone przez `npm run media`, więc next/image nie ma tu
+    // czego optymalizować — dodałby tylko zależność od hostingu i drugi przebieg kodowania.
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={largestSrc(image)}
       srcSet={toSrcSet(image)}

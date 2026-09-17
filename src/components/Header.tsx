@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { Wordmark, Mark } from "./Logo";
@@ -16,12 +15,6 @@ import { Wordmark, Mark } from "./Logo";
  */
 export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
-
-  // Wejście na inną podstronę zawsze zamyka menu — inaczej zostaje otwarte nad nową treścią.
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   // Menu jest pełnoekranowe, więc tło pod nim nie powinno się przewijać.
   useEffect(() => {
@@ -32,7 +25,8 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   }, [menuOpen]);
 
   // Na zdjęciu pełnoekranowym logo musi być białe, na papierze — czarne.
-  const colorClass = tone === "light" ? "text-white" : "text-ink";
+  // Otwarte menu zakrywa zdjęcie papierowym tłem, więc jasny wariant przestaje być czytelny.
+  const colorClass = tone === "light" && !menuOpen ? "text-white on-image" : "text-ink";
 
   return (
     <>
@@ -49,27 +43,13 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
-          {site.nav.map((item) =>
-            item.external ? (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={`label ${colorClass} opacity-70 transition-opacity hover:opacity-100`}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`label ${colorClass} opacity-70 transition-opacity hover:opacity-100`}
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
+          {site.nav.map((item) => (
+            <NavLink
+              key={item.label}
+              item={item}
+              className={`label ${colorClass} opacity-70 transition-opacity hover:opacity-100`}
+            />
+          ))}
         </nav>
 
         <button
@@ -77,7 +57,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
           onClick={() => setMenuOpen((open) => !open)}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          className={`md:hidden ${menuOpen ? "text-ink" : colorClass}`}
+          className={`md:hidden ${colorClass}`}
         >
           <Mark
             className={`h-5 w-auto transition-transform duration-500 ${
@@ -89,29 +69,50 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
       {menuOpen && (
         <div className="fade-in fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-paper md:hidden">
-          {site.nav.map((item) =>
-            item.external ? (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-ink text-lg tracking-[0.18em] uppercase"
-              >
-                {item.label}
-              </a>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-ink text-lg tracking-[0.18em] uppercase"
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
+          {site.nav.map((item) => (
+            <NavLink
+              key={item.label}
+              item={item}
+              // Zamykamy przy wyborze pozycji, żeby menu nie zostało nad nową podstroną.
+              onNavigate={() => setMenuOpen(false)}
+              className="text-ink text-lg tracking-[0.18em] uppercase"
+            />
+          ))}
         </div>
       )}
     </>
+  );
+}
+
+type NavItem = (typeof site.nav)[number];
+
+/** Pozycja menu — zewnętrzne linki wychodzą w nowej karcie, wewnętrzne idą routerem. */
+function NavLink({
+  item,
+  className,
+  onNavigate,
+}: {
+  item: NavItem;
+  className: string;
+  onNavigate?: () => void;
+}) {
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={onNavigate}
+        className={className}
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={item.href} onClick={onNavigate} className={className}>
+      {item.label}
+    </Link>
   );
 }
