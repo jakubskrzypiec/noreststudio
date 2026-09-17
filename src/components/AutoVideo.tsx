@@ -23,6 +23,7 @@ export function AutoVideo({
   style,
   preload = "metadata",
   onReady,
+  elementRef,
 }: {
   video: VideoAsset;
   className?: string;
@@ -31,6 +32,11 @@ export function AutoVideo({
   preload?: "none" | "metadata" | "auto";
   /** Woływane, gdy klip ma dość danych, żeby grać płynnie. */
   onReady?: () => void;
+  /**
+   * Udostępnia sam element wideo. Strona główna potrzebuje go, żeby przewinąć
+   * klip na początek dokładnie w chwili, gdy wchodzi w kadr.
+   */
+  elementRef?: (element: HTMLVideoElement | null) => void;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   /**
@@ -89,7 +95,10 @@ export function AutoVideo({
 
   return (
     <video
-      ref={ref}
+      ref={(element) => {
+        ref.current = element;
+        elementRef?.(element);
+      }}
       src={asset(video.src)}
       poster={asset(video.poster)}
       aria-label={ariaLabel}
