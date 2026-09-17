@@ -63,25 +63,49 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          {placed.map((item) =>
-            item.kind === "video" ? (
-              <AutoVideo
-                key={item.asset.id}
-                video={item.asset}
-                ariaLabel={`${project.title} — animacja`}
-                className={`w-full bg-black ${item.full ? "md:col-span-2" : ""}`}
-              />
-            ) : (
-              <ProjectImage
-                key={item.asset.id}
-                image={item.asset}
-                alt={`${project.title} — ${item.position + 1}`}
-                sizes={item.full ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
-                priority={item.position === 0}
-                className={`w-full ${item.full ? "md:col-span-2" : ""}`}
-              />
-            ),
-          )}
+          {placed.map((item) => (
+            /*
+             * Proporcje niesie pojemnik, nie samo zdjęcie. W parze są wspólne, więc
+             * oba kadry mają tę samą wysokość i pod niższym nie zostaje pusta połowa
+             * wiersza. Na telefonie każdy kadr wraca do własnych proporcji — tam
+             * wszystko i tak jest jednokolumnowe, więc nie ma czego wyrównywać.
+             */
+            <div
+              key={item.asset.id}
+              className={`w-full overflow-hidden aspect-[var(--own)] md:aspect-[var(--row)] ${
+                item.full
+                  ? // Kadr na pełnej szerokości ma trzy ograniczenia szerokości:
+                    // szerokość kolumny, limit wysokości (pionowe ujęcie rozciągnięte
+                    // na 1345 px miało 1793 px i zjadało dwa ekrany) oraz rozdzielczość
+                    // źródła — kilka renderów ma tylko 1200 px i nie ma sensu ich rozdymać.
+                    "md:col-span-2 md:mx-auto md:w-[min(100%,calc(78vh*var(--own)),var(--src))]"
+                  : ""
+              }`}
+              style={
+                {
+                  "--own": String(item.asset.aspectRatio),
+                  "--row": String(item.rowRatio),
+                  "--src": `${item.asset.width}px`,
+                } as React.CSSProperties
+              }
+            >
+              {item.kind === "video" ? (
+                <AutoVideo
+                  video={item.asset}
+                  ariaLabel={`${project.title} — animacja`}
+                  className="h-full w-full bg-black object-cover"
+                />
+              ) : (
+                <ProjectImage
+                  image={item.asset}
+                  alt={`${project.title} — ${item.position + 1}`}
+                  sizes={item.full ? "(max-width: 768px) 100vw, 1520px" : "(max-width: 768px) 100vw, 760px"}
+                  priority={item.position === 0}
+                  className="h-full w-full object-cover"
+                />
+              )}
+            </div>
+          ))}
         </div>
 
         <dl className="mt-16 grid grid-cols-[6rem_1fr] gap-y-2 md:grid-cols-[8rem_1fr]">

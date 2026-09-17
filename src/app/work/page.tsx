@@ -74,7 +74,9 @@ export default function WorkPage() {
                         <ProjectImage
                           image={cover}
                           alt={project.title}
-                          sizes="(max-width: 768px) 90vw, 40vw"
+                          // Dokładnie tyle, ile kafel zajmuje — zadeklarowane 40vw było
+                          // węższe od rzeczywistych 44vw i przeglądarka brała za mały plik.
+                          sizes={`(max-width: 768px) 100vw, ${widthVw}vw`}
                           priority={index < 3}
                           className="h-full w-full object-cover"
                         />

@@ -140,17 +140,23 @@ async function processImage(srcFile, outBase) {
   const sources = [];
 
   for (const width of IMAGE_WIDTHS) {
-    // Nie powiekszamy - jesli zrodlo jest wezsze, zostaje przy swojej szerokosci.
-    if (width > meta.width && sources.length > 0) break;
+    // Nie powiekszamy - zrodlo wezsze od progu zostaje przy swojej szerokosci.
+    // Ten wariant MUSI powstac: bez niego zdjecie 1200 px dostawalo tylko 640 px
+    // i uklad rozciagal je na 845 px w kaflu albo na 1520 px na stronie projektu.
     const target = Math.min(width, meta.width);
     const outFile = `${outBase}-${target}.webp`;
-    if (FORCE || !existsSync(outFile)) {
-      await sharp(srcFile, { failOn: "none" })
-        .resize({ width: target, withoutEnlargement: true })
-        .webp({ quality: IMAGE_QUALITY, effort: 5 })
-        .toFile(outFile);
+
+    if (!sources.some((source) => source.width === target)) {
+      if (FORCE || !existsSync(outFile)) {
+        await sharp(srcFile, { failOn: "none" })
+          .resize({ width: target, withoutEnlargement: true })
+          .webp({ quality: IMAGE_QUALITY, effort: 5 })
+          .toFile(outFile);
+      }
+      sources.push({ width: target, src: toPublicPath(outFile) });
     }
-    sources.push({ width: target, src: toPublicPath(outFile) });
+
+    if (width >= meta.width) break;
   }
 
   // Rozmyty placeholder wstawiany inline, zeby siatka nie skakala przed doczytaniem zdjecia.
