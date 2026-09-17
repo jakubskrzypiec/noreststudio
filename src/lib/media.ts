@@ -9,9 +9,13 @@
 import { asset } from "./assets";
 import projectsData from "../../data/projects.json";
 import manifestData from "../../data/media.json";
-import heroData from "../../data/hero.json";
 
-/** Średni kolor kadru w Lab — pozwala dobierać ujęcia, które do siebie pasują. */
+/**
+ * Średni kolor kadru w Lab, liczony przez pipeline. Nic go teraz nie czyta —
+ * powstał, gdy tło strony głównej zestawiało po dwa ujęcia i trzeba było je
+ * dobierać kolorystycznie. Zostaje w manifescie, bo opisuje materiał i nie kosztuje
+ * nic poza jedną linią w skrypcie.
+ */
 export type LabColor = { L: number; a: number; b: number };
 
 export type ImageAsset = {
@@ -112,31 +116,4 @@ export function largestSrc(image: ImageAsset): string {
   return asset(image.sources[image.sources.length - 1]?.src ?? "");
 }
 
-/**
- * Odległość barwna dwóch kadrów.
- *
- * Jasność waży słabiej niż barwa: wnętrze i ujęcie zewnętrzne różnią się przede
- * wszystkim jasnością, ale jeśli oba są ciepłe, zestawione obok siebie nadal
- * czytają się jako jedna kompozycja. Skala z pomiarów materiału NoRest:
- * poniżej 8 pasują, do 14 są znośne, powyżej gryzą się.
- */
-export function colorDistance(x: LabColor, y: LabColor): number {
-  const dL = (x.L - y.L) * 0.45;
-  const da = x.a - y.a;
-  const db = x.b - y.b;
-  return Math.sqrt(dL * dL + da * da + db * db);
-}
 
-/**
- * Kategoria treści klipu tła — czym w ogóle jest dane ujęcie (wnętrze, elewacja,
- * taras, detal). Sam dobór po kolorze zestawiał wnętrze z widokiem z dystansu
- * i mimo zgodnej palety nie czytało się to jako jedna kompozycja.
- *
- * Klasyfikacja jest ludzką oceną, więc siedzi w `data/hero.json` i da się ją
- * poprawić bez ruszania kodu. Klip bez wpisu dostaje własną, unikalną kategorię,
- * czyli nigdy nie trafi do pary.
- */
-export function sceneOf(clipId: string): string {
-  const scenes = heroData.scenes as Record<string, string>;
-  return scenes[clipId] ?? `__bez-kategorii-${clipId}`;
-}
