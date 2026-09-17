@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NOREST STUDIO
 
-## Getting Started
+Strona studia wizualizacji architektonicznych (Kraków). Next.js 16 (App Router),
+TypeScript, Tailwind 4.
 
-First, run the development server:
+## Szybki start
 
 ```bash
+npm install
+npm run media     # konwersja surowych renderów -> public/media (wymaga ffmpeg)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Struktura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+data/projects.json   opis projektów: nazwa, slug, klient, data, lista plików źródłowych
+data/media.json      wynik konwersji: ścieżki, wymiary, placeholdery (generowany)
+scripts/             narzędzia jednorazowe i pipeline mediów
+src/lib/site.ts      dane firmy i teksty interfejsu
+src/lib/media.ts     jedyny punkt dostępu do zdjęć i filmów
+src/components/      Header, Logo, HomeHero, HorizontalRail, ProjectImage
+src/app/             /  /work  /work/[slug]  /projects  /contact
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Materiały źródłowe
 
-## Learn More
+Foldery `PROJECTS/`, `HOME/`, `IKONKI/`, `CZCIONKI/`, `SLIDER PROJECTS/` oraz plansza PDF
+to surowe rendery od klienta — **są poza repo** (`.gitignore`), bo ważą ~2,8 GB.
+Trzymaj je lokalnie w katalogu projektu; `npm run media` czyta je stamtąd.
 
-To learn more about Next.js, take a look at the following resources:
+Konwersja jest przyrostowa: ponowne uruchomienie przerabia tylko brakujące pliki.
+`npm run media -- --force` wymusza wszystko od nowa.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`scripts/make-logo.mjs` jest jednorazowy — robi z `IKONKI/` maski PNG w `public/logo/`,
+których używa komponent `Logo` (kolor bierze z `currentColor`, więc to samo logo działa
+na czarno na papierze i na biało na pełnoekranowym renderze).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Ekrany
 
-## Deploy on Vercel
+| Ścieżka        | Co to jest                                                        |
+| -------------- | ----------------------------------------------------------------- |
+| `/`            | HOME — pełnoekranowa animacja, zmienia się po zakończeniu klipu    |
+| `/work`        | galeria pod logo — poziomy pas kafli, przewijany kółkiem myszy     |
+| `/work/[slug]` | pojedynczy projekt: siatka zdjęć i filmów, `NEXT PROJECT →`        |
+| `/projects`    | tekstowa lista wszystkich projektów                                |
+| `/contact`     | adres i kontakt                                                    |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Logo w nagłówku prowadzi do `/work` — tak jak opisuje to plansza klienta
+(„po kliknięciu w logo”).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Czego brakuje od klienta
+
+- **Tekst „o nas”** do sekcji CONTACT. Ten z planszy to placeholder przepisany
+  z australijskiego studia Third Aesthetic — nie da się go użyć. Do czasu
+  dostarczenia treści sekcja się nie renderuje (`site.about` jest puste).
+- **Zdjęcia zespołu** (dwie osoby na krzesłach, czarno-białe, wycięte z tła) na CONTACT.
+- **Klient i data** dla każdego projektu — pola `client` i `date` w `data/projects.json`
+  są puste; dopóki są puste, nie pojawiają się na stronie.
+- **Licencja webowa Helvetica Neue.** Krój jest komercyjny i nie wolno go hostować
+  bez licencji, więc na razie ładujemy Intera w lekkich odmianach. Na macOS i tak
+  pierwszeństwo ma systemowa Helvetica Neue.
+- **Kolejność projektów** w galerii — teraz alfabetyczna, po nazwach folderów.

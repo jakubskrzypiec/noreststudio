@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
+/*
+ * Tokeny z materiałów klienta (CZCIONKI/czcionka.txt):
+ *   tło stron  f5f4f2
+ *   tekst      9e9e9e
+ * Czerń jest zarezerwowana dla logo i nagłówków projektów — reszta interfejsu
+ * ma być wyraźnie jaśniejsza, tak jak na planszy.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f5f4f2;
+  --ink: #1a1a1a;
+  --muted: #9e9e9e;
+  --hairline: #dedcd8;
+
+  /* Wysokość paska z logo i menu; używana też do odsunięcia treści od góry. */
+  --header-h: 4.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+  --font-sans: var(--font-neue), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * Makieta jest jednowariantowa — jasna. Ciemny motyw systemowy nie może jej
+ * przestawiać, więc nie deklarujemy prefers-color-scheme.
+ */
+html {
+  background: var(--paper);
+  color: var(--muted);
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+/* Drobny, rozstrzelony wersalik — podstawowy krój etykiet w całej makiecie. */
+.label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Wygaszenie treści przy przejściu między podstronami. */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 0.6s ease both;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Poziomy slider projektów — chowamy pasek, ale zostawiamy natywne przewijanie. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

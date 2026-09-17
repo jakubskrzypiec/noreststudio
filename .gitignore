@@ -24,3 +24,7 @@ next-env.d.ts
 .DS_Store
 Thumbs.db
 *.log
+
+# Wynik konwersji mediow - generowany przez "npm run media".
+# Na razie poza repo; docelowo albo Git LFS, albo wrzucamy po decyzji o hostingu.
+/public/media/
