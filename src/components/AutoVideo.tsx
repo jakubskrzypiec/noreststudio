@@ -22,14 +22,26 @@ export function AutoVideo({
   ariaLabel,
   style,
   preload = "metadata",
+  onReady,
 }: {
   video: VideoAsset;
   className?: string;
   ariaLabel?: string;
   style?: React.CSSProperties;
   preload?: "none" | "metadata" | "auto";
+  /** Woływane, gdy klip ma dość danych, żeby grać płynnie. */
+  onReady?: () => void;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
+  /**
+   * Trzymamy w refie, żeby podmiana funkcji nie przepinała nasłuchów.
+   * Aktualizujemy w efekcie zadeklarowanym wyżej niż główny, więc wskazuje
+   * na świeżą funkcję, zanim ten zdąży ją wywołać.
+   */
+  const onReadyRef = useRef(onReady);
+  useEffect(() => {
+    onReadyRef.current = onReady;
+  }, [onReady]);
   /** Czy kadr jest w polu widzenia — decyduje, czy w ogóle próbować grać. */
   const visibleRef = useRef(true);
 
@@ -58,12 +70,18 @@ export function AutoVideo({
       observer.observe(element);
     }
 
+    const announceReady = () => onReadyRef.current?.();
+    // Gdy plik siedzi już w cache, `canplay` zdążyło paść przed podpięciem nasłuchu.
+    if (element.readyState >= 3) announceReady();
+    element.addEventListener("canplay", announceReady);
+
     document.addEventListener("visibilitychange", tryPlay);
     // `once` wystarczy — po pierwszej interakcji polityka autoplay już nie blokuje.
     window.addEventListener("pointerdown", tryPlay, { once: true });
 
     return () => {
       observer?.disconnect();
+      element.removeEventListener("canplay", announceReady);
       document.removeEventListener("visibilitychange", tryPlay);
       window.removeEventListener("pointerdown", tryPlay);
     };

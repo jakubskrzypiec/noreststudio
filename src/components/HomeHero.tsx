@@ -1,76 +1,166 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { VideoAsset } from "@/lib/media";
 import { AutoVideo } from "./AutoVideo";
 
 /**
  * Pełnoekranowe tło strony głównej.
  *
- * Tak to działa na stronie referencyjnej: leci jeden film na całym ekranie,
- * po czym drugi **wcina się w prawą połowę kadru** — nie jest tak, że oba
- * pojawiają się razem. Po chwili ten drugi zabiera całą szerokość i staje się
- * nowym tłem, a cykl zaczyna się od nowa z kolejnym klipem.
+ * Rytm wzięty ze strony referencyjnej: leci jeden film na całym ekranie, po czym
+ * drugi **wcina się w prawą połowę kadru**, a po chwili kadr wraca do jednego filmu.
+ * Zmiany są twardymi cięciami, bez animowanego wjazdu — tam podział jest cięciem
+ * montażowym wewnątrz materiału, nie efektem strony.
  *
- * Zmiana jest twardym cięciem, bez animowanego wjazdu — dokładnie jak na stronie
- * referencyjnej, gdzie podział jest cięciem montażowym wewnątrz materiału.
- * Odsłanianie robi `clip-path`, więc film stoi nieruchomo w pełnym kadrze zamiast
- * być przeskalowywany; gdyby zmieniać szerokość, `object-cover` przeliczałby
- * kadrowanie i obraz skakałby w środku w momencie cięcia.
+ * Trzy rzeczy, których pilnuje ten komponent, bo każda z nich potrafiła zepsuć tło:
  *
- * Dwie rzeczy, przez które tło wcześniej migało i potrafiło stanąć na dobre:
- * klipy nie były zapętlone i cykl czekał na `ended`, które dla wstępnie
- * uruchomionego klipu padało jeszcze poza ekranem; oraz kolejny klip trafiał
- * do tego samego elementu `<video>`, więc podmiana `src` pokazywała na moment
- * czarne tło albo plakat. Teraz każdy klip ma własny element o stałym kluczu,
- * jest zamontowany i wczytany, zanim zacznie się odsłanianie, a po przejęciu
- * ekranu React przenosi ten sam węzeł na spód — bez przeładowania.
+ * 1. **Żaden klip nie leci dwa razy pod rząd.** Wcześniej klip, który wciął się
+ *    w połowę kadru, zaraz potem przejmował cały ekran — widz oglądał to samo ujęcie
+ *    dwa razy. Dlatego po podziale wchodzi *kolejny* klip, a nie ten z prawej połowy.
+ *
+ * 2. **Cięcie następuje dopiero, gdy nowy klip ma dane do grania.** Stały odstęp
+ *    nie wystarczał: przy wolniejszym łączu kadr przeskakiwał na nieprzygotowany
+ *    film i pokazywał plakat albo czerń. Czekamy na `canplay`, z limitem czasu,
+ *    żeby zacięty plik nie zatrzymał całego cyklu.
+ *
+ * 3. **Każdy klip ma własny element `<video>` o stałym kluczu.** Podmiana `src`
+ *    w istniejącym elemencie kasowała obraz na moment — stąd mignięcia.
+ *
+ * Dalsza kolejność jest losowana przy każdym wejściu. Pierwszy kadr zostaje stały,
+ * bo wychodzi z serwerowego HTML-u — losowanie go w renderze rozjechałoby hydratację
+ * z zawartością pliku strony.
  */
 
-/** Odstęp po cięciu, zanim cykl przejdzie dalej. Samo cięcie jest natychmiastowe. */
-const CUT_SETTLE_MS = 120;
-
-/** Jak długo widać pojedynczy kadr, zanim wetnie się następny. */
-const HOLD_SINGLE_MS = 4500;
+/** Ile widać pojedynczy kadr, zanim wetnie się następny. */
+const HOLD_SINGLE_MS = 5000;
 
 /** Jak długo ekran zostaje podzielony. */
-const HOLD_SPLIT_MS = 3500;
+const HOLD_SPLIT_MS = 4000;
 
-/** Chwila na zamontowanie i wczytanie klipu, zanim wetnie się w kadr. */
-const ARM_MS = 400;
+/** Odstęp po cięciu, zanim cykl ruszy dalej. Samo cięcie jest natychmiastowe. */
+const CUT_SETTLE_MS = 120;
 
-/** Gdzie zatrzymuje się krawędź wcinającego się filmu. */
-const SPLIT_AT = 50;
+/** Najdłuższe czekanie na gotowość klipu; potem tniemy mimo wszystko. */
+const READY_TIMEOUT_MS = 6000;
 
-type Panel = {
+/** Pozycje krawędzi: film schowany, połowa kadru, cały kadr. */
+const EDGE_HIDDEN = 100;
+const EDGE_HALF = 50;
+const EDGE_FULL = 0;
+
+type Layer = {
   key: string;
   clip: VideoAsset;
+  /** Lewa krawędź w procentach szerokości: 100 = niewidoczny, 50 = pół kadru, 0 = cały. */
+  edge: number;
 };
 
-type Phase = "single" | "arming" | "entering" | "split" | "takeover";
+type Phase = "hold-single" | "cue-split" | "hold-split" | "cue-single" | "settle";
+
+/** Rosnący numer wystąpienia warstwy — zapewnia unikalne klucze w Reakcie. */
+let layerSeq = 0;
+
+/** Fisher-Yates — kolejność klipów na ten jeden pobyt na stronie. */
+function shuffled<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 export function HomeHero({ videos }: { videos: VideoAsset[] }) {
-  /** Kolejka klipów; pusty zestaw oznacza, że media nie zostały jeszcze przerobione. */
   const playlist = useMemo(() => videos.filter((video) => video.src), [videos]);
 
   /**
-   * panels[0] to tło, panels[1] to klip wcinający się w kadr.
-   * Klucze są stałe, więc po przejęciu ekranu React przenosi ten sam element
-   * `<video>` na spód zamiast montować go od nowa.
+   * Pierwszy kadr jest zawsze ten sam, bo wychodzi z serwerowego HTML-u —
+   * gdyby losować go w renderze, hydratacja zastałaby inny plik niż w pliku strony.
+   * Losowana jest dopiero dalsza kolejność.
    */
-  const [panels, setPanels] = useState<Panel[]>(() =>
-    playlist.length > 0 ? [{ key: `${playlist[0].id}#0`, clip: playlist[0] }] : [],
+  const [layers, setLayers] = useState<Layer[]>(() =>
+    playlist[0] ? [{ key: `${playlist[0].id}#start`, clip: playlist[0], edge: EDGE_FULL }] : [],
   );
-  const [phase, setPhase] = useState<Phase>("single");
-  /** Pozycja krawędzi wcinającego się filmu, w procentach szerokości. */
-  const [edge, setEdge] = useState(100);
+  const [phase, setPhase] = useState<Phase>("hold-single");
 
-  /** Który klip z kolejki pójdzie następny. */
-  const cursor = useRef(1);
+  /** Co zostało w bieżącej rundzie i co właśnie zeszło z ekranu. */
+  const queue = useRef<VideoAsset[]>([]);
+  const lastShown = useRef<string | null>(playlist[0]?.id ?? null);
+
+  /**
+   * Kilka ostatnio pokazanych ujęć. Sama losowa kolejność potrafiła przywrócić
+   * ten sam klip już po dwóch innych, co przy ośmiu plikach rzucało się w oczy.
+   */
+  const recent = useRef<string[]>(playlist[0] ? [playlist[0].id] : []);
+  const recentLimit = Math.max(0, Math.min(3, playlist.length - 2));
+
+  /**
+   * Losowanie dzieje się tutaj, a nie w renderze ani w efekcie: funkcję woła
+   * dopiero zegar cyklu, więc serwer i klient renderują to samo.
+   */
+  const takeNext = useCallback(
+    (naEkranie: Set<string>): VideoAsset | undefined => {
+      const refill = () => {
+        const fresh = shuffled(playlist);
+        // Nowa runda nie zaczyna się ujęciem, które przed chwilą było na ekranie.
+        if (fresh.length > 1 && fresh[0].id === lastShown.current) {
+          fresh.push(fresh.shift()!);
+        }
+        queue.current = fresh;
+      };
+
+      const zapamietaj = (clip: VideoAsset) => {
+        lastShown.current = clip.id;
+        recent.current = [clip.id, ...recent.current].slice(0, recentLimit);
+        return clip;
+      };
+
+      if (queue.current.length === 0) refill();
+
+      // Kolejka zawiera też klipy, które właśnie widać albo dopiero co zeszły —
+      // te przekładamy na koniec, zamiast pokazywać ten sam materiał ponownie.
+      for (let proba = 0; proba < playlist.length; proba++) {
+        if (queue.current.length === 0) refill();
+        const clip = queue.current.shift();
+        if (!clip) return undefined;
+        if (!naEkranie.has(clip.id) && !recent.current.includes(clip.id)) {
+          return zapamietaj(clip);
+        }
+        queue.current.push(clip);
+      }
+
+      // Za mało materiału, żeby spełnić oba warunki — bierzemy cokolwiek spoza ekranu.
+      const zapas =
+        queue.current.find((clip) => !naEkranie.has(clip.id)) ?? queue.current[0];
+      if (!zapas) return undefined;
+      queue.current = queue.current.filter((clip) => clip !== zapas);
+      return zapamietaj(zapas);
+    },
+    [playlist, recentLimit],
+  );
+
+  /** Klucze klipów, które zgłosiły gotowość. */
+  const ready = useRef(new Set<string>());
+  const [readySignal, setReadySignal] = useState(0);
+
+  const markReady = useCallback((key: string) => {
+    if (ready.current.has(key)) return;
+    ready.current.add(key);
+    setReadySignal((value) => value + 1);
+  }, []);
+
+  /** Dokłada klip jako niewidoczną warstwę na wierzch, żeby zdążył się wczytać. */
+  const addLayer = useCallback((clip: VideoAsset) => {
+    // Ten sam klip może wrócić w kolejnej rundzie, więc klucz musi być unikalny
+    // dla każdego wystąpienia — inaczej React uznałby to za ten sam element.
+    const key = `${clip.id}#${layerSeq++}`;
+    setLayers((current) => [...current, { key, clip, edge: EDGE_HIDDEN }]);
+  }, []);
+
   const [splitAllowed, setSplitAllowed] = useState(true);
 
-  // Na telefonie podział na dwa pionowe pasy jest nieczytelny — tam drugi klip
-  // od razu przejmuje cały ekran, więc zostaje samo wycięcie w poprzek kadru.
+  // Na telefonie podział na dwa pionowe pasy jest nieczytelny — tam po prostu
+  // wchodzi kolejny klip na cały ekran.
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
     const sync = () => setSplitAllowed(query.matches);
@@ -80,75 +170,96 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
   }, []);
 
   useEffect(() => {
-    if (playlist.length < 2 || panels.length === 0) return;
+    if (playlist.length < 2 || layers.length === 0) return;
 
-    const stopAt = SPLIT_AT;
-
-    const schedule = (delay: number, step: () => void) => {
+    const after = (delay: number, step: () => void) => {
       const timer = window.setTimeout(step, delay);
       return () => window.clearTimeout(timer);
     };
 
+    /**
+     * Czeka na gotowość ostatniej warstwy, ale nie dłużej niż limit.
+     * Gotowy klip też przechodzi przez `setTimeout`, żeby nie zmieniać stanu
+     * w trakcie samego efektu.
+     */
+    const whenTopReady = (step: () => void) => {
+      const top = layers[layers.length - 1];
+      const gotowy = top !== undefined && ready.current.has(top.key);
+      return after(gotowy ? 0 : READY_TIMEOUT_MS, step);
+    };
+
+    /** Ustawia krawędź ostatniej warstwy — to jest właśnie cięcie. */
+    const cutTopTo = (edge: number) =>
+      setLayers((current) =>
+        current.map((layer, index) => (index === current.length - 1 ? { ...layer, edge } : layer)),
+      );
+
+    const naEkranie = new Set(layers.map((layer) => layer.clip.id));
+
     switch (phase) {
-      case "single":
-        return schedule(HOLD_SINGLE_MS, () => {
-          const clip = playlist[cursor.current];
-          cursor.current = (cursor.current + 1) % playlist.length;
-          // Montujemy poza kadrem (krawędź na 100%), żeby zdążył się wczytać.
-          setEdge(100);
-          setPanels((current) => [current[0], { key: `${clip.id}#${Date.now()}`, clip }]);
-          setPhase("arming");
+      case "hold-single":
+        return after(HOLD_SINGLE_MS, () => {
+          const clip = takeNext(naEkranie);
+          if (!clip) return;
+          addLayer(clip);
+          setPhase(splitAllowed ? "cue-split" : "cue-single");
         });
 
-      case "arming":
-        return schedule(ARM_MS, () => {
-          setEdge(splitAllowed ? stopAt : 0);
-          setPhase("entering");
+      case "cue-split":
+        return whenTopReady(() => {
+          cutTopTo(EDGE_HALF);
+          setPhase("hold-split");
         });
 
-      case "entering":
-        return schedule(CUT_SETTLE_MS, () => setPhase(splitAllowed ? "split" : "takeover"));
-
-      case "split":
-        return schedule(HOLD_SPLIT_MS, () => {
-          setEdge(0);
-          setPhase("takeover");
+      case "hold-split":
+        return after(HOLD_SPLIT_MS, () => {
+          const clip = takeNext(naEkranie);
+          if (!clip) return;
+          // Kolejny klip, nie ten z prawej połowy — inaczej to samo ujęcie leciałoby dwa razy.
+          addLayer(clip);
+          setPhase("cue-single");
         });
 
-      case "takeover":
-        return schedule(CUT_SETTLE_MS, () => {
-          // Wcinający się klip zakrywa już cały ekran, więc zejście na spód
-          // jest niewidoczne — a dzięki stałemu kluczowi nie przeładowuje się.
-          setPanels((current) => (current[1] ? [current[1]] : current));
-          setEdge(100);
-          setPhase("single");
+      case "cue-single":
+        return whenTopReady(() => {
+          cutTopTo(EDGE_FULL);
+          setPhase("settle");
+        });
+
+      case "settle":
+        return after(CUT_SETTLE_MS, () => {
+          // Wierzchnia warstwa zakrywa już cały ekran, więc odrzucenie reszty
+          // jest niewidoczne, a jej własny element `<video>` gra dalej bez przerwy.
+          setLayers((current) => {
+            const top = current[current.length - 1];
+            ready.current = new Set([top.key]);
+            return [top];
+          });
+          setPhase("hold-single");
         });
     }
-  }, [phase, panels.length, playlist, splitAllowed]);
+  }, [phase, layers, playlist.length, splitAllowed, takeNext, addLayer, readySignal]);
 
-  if (panels.length === 0) {
+  if (layers.length === 0) {
     return <div className="absolute inset-0 bg-paper" />;
   }
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      {panels.map((panel, layer) => (
+      {layers.map((layer, index) => (
         <div
-          key={panel.key}
+          key={layer.key}
           className="absolute inset-0"
-          style={
-            layer === 0
-              ? { zIndex: 10 }
-              : {
-                  zIndex: 20,
-                  clipPath: `inset(0 0 0 ${edge}%)`,
-                }
-          }
+          style={{
+            zIndex: 10 + index,
+            clipPath: layer.edge > 0 ? `inset(0 0 0 ${layer.edge}%)` : undefined,
+          }}
         >
           <AutoVideo
-            video={panel.clip}
+            video={layer.clip}
             ariaLabel="NOREST STUDIO"
             preload="auto"
+            onReady={() => markReady(layer.key)}
             className="h-full w-full object-cover"
           />
         </div>
