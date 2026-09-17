@@ -55,7 +55,7 @@ na czarno na papierze i na biało na pełnoekranowym renderze).
 
 | Ścieżka        | Co to jest                                                        |
 | -------------- | ----------------------------------------------------------------- |
-| `/`            | HOME — pełnoekranowa animacja, zmienia się po zakończeniu klipu    |
+| `/`            | HOME — pełnoekranowa animacja, twarde cięcie na kolejną co ~6 s    |
 | `/work`        | galeria pod logo — poziomy pas kafli, przewijany kółkiem myszy     |
 | `/work/[slug]` | pojedynczy projekt: siatka zdjęć i filmów, `NEXT PROJECT →`        |
 | `/projects`    | tekstowa lista wszystkich projektów                                |
