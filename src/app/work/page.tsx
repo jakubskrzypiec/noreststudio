@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { AutoVideo } from "@/components/AutoVideo";
 import { Header } from "@/components/Header";
 import { HorizontalRail } from "@/components/HorizontalRail";
 import { ProjectImage } from "@/components/ProjectImage";
-import { getCover, projects } from "@/lib/media";
+import { getCover, getProjectMedia, projects } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -14,8 +15,9 @@ export const metadata: Metadata = {
  *
  * Wysokości są zapętlone według stałego wzoru, żeby pas miał rytm taki jak na
  * planszy (niższy kafel, wysoki, niższy), a nie równy ciąg prostokątów.
+ * Wartości w vh, bo wysokość i wyliczona z niej szerokość idą do CSS-owych zmiennych.
  */
-const HEIGHT_PATTERN = ["md:h-[56vh]", "md:h-[74vh]", "md:h-[48vh]"];
+const HEIGHT_PATTERN_VH = [56, 74, 48];
 
 export default function WorkPage() {
   return (
@@ -26,7 +28,12 @@ export default function WorkPage() {
         <HorizontalRail>
           {projects.map((project, index) => {
             const cover = getCover(project.slug);
-            const height = HEIGHT_PATTERN[index % HEIGHT_PATTERN.length];
+            const heightVh = HEIGHT_PATTERN_VH[index % HEIGHT_PATTERN_VH.length];
+
+            // "Czasem zamiast zdjecia moze tez byc animacja" — plansza klienta.
+            // Kafel projektu, który ma film, pokazuje film; reszta zostaje na okładce.
+            const tileVideo = getProjectMedia(project.slug).videos[0];
+            const media = tileVideo ?? cover;
 
             return (
               <Link
@@ -34,18 +41,44 @@ export default function WorkPage() {
                 href={`/work/${project.slug}`}
                 className="group block shrink-0 snap-center"
               >
-                <figure className={`flex h-full flex-col gap-3 ${height}`}>
-                  {cover ? (
-                    <ProjectImage
-                      image={cover}
-                      alt={project.title}
-                      sizes="(max-width: 768px) 90vw, 40vw"
-                      priority={index < 3}
-                      className="min-h-0 w-auto max-w-none flex-1 object-cover transition-opacity duration-500 group-hover:opacity-85"
-                    />
-                  ) : (
-                    <div className="min-h-0 w-[60vw] flex-1 bg-hairline md:w-[32vw]" />
-                  )}
+                <figure
+                  className="flex flex-col gap-3"
+                  style={
+                    {
+                      "--tile-h": `${heightVh}vh`,
+                      "--tile-ratio": String(media?.aspectRatio ?? 1.5),
+                    } as React.CSSProperties
+                  }
+                >
+                  {/*
+                   * Rozmiar kafla liczymy z wysokości i proporcji kadru, a nie zostawiamy
+                   * go zawartości. <video> — inaczej niż <img> — narzuca szerokość
+                   * rozdzielczością pliku, więc kafel z animacją rozpychał pas na 1920 px.
+                   */}
+                  {/*
+                   * Szerokość jest ograniczona do 34vw, żeby w kadrze mieściły się trzy
+                   * kafle naraz — tak jak na planszy. Panoramy są wtedy przycinane
+                   * przez object-cover zamiast rozpychać pas na całą szerokość ekranu.
+                   */}
+                  <div className="w-full overflow-hidden bg-hairline transition-opacity duration-500 group-hover:opacity-85 aspect-[var(--tile-ratio)] md:aspect-auto md:h-[var(--tile-h)] md:w-[min(calc(var(--tile-h)*var(--tile-ratio)),34vw)]">
+                    {tileVideo ? (
+                      <AutoVideo
+                        video={tileVideo}
+                        ariaLabel={project.title}
+                        className="h-full w-full bg-black object-cover"
+                      />
+                    ) : (
+                      cover && (
+                        <ProjectImage
+                          image={cover}
+                          alt={project.title}
+                          sizes="(max-width: 768px) 90vw, 40vw"
+                          priority={index < 3}
+                          className="h-full w-full object-cover"
+                        />
+                      )
+                    )}
+                  </div>
 
                   <figcaption className="label flex items-baseline gap-4 text-muted">
                     <span className="tabular-nums">

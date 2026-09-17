@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { asset } from "@/lib/assets";
+import { AutoVideo } from "@/components/AutoVideo";
 import { Header } from "@/components/Header";
 import { ProjectImage } from "@/components/ProjectImage";
 import {
@@ -65,13 +65,10 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {videos.map((video) => (
-            <video
+            <AutoVideo
               key={video.id}
-              src={asset(video.src)}
-              poster={asset(video.poster)}
-              controls
-              playsInline
-              preload="none"
+              video={video}
+              ariaLabel={`${project.title} — animacja`}
               className={`w-full bg-black ${isWide(video.aspectRatio) ? "md:col-span-2" : ""}`}
             />
           ))}
