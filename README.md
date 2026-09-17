@@ -3,6 +3,21 @@
 Strona studia wizualizacji architektonicznych (Kraków). Next.js 16 (App Router),
 TypeScript, Tailwind 4.
 
+**Na żywo:** https://jakubskrzypiec.github.io/noreststudio/
+
+## Deploy
+
+Każdy push na `main` uruchamia `.github/workflows/deploy.yml`: statyczny eksport
+(`output: "export"`) i publikacja na GitHub Pages.
+
+Strona stoi pod `/noreststudio`, nie pod korzeniem domeny, więc build dostaje
+`NEXT_PUBLIC_BASE_PATH=/noreststudio`. Next dokleja ten prefiks tylko do własnych
+zasobów i do `<Link>` — zwykłe `<img>`, `<video>` i maski CSS przechodzą przez
+helper `asset()` z `src/lib/assets.ts`. Przy przenosinach na własną domenę
+wystarczy wyczyścić obie zmienne w workflow; kod zostaje bez zmian.
+
+`public/media` (236 MB) **jest** w repo — Pages nie ma skąd wziąć plików inaczej.
+
 ## Szybki start
 
 ```bash
