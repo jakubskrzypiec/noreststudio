@@ -11,13 +11,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Galeria spod logo — kafle jadące w poziomie, o różnej wysokości.
+ * Galeria spod logo — kafle jadące w poziomie, o różnych rozmiarach.
  *
- * Wysokości są zapętlone według stałego wzoru, żeby pas miał rytm taki jak na
- * planszy (niższy kafel, wysoki, niższy), a nie równy ciąg prostokątów.
- * Wartości w vh, bo wysokość i wyliczona z niej szerokość idą do CSS-owych zmiennych.
+ * Rytm daje zapętlony wzór **szerokości**; wysokość wychodzi z proporcji kadru,
+ * więc nic nie jest przycinane. Odwrotnie niż wcześniej: sztywna wysokość plus
+ * limit szerokości kadrowały ujęcie i 28 z 29 kafli traciło część obrazu.
+ *
+ * Suma wzoru to ~112vw, czyli w kadrze widać około trzech kafli naraz — tak jak
+ * na planszy klienta.
  */
-const HEIGHT_PATTERN_VH = [56, 74, 48];
+const WIDTH_PATTERN_VW = [32, 44, 36];
 
 export default function WorkPage() {
   return (
@@ -28,7 +31,7 @@ export default function WorkPage() {
         <HorizontalRail>
           {projects.map((project, index) => {
             const cover = getCover(project.slug);
-            const heightVh = HEIGHT_PATTERN_VH[index % HEIGHT_PATTERN_VH.length];
+            const widthVw = WIDTH_PATTERN_VW[index % WIDTH_PATTERN_VW.length];
 
             // "Czasem zamiast zdjecia moze tez byc animacja" — plansza klienta.
             // Kafel projektu, który ma film, pokazuje film; reszta zostaje na okładce.
@@ -45,19 +48,21 @@ export default function WorkPage() {
                   className="flex flex-col gap-3"
                   style={
                     {
-                      "--tile-h": `${heightVh}vh`,
+                      "--tile-w": `${widthVw}vw`,
                       "--tile-ratio": String(media?.aspectRatio ?? 1.5),
                     } as React.CSSProperties
                   }
                 >
                   {/*
-                   * Rozmiar kafla liczymy z wysokości i proporcji kadru, a nie zostawiamy
-                   * go zawartości: <video> — inaczej niż <img> — narzuca szerokość
-                   * rozdzielczością pliku, więc kafel z animacją rozpychał pas na 1920 px.
-                   * Limit 34vw sprawia, że w kadrze mieszczą się trzy kafle naraz, tak jak
-                   * na planszy; panoramy są wtedy przycinane, a nie rozciągają całego pasa.
+                   * Rozmiar bierze się ze wzoru szerokości, a wysokość wylicza
+                   * `aspect-ratio` — dzięki temu nic nie jest kadrowane. Rozmiar musi
+                   * narzucić kontener, bo <video> — inaczej niż <img> — rozpycha się
+                   * do rozdzielczości pliku i jeden kafel potrafił zająć 1920 px.
+                   *
+                   * Drugie ograniczenie pilnuje, żeby pionowy kadr nie wyszedł poza
+                   * ekran na niskim oknie: tam o szerokości decyduje dostępna wysokość.
                    */}
-                  <div className="w-full overflow-hidden bg-hairline transition-opacity duration-500 group-hover:opacity-85 aspect-[var(--tile-ratio)] md:aspect-auto md:h-[var(--tile-h)] md:w-[min(calc(var(--tile-h)*var(--tile-ratio)),34vw)]">
+                  <div className="w-full overflow-hidden bg-hairline transition-opacity duration-500 group-hover:opacity-85 aspect-[var(--tile-ratio)] md:w-[min(var(--tile-w),calc(62vh*var(--tile-ratio)))]">
                     {tileVideo ? (
                       <AutoVideo
                         video={tileVideo}
