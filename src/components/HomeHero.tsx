@@ -23,6 +23,12 @@ import { AutoVideo } from "./AutoVideo";
  * każdy klip wisiał 6 s, a cztery z ośmiu mają 5,04 s — zapętlały się na ekranie
  * i widać było skok do pierwszej klatki. Teraz każdy jest zdejmowany, zanim
  * dobiegnie końca, i zaczyna od zera dokładnie w chwili wejścia w kadr.
+ *
+ * Skok do pierwszej klatki jest tu zabezpieczony na trzy sposoby, bo wracał
+ * wielokrotnie: klipy hero nie mają zapętlenia (opóźnione cięcie przytrzyma
+ * ostatnią klatkę, a nie przeskoczy na początek), kolejne tło jest dokładane
+ * już na starcie podziału, więc ma pełny czas na zbuforowanie, a czekanie na
+ * gotowość ma krótki limit.
  */
 
 /** Odstęp po cięciu, zanim cykl ruszy dalej. Samo cięcie jest natychmiastowe. */
@@ -36,7 +42,7 @@ const CUT_SETTLE_MS = 120;
 const MAX_PARTNER_DISTANCE = 14;
 
 /** Najdłuższe czekanie na gotowość klipu; potem tniemy mimo wszystko. */
-const READY_TIMEOUT_MS = 4000;
+const READY_TIMEOUT_MS = 2500;
 
 /** Zapas przed końcem pliku — żeby żaden klip nie zdążył się zapętlić. */
 const CUT_LEAD_MS = 350;
@@ -295,10 +301,16 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
           setPhase("split");
         });
 
-      case "split":
+      case "split": {
+        // Następne tło dokładamy od razu, a nie na koniec podziału: ma wtedy cały
+        // czas trwania podziału na zbuforowanie. Bez tego przy zimnym cache czekanie
+        // na gotowość przedłużało pobyt tła ponad długość pliku i klip się zapętlał.
+        if (layers.length < 3 && queueLayer(takeNext(naEkranie))) return;
+
         return after(plan.withSplit ? plan.splitMs : CUT_SETTLE_MS, () => {
-          setPhase(queueLayer(takeNext(naEkranie)) ? "cue-next" : "split");
+          setPhase("cue-next");
         });
+      }
 
       case "cue-next":
         return whenTopReady(() => {
@@ -343,6 +355,8 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
             video={layer.clip}
             ariaLabel="NOREST STUDIO"
             preload="auto"
+            // Bez zapetlenia: opoznione ciecie przytrzyma ostatnia klatke, nie skoczy na pierwsza.
+            loop={false}
             onReady={() => markReady(layer.key)}
             elementRef={(element) => {
               if (element) elements.current.set(layer.key, element);

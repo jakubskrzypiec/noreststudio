@@ -22,6 +22,7 @@ export function AutoVideo({
   ariaLabel,
   style,
   preload = "metadata",
+  loop = true,
   onReady,
   elementRef,
 }: {
@@ -30,6 +31,12 @@ export function AutoVideo({
   ariaLabel?: string;
   style?: React.CSSProperties;
   preload?: "none" | "metadata" | "auto";
+  /**
+   * Zapętlenie. Strona główna wyłącza je świadomie: klip jest tam zdejmowany
+   * przed końcem, a gdy coś się opóźni, lepiej, żeby przytrzymał ostatnią klatkę
+   * niż przeskoczył na pierwszą.
+   */
+  loop?: boolean;
   /** Woływane, gdy klip ma dość danych, żeby grać płynnie. */
   onReady?: () => void;
   /**
@@ -57,6 +64,8 @@ export function AutoVideo({
 
     const tryPlay = () => {
       if (!visibleRef.current || document.hidden) return;
+      // Zakonczony klip odtworzylby sie od pierwszej klatki - na hero to widoczny skok.
+      if (element.ended) return;
       element.play().catch(() => {});
     };
 
@@ -104,7 +113,7 @@ export function AutoVideo({
       aria-label={ariaLabel}
       autoPlay
       muted
-      loop
+      loop={loop}
       playsInline
       preload={preload}
       className={className}
