@@ -10,12 +10,16 @@ import { asset } from "./assets";
 import projectsData from "../../data/projects.json";
 import manifestData from "../../data/media.json";
 
+/** Średni kolor kadru w Lab — pozwala dobierać ujęcia, które do siebie pasują. */
+export type LabColor = { L: number; a: number; b: number };
+
 export type ImageAsset = {
   id: string;
   sourceFile: string;
   width: number;
   height: number;
   aspectRatio: number;
+  color: LabColor;
   sources: { width: number; src: string }[];
   blurDataURL: string;
 };
@@ -28,6 +32,7 @@ export type VideoAsset = {
   width: number;
   height: number;
   aspectRatio: number;
+  color: LabColor;
   duration: number;
 };
 
@@ -104,4 +109,19 @@ export function toSrcSet(image: ImageAsset): string {
 /** Największy wariant — używany jako `src` fallbackowy. */
 export function largestSrc(image: ImageAsset): string {
   return asset(image.sources[image.sources.length - 1]?.src ?? "");
+}
+
+/**
+ * Odległość barwna dwóch kadrów.
+ *
+ * Jasność waży słabiej niż barwa: wnętrze i ujęcie zewnętrzne różnią się przede
+ * wszystkim jasnością, ale jeśli oba są ciepłe, zestawione obok siebie nadal
+ * czytają się jako jedna kompozycja. Skala z pomiarów materiału NoRest:
+ * poniżej 8 pasują, do 14 są znośne, powyżej gryzą się.
+ */
+export function colorDistance(x: LabColor, y: LabColor): number {
+  const dL = (x.L - y.L) * 0.45;
+  const da = x.a - y.a;
+  const db = x.b - y.b;
+  return Math.sqrt(dL * dL + da * da + db * db);
 }

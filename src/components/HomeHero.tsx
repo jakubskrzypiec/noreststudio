@@ -1,32 +1,42 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { VideoAsset } from "@/lib/media";
+import { colorDistance, type VideoAsset } from "@/lib/media";
 import { AutoVideo } from "./AutoVideo";
 
 /**
  * Pełnoekranowe tło strony głównej.
  *
- * Rytm: jeden klip na cały kadr, po chwili drugi **wjeżdża po skosie** i przecina
- * ekran, a potem trzeci zabiera całość i cykl zaczyna się od nowa. Krawędź jest
- * ukośna, nie pionowa, i przesuwa się płynnie — stąd wrażenie ruchu, nawet gdy
- * same ujęcia są spokojne.
+ * Rytm: jeden klip na cały kadr, po chwili drugi **wcina się po skosie** i przecina
+ * ekran, a potem trzeci zabiera całość i cykl zaczyna się od nowa. Każda zmiana jest
+ * twardym cięciem — krawędź nie przejeżdża, tylko pojawia się od razu.
  *
  * Kluczowe: **oba klipy są przez cały czas pełnoekranowe**, a ukośna krawędź to
  * maska (`clip-path`). Dzięki temu kadrowanie jest takie samo jak przy jednym
- * filmie — nie wciskamy ujęcia do połowy ekranu, co wcześniej zjadało kompozycję.
+ * filmie — nie wciskamy ujęcia do połowy ekranu, co zjadałoby kompozycję.
+ *
+ * Partner podziału jest **dobierany po kolorze**, a nie losowo: z ośmiu klipów
+ * siedem ma spójną, ciepłą paletę, a jeden (ciemny, mocno pomarańczowy) odstaje
+ * na tyle, że zestawiony z czymkolwiek wygląda jak błąd. Taki klip leci sam.
  *
  * Czasy wynikają z długości konkretnego pliku, a nie ze stałej wartości. Wcześniej
  * każdy klip wisiał 6 s, a cztery z ośmiu mają 5,04 s — zapętlały się na ekranie
  * i widać było skok do pierwszej klatki. Teraz każdy jest zdejmowany, zanim
- * dobiegnie końca, i zaczyna od zera dokładnie w chwili wjazdu.
- *
- * Krótsze klipy (~5 s) nie mają budżetu na podział i lecą same — dzięki temu
- * „raz jeden, raz dwa" wychodzi naturalnie z materiału, a nie z losowania.
+ * dobiegnie końca, i zaczyna od zera dokładnie w chwili wejścia w kadr.
  */
 
-/** Ile trwa przejazd ukośnej krawędzi. */
-const SWEEP_MS = 900;
+/** Odstęp po cięciu, zanim cykl ruszy dalej. Samo cięcie jest natychmiastowe. */
+const CUT_SETTLE_MS = 120;
+
+/**
+ * Najdalsza dopuszczalna odległość barwna partnera podziału. Z pomiarów materiału:
+ * pary poniżej 8 pasują, do 14 są znośne, powyżej gryzą się. Klip bez partnera
+ * w tym zasięgu leci sam — lepiej pokazać jedno ujęcie niż zderzyć dwie palety.
+ */
+const MAX_PARTNER_DISTANCE = 14;
+
+/** Najdłuższe czekanie na gotowość klipu; potem tniemy mimo wszystko. */
+const READY_TIMEOUT_MS = 4000;
 
 /** Zapas przed końcem pliku — żeby żaden klip nie zdążył się zapętlić. */
 const CUT_LEAD_MS = 350;
@@ -74,7 +84,7 @@ function shuffled<T>(items: T[]): T[] {
  * Odejmujemy dwa przejazdy: ten, którym klip wjechał, i ten, który go zdejmie.
  */
 function soloOnlyMs(clip: VideoAsset) {
-  return Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - 2 * SWEEP_MS);
+  return Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - 2 * CUT_SETTLE_MS);
 }
 
 /**
@@ -86,12 +96,12 @@ function soloOnlyMs(clip: VideoAsset) {
  */
 function scheduleFor(clip: VideoAsset, shortestMs: number) {
   // Klip przegrał już jeden przejazd, kiedy sam wjeżdżał w kadr.
-  const budget = Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - SWEEP_MS);
+  const budget = Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - CUT_SETTLE_MS);
   // Ostatni przejazd zdejmuje ten klip z ekranu, więc musi zmieścić się w budżecie.
-  const handoverAt = budget - SWEEP_MS;
+  const handoverAt = budget - CUT_SETTLE_MS;
   const partnerAt = budget * SOLO_SHARE;
-  const partnerBudget = shortestMs - CUT_LEAD_MS - 2 * SWEEP_MS;
-  const splitMs = Math.min(handoverAt - (partnerAt + SWEEP_MS), partnerBudget);
+  const partnerBudget = shortestMs - CUT_LEAD_MS - 2 * CUT_SETTLE_MS;
+  const splitMs = Math.min(handoverAt - (partnerAt + CUT_SETTLE_MS), partnerBudget);
 
   return splitMs >= MIN_SPLIT_MS
     ? { withSplit: true as const, partnerAt, splitMs }
@@ -165,6 +175,27 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
     [playlist, recentLimit],
   );
 
+  /**
+   * Partner do podziału ekranu — najbliższy kolorystycznie klip spoza ekranu.
+   * Tu nie zależy nam na różnorodności, tylko na tym, żeby oba kadry czytały się
+   * jako jedna kompozycja. `undefined` znaczy „nie ma z czym zestawić" i klip
+   * zostaje sam na pełnym kadrze.
+   */
+  const takePartner = useCallback(
+    (base: VideoAsset, naEkranie: Set<string>): VideoAsset | undefined => {
+      const najblizszy = playlist
+        .filter((clip) => !naEkranie.has(clip.id))
+        .map((clip) => ({ clip, dystans: colorDistance(base.color, clip.color) }))
+        .sort((x, y) => x.dystans - y.dystans)[0];
+
+      if (!najblizszy || najblizszy.dystans > MAX_PARTNER_DISTANCE) return undefined;
+
+      // Partner nie wchodzi do kolejki głównej — ta pilnuje kolejności pełnych kadrów.
+      return najblizszy.clip;
+    },
+    [playlist],
+  );
+
   /** Klucze klipów, które zgłosiły gotowość. */
   const ready = useRef(new Set<string>());
   const [readySignal, setReadySignal] = useState(0);
@@ -202,9 +233,8 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
       : { withSplit: false as const, soloMs: soloOnlyMs(base.clip) };
     const naEkranie = new Set(layers.map((layer) => layer.clip.id));
 
-    /** Dokłada klip poza kadrem, żeby zdążył się wczytać przed wjazdem. */
-    const queueLayer = () => {
-      const clip = takeNext(naEkranie);
+    /** Dokłada klip poza kadrem, żeby zdążył się wczytać przed cięciem. */
+    const queueLayer = (clip: VideoAsset | undefined) => {
       if (!clip) return false;
       setLayers((current) => [
         ...current,
@@ -219,8 +249,8 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
       return true;
     };
 
-    /** Puszcza klip od początku i przesuwa jego krawędź na docelową pozycję. */
-    const sweepTopTo = (edge: number) => {
+    /** Puszcza klip od początku i wstawia jego krawędź na docelową pozycję — to jest cięcie. */
+    const cutTopTo = (edge: number) => {
       const element = elements.current.get(top.key);
       if (element) {
         // Klip grał w ukryciu, żeby się zbuforować — w kadr ma wejść od pierwszej klatki.
@@ -240,39 +270,45 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
 
     /** Gotowy klip też przechodzi przez zegar, żeby nie zmieniać stanu w trakcie efektu. */
     const whenTopReady = (step: () => void) =>
-      after(ready.current.has(top.key) ? 0 : SWEEP_MS * 3, step);
+      after(ready.current.has(top.key) ? 0 : READY_TIMEOUT_MS, step);
 
     switch (phase) {
-      case "solo":
+      case "solo": {
+        // Partner tylko wtedy, gdy plan zostawia na niego czas i coś pasuje kolorystycznie.
         if (plan.withSplit) {
-          return after(plan.partnerAt, () => {
-            setPhase(queueLayer() ? "cue-partner" : "solo");
-          });
+          const partner = takePartner(base.clip, naEkranie);
+          if (partner) {
+            return after(plan.partnerAt, () => {
+              setPhase(queueLayer(partner) ? "cue-partner" : "solo");
+            });
+          }
         }
-        return after(plan.soloMs, () => {
-          setPhase(queueLayer() ? "cue-next" : "solo");
+        // Bez partnera klip zostaje sam na pełny swój czas, nie tylko do momentu podziału.
+        return after(soloOnlyMs(base.clip), () => {
+          setPhase(queueLayer(takeNext(naEkranie)) ? "cue-next" : "solo");
         });
+      }
 
       case "cue-partner":
         return whenTopReady(() => {
-          sweepTopTo(EDGE_SPLIT);
+          cutTopTo(EDGE_SPLIT);
           setPhase("split");
         });
 
       case "split":
-        return after(plan.withSplit ? plan.splitMs + SWEEP_MS : SWEEP_MS, () => {
-          setPhase(queueLayer() ? "cue-next" : "split");
+        return after(plan.withSplit ? plan.splitMs : CUT_SETTLE_MS, () => {
+          setPhase(queueLayer(takeNext(naEkranie)) ? "cue-next" : "split");
         });
 
       case "cue-next":
         return whenTopReady(() => {
-          sweepTopTo(EDGE_COVER);
+          cutTopTo(EDGE_COVER);
           setPhase("settle");
         });
 
       case "settle":
         // Przejazd musi się skończyć, zanim odrzucimy warstwy pod spodem.
-        return after(SWEEP_MS, () => {
+        return after(CUT_SETTLE_MS, () => {
           setLayers((current) => {
             const ostatni = current[current.length - 1];
             ready.current = new Set([ostatni.key]);
@@ -284,7 +320,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
           setPhase("solo");
         });
     }
-  }, [phase, layers, playlist.length, takeNext, readySignal, shortestMs, splitAllowed]);
+  }, [phase, layers, playlist.length, takeNext, takePartner, readySignal, shortestMs, splitAllowed]);
 
   if (layers.length === 0) {
     return <div className="absolute inset-0 bg-paper" />;
@@ -301,7 +337,6 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
             // Czworokąt z ukośną prawą krawędzią; animujemy tylko jej położenie,
             // więc przeglądarka ma między czym interpolować.
             clipPath: `polygon(${layer.edge}% 0%, 140% 0%, 140% 100%, ${layer.edge - layer.skew}% 100%)`,
-            transition: `clip-path ${SWEEP_MS}ms cubic-bezier(0.76, 0, 0.24, 1)`,
           }}
         >
           <AutoVideo

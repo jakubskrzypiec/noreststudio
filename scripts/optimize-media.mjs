@@ -63,6 +63,59 @@ function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
 }
 
+/**
+ * Sredni kolor kadru w przestrzeni Lab - w niej odleglosc miedzy barwami
+ * odpowiada temu, co widzi oko, wiec da sie na jej podstawie dobierac ujecia.
+ *
+ * Konwersje robimy sami. `sharp` potrafi zwrocic Lab, ale w surowym buforze
+ * uint8, gdzie ujemne a/b zawijaja sie na ~250 - chlodne kadry wychodzilyby
+ * wtedy jako skrajnie cieple.
+ */
+async function colorSignature(file) {
+  const { data, info } = await sharp(file, { failOn: "none" })
+    .resize(16, 16, { fit: "cover" })
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const pixels = info.width * info.height;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  for (let i = 0; i < pixels; i++) {
+    const o = i * info.channels;
+    r += data[o];
+    g += data[o + 1];
+    b += data[o + 2];
+  }
+
+  return rgbToLab(r / pixels, g / pixels, b / pixels);
+}
+
+function rgbToLab(r, g, b) {
+  // sRGB -> liniowe RGB
+  const lin = [r, g, b].map((v) => {
+    const c = v / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+
+  // liniowe RGB -> XYZ (D65), znormalizowane do bieli
+  const x = (lin[0] * 0.4124 + lin[1] * 0.3576 + lin[2] * 0.1805) / 0.95047;
+  const y = lin[0] * 0.2126 + lin[1] * 0.7152 + lin[2] * 0.0722;
+  const z = (lin[0] * 0.0193 + lin[1] * 0.1192 + lin[2] * 0.9505) / 1.08883;
+
+  const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+  const fx = f(x);
+  const fy = f(y);
+  const fz = f(z);
+
+  return {
+    L: Number((116 * fy - 16).toFixed(2)),
+    a: Number((500 * (fx - fy)).toFixed(2)),
+    b: Number((200 * (fy - fz)).toFixed(2)),
+  };
+}
+
 async function probeVideo(file) {
   const { stdout } = await run(FFPROBE, [
     "-v", "error",
@@ -110,6 +163,8 @@ async function processImage(srcFile, outBase) {
     width: meta.width,
     height: meta.height,
     aspectRatio: Number((meta.width / meta.height).toFixed(4)),
+    // Kolor liczymy z najmniejszego wariantu - jest juz na dysku i czyta sie w mgnieniu.
+    color: await colorSignature(path.join(ROOT, "public", sources[0].src.slice(1))),
     sources,
     blurDataURL: `data:image/webp;base64,${blurBuffer.toString("base64")}`,
   };
@@ -149,6 +204,7 @@ async function processVideo(srcFile, outBase) {
     width: outMeta.width,
     height: outMeta.height,
     aspectRatio: outMeta.height ? Number((outMeta.width / outMeta.height).toFixed(4)) : 0,
+    color: await colorSignature(poster),
     duration: Number(meta.duration.toFixed(2)),
     sourceBytes: (await stat(srcFile)).size,
     outputBytes: (await stat(mp4)).size,
