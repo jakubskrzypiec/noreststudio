@@ -1,0 +1,26 @@
+# --- Materiały źródłowe (surowe rendery, ~2,8 GB) ---
+# Zostają lokalnie; do repo trafiają dopiero zoptymalizowane pliki w public/
+/PROJECTS/
+/HOME/
+/SLIDER PROJECTS/
+/IKONKI/
+/CZCIONKI/
+*.pdf
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+build/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Środowisko ---
+.env
+.env*.local
+
+# --- System ---
+.DS_Store
+Thumbs.db
+*.log
