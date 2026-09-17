@@ -1,146 +1,160 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { VideoAsset } from "@/lib/media";
 import { AutoVideo } from "./AutoVideo";
 
 /**
  * Pełnoekranowe tło strony głównej.
  *
- * Strona referencyjna ma jeden film, w którym kadr raz jest pełny, a raz podzielony
- * na pół — u nas klipy są osobnymi plikami, więc ten sam efekt robi układ: sceny
- * pojedyncze i dzielone występują na zmianę.
+ * Tak to działa na stronie referencyjnej: leci jeden film na całym ekranie,
+ * po czym drugi **wcina się w prawą połowę kadru** — nie jest tak, że oba
+ * pojawiają się razem. Po chwili ten drugi zabiera całą szerokość i staje się
+ * nowym tłem, a cykl zaczyna się od nowa z kolejnym klipem.
  *
- * Każdy klip jest zapętlony, a o zmianie sceny decyduje zegar, nie zdarzenie `ended`.
- * Wcześniej było odwrotnie i karuzela zatrzymywała się na dobre: podgląd następnego
- * klipu startował od razu, kończył się jeszcze poza ekranem i wchodził zamrożony
- * na ostatniej klatce, a jego `ended` nigdy już nie padało.
+ * Wejście jest zrobione przez `clip-path`, a nie przez zmianę szerokości: film
+ * stoi nieruchomo w pełnym kadrze i jest *odsłaniany*. Gdyby animować szerokość,
+ * `object-cover` przeliczałby kadrowanie w każdej klatce i obraz pływałby w środku.
+ *
+ * Dwie rzeczy, przez które tło wcześniej migało i potrafiło stanąć na dobre:
+ * klipy nie były zapętlone i cykl czekał na `ended`, które dla wstępnie
+ * uruchomionego klipu padało jeszcze poza ekranem; oraz kolejny klip trafiał
+ * do tego samego elementu `<video>`, więc podmiana `src` pokazywała na moment
+ * czarne tło albo plakat. Teraz każdy klip ma własny element o stałym kluczu,
+ * jest zamontowany i wczytany, zanim zacznie się odsłanianie, a po przejęciu
+ * ekranu React przenosi ten sam węzeł na spód — bez przeładowania.
  */
 
-type Scene = {
-  id: string;
-  clips: VideoAsset[];
+/** Ile trwa wjazd i przejęcie ekranu. */
+const WIPE_MS = 1100;
+
+/** Jak długo widać pojedynczy kadr, zanim wetnie się następny. */
+const HOLD_SINGLE_MS = 4500;
+
+/** Jak długo ekran zostaje podzielony. */
+const HOLD_SPLIT_MS = 3500;
+
+/** Chwila na zamontowanie i rozpędzenie klipu, zanim ruszy animacja. */
+const ARM_MS = 400;
+
+/** Gdzie zatrzymuje się krawędź wcinającego się filmu. */
+const SPLIT_AT = 50;
+
+type Panel = {
+  key: string;
+  clip: VideoAsset;
 };
 
-/** Przenikanie między scenami. */
-const FADE_MS = 900;
-
-/** Awaryjny czas sceny, gdy nie znamy długości klipu. */
-const FALLBACK_SCENE_MS = 7000;
-
-/**
- * Układa klipy w sceny: pojedyncza, dzielona, pojedyncza, dzielona...
- * Dzielona bierze dwa klipy, więc rytm zależy od tego, ile ich zostało.
- */
-function buildScenes(videos: VideoAsset[]): Scene[] {
-  const scenes: Scene[] = [];
-  let index = 0;
-  let wantsSplit = false;
-
-  while (index < videos.length) {
-    if (wantsSplit && index + 1 < videos.length) {
-      scenes.push({
-        id: `${videos[index].id}+${videos[index + 1].id}`,
-        clips: [videos[index], videos[index + 1]],
-      });
-      index += 2;
-    } else {
-      scenes.push({ id: videos[index].id, clips: [videos[index]] });
-      index += 1;
-    }
-    wantsSplit = !wantsSplit;
-  }
-
-  return scenes;
-}
-
-/** Scena trwa tyle, ile jej najdłuższy klip — żeby żaden nie został ucięty w połowie ruchu. */
-function sceneDuration(scene: Scene): number {
-  const longest = Math.max(...scene.clips.map((clip) => clip.duration || 0));
-  return longest > 0 ? longest * 1000 : FALLBACK_SCENE_MS;
-}
+type Phase = "single" | "arming" | "entering" | "split" | "takeover";
 
 export function HomeHero({ videos }: { videos: VideoAsset[] }) {
-  const scenes = useMemo(() => buildScenes(videos), [videos]);
-  const [index, setIndex] = useState(0);
-  const [fading, setFading] = useState(false);
+  /** Kolejka klipów; pusty zestaw oznacza, że media nie zostały jeszcze przerobione. */
+  const playlist = useMemo(() => videos.filter((video) => video.src), [videos]);
 
-  const hasSeveral = scenes.length > 1;
-  const current = scenes[index];
-  const next = hasSeveral ? scenes[(index + 1) % scenes.length] : undefined;
+  /**
+   * panels[0] to tło, panels[1] to klip wcinający się w kadr.
+   * Klucze są stałe, więc po przejęciu ekranu React przenosi ten sam element
+   * `<video>` na spód zamiast montować go od nowa.
+   */
+  const [panels, setPanels] = useState<Panel[]>(() =>
+    playlist.length > 0 ? [{ key: `${playlist[0].id}#0`, clip: playlist[0] }] : [],
+  );
+  const [phase, setPhase] = useState<Phase>("single");
+  /** Pozycja krawędzi wcinającego się filmu, w procentach szerokości. */
+  const [edge, setEdge] = useState(100);
 
-  // Zegar sceny: najpierw pełny czas odtwarzania, potem samo przenikanie.
+  /** Który klip z kolejki pójdzie następny. */
+  const cursor = useRef(1);
+  const [splitAllowed, setSplitAllowed] = useState(true);
+
+  // Na telefonie podział na dwa pionowe pasy jest nieczytelny — tam drugi klip
+  // od razu przejmuje cały ekran, więc zostaje samo wycięcie w poprzek kadru.
   useEffect(() => {
-    if (!hasSeveral || !current) return;
+    const query = window.matchMedia("(min-width: 768px)");
+    const sync = () => setSplitAllowed(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
 
-    if (!fading) {
-      const timer = window.setTimeout(() => setFading(true), sceneDuration(current));
+  useEffect(() => {
+    if (playlist.length < 2 || panels.length === 0) return;
+
+    const stopAt = SPLIT_AT;
+
+    const schedule = (delay: number, step: () => void) => {
+      const timer = window.setTimeout(step, delay);
       return () => window.clearTimeout(timer);
+    };
+
+    switch (phase) {
+      case "single":
+        return schedule(HOLD_SINGLE_MS, () => {
+          const clip = playlist[cursor.current];
+          cursor.current = (cursor.current + 1) % playlist.length;
+          // Montujemy poza kadrem (krawędź na 100%), żeby zdążył się wczytać.
+          setEdge(100);
+          setPanels((current) => [current[0], { key: `${clip.id}#${Date.now()}`, clip }]);
+          setPhase("arming");
+        });
+
+      case "arming":
+        return schedule(ARM_MS, () => {
+          setEdge(splitAllowed ? stopAt : 0);
+          setPhase("entering");
+        });
+
+      case "entering":
+        return schedule(WIPE_MS, () => setPhase(splitAllowed ? "split" : "takeover"));
+
+      case "split":
+        return schedule(HOLD_SPLIT_MS, () => {
+          setEdge(0);
+          setPhase("takeover");
+        });
+
+      case "takeover":
+        return schedule(WIPE_MS, () => {
+          // Wcinający się klip zakrywa już cały ekran, więc zejście na spód
+          // jest niewidoczne — a dzięki stałemu kluczowi nie przeładowuje się.
+          setPanels((current) => (current[1] ? [current[1]] : current));
+          setEdge(100);
+          setPhase("single");
+        });
     }
+  }, [phase, panels.length, playlist, splitAllowed]);
 
-    const timer = window.setTimeout(() => {
-      setIndex((value) => (value + 1) % scenes.length);
-      setFading(false);
-    }, FADE_MS);
-    return () => window.clearTimeout(timer);
-  }, [fading, hasSeveral, current, scenes.length]);
-
-  if (!current) {
+  if (panels.length === 0) {
     return <div className="absolute inset-0 bg-paper" />;
   }
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      <SceneLayer scene={current} visible={!fading} />
-      {next && <SceneLayer scene={next} visible={fading} />}
-
-      {/* Delikatne przyciemnienie u góry, żeby logo i menu były czytelne na jasnym renderze. */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/25 to-transparent" />
-    </div>
-  );
-}
-
-/**
- * Jedna scena. Przy dwóch klipach ekran dzieli się pionowo na pół — ale dopiero
- * od szerokości tabletu; na telefonie dwa pionowe pasy byłyby nieczytelne.
- */
-function SceneLayer({ scene, visible }: { scene: Scene; visible: boolean }) {
-  const isSplit = scene.clips.length > 1;
-
-  return (
-    <div
-      aria-hidden={!visible}
-      className={`absolute inset-0 flex transition-opacity duration-[900ms] ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      {scene.clips.map((clip, position) => (
+      {panels.map((panel, layer) => (
         <div
-          key={clip.id}
-          className={
-            isSplit
-              ? // Na telefonie widać tylko pierwszy klip sceny dzielonej.
-                position === 0
-                ? "h-full w-full md:w-1/2"
-                : "hidden h-full md:block md:w-1/2"
-              : "h-full w-full"
+          key={panel.key}
+          className="absolute inset-0"
+          style={
+            layer === 0
+              ? { zIndex: 10 }
+              : {
+                  zIndex: 20,
+                  clipPath: `inset(0 0 0 ${edge}%)`,
+                  transition: `clip-path ${WIPE_MS}ms cubic-bezier(0.76, 0, 0.24, 1)`,
+                }
           }
         >
-          <HeroClip clip={clip} active={visible} />
+          <AutoVideo
+            video={panel.clip}
+            ariaLabel="NOREST STUDIO"
+            preload="auto"
+            className="h-full w-full object-cover"
+          />
         </div>
       ))}
-    </div>
-  );
-}
 
-function HeroClip({ clip, active }: { clip: VideoAsset; active: boolean }) {
-  return (
-    <AutoVideo
-      video={clip}
-      ariaLabel="NOREST STUDIO"
-      // Scena czekająca w kolejce ma być gotowa, zanim wejdzie na ekran.
-      preload={active ? "auto" : "metadata"}
-      className="h-full w-full object-cover"
-    />
+      {/* Delikatne przyciemnienie u góry, żeby logo i menu były czytelne na jasnym renderze. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-40 bg-gradient-to-b from-black/25 to-transparent" />
+    </div>
   );
 }
