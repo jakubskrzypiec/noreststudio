@@ -12,9 +12,11 @@ import { AutoVideo } from "./AutoVideo";
  * pojawiają się razem. Po chwili ten drugi zabiera całą szerokość i staje się
  * nowym tłem, a cykl zaczyna się od nowa z kolejnym klipem.
  *
- * Wejście jest zrobione przez `clip-path`, a nie przez zmianę szerokości: film
- * stoi nieruchomo w pełnym kadrze i jest *odsłaniany*. Gdyby animować szerokość,
- * `object-cover` przeliczałby kadrowanie w każdej klatce i obraz pływałby w środku.
+ * Zmiana jest twardym cięciem, bez animowanego wjazdu — dokładnie jak na stronie
+ * referencyjnej, gdzie podział jest cięciem montażowym wewnątrz materiału.
+ * Odsłanianie robi `clip-path`, więc film stoi nieruchomo w pełnym kadrze zamiast
+ * być przeskalowywany; gdyby zmieniać szerokość, `object-cover` przeliczałby
+ * kadrowanie i obraz skakałby w środku w momencie cięcia.
  *
  * Dwie rzeczy, przez które tło wcześniej migało i potrafiło stanąć na dobre:
  * klipy nie były zapętlone i cykl czekał na `ended`, które dla wstępnie
@@ -25,8 +27,8 @@ import { AutoVideo } from "./AutoVideo";
  * ekranu React przenosi ten sam węzeł na spód — bez przeładowania.
  */
 
-/** Ile trwa wjazd i przejęcie ekranu. */
-const WIPE_MS = 1100;
+/** Odstęp po cięciu, zanim cykl przejdzie dalej. Samo cięcie jest natychmiastowe. */
+const CUT_SETTLE_MS = 120;
 
 /** Jak długo widać pojedynczy kadr, zanim wetnie się następny. */
 const HOLD_SINGLE_MS = 4500;
@@ -34,7 +36,7 @@ const HOLD_SINGLE_MS = 4500;
 /** Jak długo ekran zostaje podzielony. */
 const HOLD_SPLIT_MS = 3500;
 
-/** Chwila na zamontowanie i rozpędzenie klipu, zanim ruszy animacja. */
+/** Chwila na zamontowanie i wczytanie klipu, zanim wetnie się w kadr. */
 const ARM_MS = 400;
 
 /** Gdzie zatrzymuje się krawędź wcinającego się filmu. */
@@ -105,7 +107,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         });
 
       case "entering":
-        return schedule(WIPE_MS, () => setPhase(splitAllowed ? "split" : "takeover"));
+        return schedule(CUT_SETTLE_MS, () => setPhase(splitAllowed ? "split" : "takeover"));
 
       case "split":
         return schedule(HOLD_SPLIT_MS, () => {
@@ -114,7 +116,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         });
 
       case "takeover":
-        return schedule(WIPE_MS, () => {
+        return schedule(CUT_SETTLE_MS, () => {
           // Wcinający się klip zakrywa już cały ekran, więc zejście na spód
           // jest niewidoczne — a dzięki stałemu kluczowi nie przeładowuje się.
           setPanels((current) => (current[1] ? [current[1]] : current));
@@ -140,7 +142,6 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
               : {
                   zIndex: 20,
                   clipPath: `inset(0 0 0 ${edge}%)`,
-                  transition: `clip-path ${WIPE_MS}ms cubic-bezier(0.76, 0, 0.24, 1)`,
                 }
           }
         >

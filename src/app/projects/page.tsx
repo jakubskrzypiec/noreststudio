@@ -43,7 +43,7 @@ export default function ProjectsPage() {
                 <li key={project.slug}>
                   <Link
                     href={`/work/${project.slug}`}
-                    className="label flex items-baseline gap-4 py-[0.2rem] text-muted transition-colors hover:text-ink"
+                    className="label flex items-baseline gap-4 py-[0.2rem] text-ink transition-opacity hover:opacity-60"
                   >
                     <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
                     <span>{project.title}</span>

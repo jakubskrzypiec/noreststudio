@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { AutoVideo } from "@/components/AutoVideo";
 import { Header } from "@/components/Header";
 import { ProjectImage } from "@/components/ProjectImage";
+import { placeMedia } from "@/lib/layout";
 import {
   getNextProject,
   getProject,
@@ -32,12 +33,10 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
   const { images, videos } = getProjectMedia(slug);
   const next = getNextProject(slug);
 
-  /*
-   * Kadry z renderów mają bardzo różne proporcje. Poziome dostają pełną szerokość,
-   * pionowe i kwadratowe układają się po dwa w rzędzie — dzięki temu siatka nie ma dziur,
-   * a wysokie wnętrza nie zjadają całego ekranu.
-   */
-  const isWide = (ratio: number) => ratio >= 1.6;
+  const placed = placeMedia([
+    ...videos.map((asset) => ({ kind: "video" as const, asset })),
+    ...images.map((asset, position) => ({ kind: "image" as const, asset, position })),
+  ]);
 
   return (
     <main className="min-h-dvh bg-paper">
@@ -64,25 +63,25 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          {videos.map((video) => (
-            <AutoVideo
-              key={video.id}
-              video={video}
-              ariaLabel={`${project.title} — animacja`}
-              className={`w-full bg-black ${isWide(video.aspectRatio) ? "md:col-span-2" : ""}`}
-            />
-          ))}
-
-          {images.map((image, index) => (
-            <ProjectImage
-              key={image.id}
-              image={image}
-              alt={`${project.title} — ${index + 1}`}
-              sizes={isWide(image.aspectRatio) ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
-              priority={index === 0}
-              className={`w-full ${isWide(image.aspectRatio) ? "md:col-span-2" : ""}`}
-            />
-          ))}
+          {placed.map((item) =>
+            item.kind === "video" ? (
+              <AutoVideo
+                key={item.asset.id}
+                video={item.asset}
+                ariaLabel={`${project.title} — animacja`}
+                className={`w-full bg-black ${item.full ? "md:col-span-2" : ""}`}
+              />
+            ) : (
+              <ProjectImage
+                key={item.asset.id}
+                image={item.asset}
+                alt={`${project.title} — ${item.position + 1}`}
+                sizes={item.full ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+                priority={item.position === 0}
+                className={`w-full ${item.full ? "md:col-span-2" : ""}`}
+              />
+            ),
+          )}
         </div>
 
         <dl className="mt-16 grid grid-cols-[6rem_1fr] gap-y-2 md:grid-cols-[8rem_1fr]">

@@ -69,7 +69,9 @@ Logo w nagłówku prowadzi do `/work` — tak jak opisuje to plansza klienta
 - **Tekst „o nas”** do sekcji CONTACT. Ten z planszy to placeholder przepisany
   z australijskiego studia Third Aesthetic — nie da się go użyć. Do czasu
   dostarczenia treści sekcja się nie renderuje (`site.about` jest puste).
-- **Zdjęcia zespołu** (dwie osoby na krzesłach, czarno-białe, wycięte z tła) na CONTACT.
+- **Zdjęcie zespołu w lepszej jakości.** To na CONTACT jest wyciągnięte z planszy PDF
+  (`public/media/contact/team.jpg`) — ma tyle szczegółu, ile dało się z niej odzyskać.
+  Jeśli klient ma oryginał, wystarczy podmienić plik.
 - **Klient i data** dla każdego projektu — pola `client` i `date` w `data/projects.json`
   są puste; dopóki są puste, nie pojawiają się na stronie.
 - **Licencja webowa Helvetica Neue.** Krój jest komercyjny i nie wolno go hostować

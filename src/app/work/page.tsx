@@ -39,7 +39,7 @@ export default function WorkPage() {
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className="group block shrink-0 snap-center"
+                className="group block shrink-0"
               >
                 <figure
                   className="flex flex-col gap-3"
@@ -52,13 +52,10 @@ export default function WorkPage() {
                 >
                   {/*
                    * Rozmiar kafla liczymy z wysokości i proporcji kadru, a nie zostawiamy
-                   * go zawartości. <video> — inaczej niż <img> — narzuca szerokość
+                   * go zawartości: <video> — inaczej niż <img> — narzuca szerokość
                    * rozdzielczością pliku, więc kafel z animacją rozpychał pas na 1920 px.
-                   */}
-                  {/*
-                   * Szerokość jest ograniczona do 34vw, żeby w kadrze mieściły się trzy
-                   * kafle naraz — tak jak na planszy. Panoramy są wtedy przycinane
-                   * przez object-cover zamiast rozpychać pas na całą szerokość ekranu.
+                   * Limit 34vw sprawia, że w kadrze mieszczą się trzy kafle naraz, tak jak
+                   * na planszy; panoramy są wtedy przycinane, a nie rozciągają całego pasa.
                    */}
                   <div className="w-full overflow-hidden bg-hairline transition-opacity duration-500 group-hover:opacity-85 aspect-[var(--tile-ratio)] md:aspect-auto md:h-[var(--tile-h)] md:w-[min(calc(var(--tile-h)*var(--tile-ratio)),34vw)]">
                     {tileVideo ? (
