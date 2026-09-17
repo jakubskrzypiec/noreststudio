@@ -6,6 +6,7 @@
  * Komponenty korzystają wyłącznie z tych funkcji, żeby nie znać układu katalogów.
  */
 
+import { asset } from "./assets";
 import projectsData from "../../data/projects.json";
 import manifestData from "../../data/media.json";
 
@@ -97,10 +98,10 @@ export function getCover(slug: string): ImageAsset | undefined {
 
 /** Buduje srcset z wariantów wygenerowanych przez pipeline. */
 export function toSrcSet(image: ImageAsset): string {
-  return image.sources.map((source) => `${source.src} ${source.width}w`).join(", ");
+  return image.sources.map((source) => `${asset(source.src)} ${source.width}w`).join(", ");
 }
 
 /** Największy wariant — używany jako `src` fallbackowy. */
 export function largestSrc(image: ImageAsset): string {
-  return image.sources[image.sources.length - 1]?.src ?? "";
+  return asset(image.sources[image.sources.length - 1]?.src ?? "");
 }

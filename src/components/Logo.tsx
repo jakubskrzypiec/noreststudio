@@ -6,6 +6,8 @@
  * Proporcje pochodzą z plików wygenerowanych przez `scripts/make-logo.mjs`.
  */
 
+import { asset } from "@/lib/assets";
+
 const WORDMARK_RATIO = 644 / 128;
 const MARK_RATIO = 614 / 461;
 
@@ -29,8 +31,8 @@ function MaskedLogo({
         display: "inline-block",
         aspectRatio: String(ratio),
         backgroundColor: "currentColor",
-        maskImage: `url(${src})`,
-        WebkitMaskImage: `url(${src})`,
+        maskImage: `url(${asset(src)})`,
+        WebkitMaskImage: `url(${asset(src)})`,
         maskSize: "contain",
         WebkitMaskSize: "contain",
         maskRepeat: "no-repeat",

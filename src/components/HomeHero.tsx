@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { VideoAsset } from "@/lib/media";
+import { asset } from "@/lib/assets";
 
 /**
  * Pełnoekranowe tło strony głównej.
@@ -54,8 +55,8 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
       <video
         key={`current-${current.id}`}
         ref={currentRef}
-        src={current.src}
-        poster={current.poster}
+        src={asset(current.src)}
+        poster={asset(current.poster)}
         autoPlay
         muted
         playsInline
@@ -70,8 +71,8 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         <video
           key={`next-${next.id}`}
           ref={nextRef}
-          src={next.src}
-          poster={next.poster}
+          src={asset(next.src)}
+          poster={asset(next.poster)}
           autoPlay
           muted
           playsInline

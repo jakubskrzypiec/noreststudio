@@ -25,9 +25,9 @@ next-env.d.ts
 Thumbs.db
 *.log
 
-# Wynik konwersji mediow - generowany przez "npm run media".
-# Na razie poza repo; docelowo albo Git LFS, albo wrzucamy po decyzji o hostingu.
-/public/media/
 
 # Lokalna konfiguracja narzedzi (sciezki zalezne od maszyny).
 /.claude/
+
+# Wynik `next build` przy output: export.
+/out/

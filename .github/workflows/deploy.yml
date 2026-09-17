@@ -1,0 +1,54 @@
+name: Deploy na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Pozwala odpalić deploy ręcznie z zakładki Actions.
+  workflow_dispatch:
+
+# Uprawnienia wymagane przez actions/deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nie przerywamy trwającego wdrożenia, ale kolejkujemy tylko jedno następne.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build statycznego eksportu
+        # Pages serwuje projekt pod /noreststudio, nie pod korzeniem domeny.
+        env:
+          NEXT_PUBLIC_BASE_PATH: /noreststudio
+          NEXT_PUBLIC_SITE_URL: https://jakubskrzypiec.github.io/noreststudio
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

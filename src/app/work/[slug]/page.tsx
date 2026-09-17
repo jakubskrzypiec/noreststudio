@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { asset } from "@/lib/assets";
 import { Header } from "@/components/Header";
 import { ProjectImage } from "@/components/ProjectImage";
 import {
@@ -66,8 +67,8 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
           {videos.map((video) => (
             <video
               key={video.id}
-              src={video.src}
-              poster={video.poster}
+              src={asset(video.src)}
+              poster={asset(video.poster)}
               controls
               playsInline
               preload="none"

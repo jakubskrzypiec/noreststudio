@@ -9,7 +9,8 @@
 export const site = {
   name: "NOREST STUDIO",
   tagline: "Architecture & Graphics",
-  url: "https://noreststudio.com",
+  // Nadpisywane w buildzie deployu; lokalnie zostaje docelowa domena klienta.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://noreststudio.com",
 
   contact: {
     city: "CRACOW",
