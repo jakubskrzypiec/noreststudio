@@ -14,16 +14,16 @@ import { AutoVideo } from "./AutoVideo";
  *
  * Ten skok wracał wielokrotnie, więc jest zabezpieczony na trzy sposoby:
  * klipy nie mają zapętlenia (opóźnione cięcie przytrzyma ostatnią klatkę, a nie
- * przeskoczy na początek), następny kadr jest montowany z wyprzedzeniem i czeka
- * ukryty, aż się zbuforuje, a czekanie na gotowość ma krótki limit.
+ * przeskoczy na początek), następny kadr jest montowany z wyprzedzeniem pod bieżącym
+ * i tam się buforuje, a czekanie na gotowość ma krótki limit.
  *
  * Kolejność jest losowana przy każdym wejściu, z pamięcią kilku ostatnich ujęć,
  * żeby ten sam kadr nie wracał po chwili. Pierwszy kadr zostaje stały, bo wychodzi
  * z serwerowego HTML-u — losowanie go w renderze rozjechałoby hydratację.
  */
 
-/** Odstęp po cięciu, zanim cykl ruszy dalej. Samo cięcie jest natychmiastowe. */
-const CUT_SETTLE_MS = 120;
+/** Zapas na samo cięcie, doliczany do budżetu kadru. */
+const CUT_MARGIN_MS = 120;
 
 /** Najdłuższe czekanie na gotowość klipu; potem tniemy mimo wszystko. */
 const READY_TIMEOUT_MS = 2500;
@@ -34,11 +34,9 @@ const CUT_LEAD_MS = 350;
 type Layer = {
   key: string;
   clip: VideoAsset;
-  /** Warstwa czeka niewidoczna, dopóki się nie wczyta. */
-  hidden: boolean;
 };
 
-type Phase = "hold" | "cue" | "settle";
+type Phase = "hold" | "cue";
 
 /** Rosnący numer wystąpienia warstwy — zapewnia unikalne klucze w Reakcie. */
 let layerSeq = 0;
@@ -58,14 +56,14 @@ function shuffled<T>(items: T[]): T[] {
  * i ten, po którym zostanie zdjęty — oba mieszczą się w długości pliku.
  */
 function holdMs(clip: VideoAsset) {
-  return Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - 2 * CUT_SETTLE_MS);
+  return Math.max(2000, clip.duration * 1000 - CUT_LEAD_MS - 2 * CUT_MARGIN_MS);
 }
 
 export function HomeHero({ videos }: { videos: VideoAsset[] }) {
   const playlist = useMemo(() => videos.filter((video) => video.src), [videos]);
 
   const [layers, setLayers] = useState<Layer[]>(() =>
-    playlist[0] ? [{ key: `${playlist[0].id}#start`, clip: playlist[0], hidden: false }] : [],
+    playlist[0] ? [{ key: `${playlist[0].id}#start`, clip: playlist[0] }] : [],
   );
   const [phase, setPhase] = useState<Phase>("hold");
 
@@ -149,11 +147,9 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         return after(holdMs(base.clip), () => {
           const clip = takeNext(naEkranie);
           if (!clip) return;
-          // Montujemy ukryty, żeby zdążył się wczytać przed cięciem.
-          setLayers((current) => [
-            ...current,
-            { key: `${clip.id}#${layerSeq++}`, clip, hidden: true },
-          ]);
+          // Nowy kadr wchodzi POD bieżący, nie w ukryciu: może się buforować i grać,
+          // a użytkownik go nie widzi, bo tło zasłania cały ekran.
+          setLayers((current) => [...current, { key: `${clip.id}#${layerSeq++}`, clip }]);
           setPhase("cue");
         });
 
@@ -163,7 +159,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         return after(gotowy ? 0 : READY_TIMEOUT_MS, () => {
           const element = elements.current.get(top.key);
           if (element) {
-            // Klip grał w ukryciu, żeby się zbuforować — w kadr ma wejść od pierwszej klatki.
+            // Klip grał zasłonięty, żeby się zbuforować — w kadr ma wejść od pierwszej klatki.
             try {
               element.currentTime = 0;
             } catch {
@@ -171,19 +167,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
             }
             element.play().catch(() => {});
           }
-          setLayers((current) =>
-            current.map((layer, index) =>
-              index === current.length - 1 ? { ...layer, hidden: false } : layer,
-            ),
-          );
-          setPhase("settle");
-        });
-      }
-
-      case "settle":
-        return after(CUT_SETTLE_MS, () => {
-          // Wierzchnia warstwa zakrywa już cały ekran, więc odrzucenie poprzedniej
-          // jest niewidoczne, a jej własny element `<video>` gra dalej bez przerwy.
+          // Zdjęcie bieżącego tła odsłania nowy kadr — to jest samo cięcie.
           setLayers((current) => {
             const ostatni = current[current.length - 1];
             ready.current = new Set([ostatni.key]);
@@ -194,6 +178,7 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
           });
           setPhase("hold");
         });
+      }
     }
   }, [phase, layers, playlist.length, takeNext, readySignal]);
 
@@ -207,7 +192,14 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
         <div
           key={layer.key}
           className="absolute inset-0"
-          style={{ zIndex: 10 + index, visibility: layer.hidden ? "hidden" : "visible" }}
+          /*
+           * Bieżące tło jest na wierzchu, czekający kadr pod nim. Świadomie nie
+           * używamy tu `visibility: hidden` ani `display: none`: Chrome na Androidzie
+           * nie pozwala wystartować niewidocznemu filmowi, więc kolejny kadr wchodził
+           * zatrzymany na pierwszej klatce i trzeba go było kliknąć. Zasłonięty
+           * element jest dla przeglądarki widoczny i spokojnie się rozgrywa.
+           */
+          style={{ zIndex: index === 0 ? 20 : 10 }}
         >
           <AutoVideo
             video={layer.clip}
@@ -217,8 +209,9 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
             loop={false}
             onReady={() => markReady(layer.key)}
             elementRef={(element) => {
+              // Tylko zapisujemy. Usuwaniem zajmuje sie ciecie w fazie `cue`, zeby chwilowe
+              // odpiecie referencji nie zabralo uchwytu potrzebnego przy cieciu.
               if (element) elements.current.set(layer.key, element);
-              else elements.current.delete(layer.key);
             }}
             className="h-full w-full object-cover"
           />

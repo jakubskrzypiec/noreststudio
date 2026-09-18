@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { VideoAsset } from "@/lib/media";
 import { asset } from "@/lib/assets";
 
@@ -58,6 +58,23 @@ export function AutoVideo({
   /** Czy kadr jest w polu widzenia — decyduje, czy w ogóle próbować grać. */
   const visibleRef = useRef(true);
 
+  /**
+   * Stabilne podpięcie elementu. Gdyby callback powstawał na nowo przy każdym
+   * renderze, React odpinałby i podpinał referencję za każdym razem — a strona
+   * główna trzyma po niej uchwyt, którym przewija klip na pierwszą klatkę
+   * w chwili cięcia. Przy odpięciu ten uchwyt przepadał i nowy kadr wchodził
+   * bez wystartowania.
+   */
+  const elementRefFn = useRef(elementRef);
+  useEffect(() => {
+    elementRefFn.current = elementRef;
+  }, [elementRef]);
+
+  const setNode = useCallback((element: HTMLVideoElement | null) => {
+    ref.current = element;
+    elementRefFn.current?.(element);
+  }, []);
+
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
@@ -66,14 +83,18 @@ export function AutoVideo({
       if (!visibleRef.current || document.hidden) return;
       // Zakonczony klip odtworzylby sie od pierwszej klatki - na hero to widoczny skok.
       if (element.ended) return;
+      // `muted` ustawiamy jeszcze raz z kodu: bez tego telefony traktuja film jak
+      // dzwiekowy i odrzucaja autoodtwarzanie, pokazujac plakat z przyciskiem play.
+      element.muted = true;
       element.play().catch(() => {});
     };
 
     let observer: IntersectionObserver | undefined;
 
-    if (typeof IntersectionObserver === "undefined") {
-      tryPlay();
-    } else {
+    // Pierwsza proba od razu, nie czekajac na obserwatora.
+    tryPlay();
+
+    if (typeof IntersectionObserver !== "undefined") {
       observer = new IntersectionObserver(
         ([entry]) => {
           visibleRef.current = entry.isIntersecting;
@@ -90,24 +111,38 @@ export function AutoVideo({
     if (element.readyState >= 3) announceReady();
     element.addEventListener("canplay", announceReady);
 
+    /*
+     * Ponawianie. Jedna proba nie wystarcza: na telefonie `play()` wolane przed
+     * pojawieniem sie pierwszych danych jest odrzucane, a polityka autoodtwarzania
+     * (np. tryb oszczedzania energii w iOS) blokuje start do pierwszego dotkniecia.
+     * Dlatego probujemy przy kazdym zdarzeniu, ktore moze to odblokowac, i dopiero
+     * gdy film naprawde gra, odpinamy nasluchy gestow.
+     */
+    const zdarzeniaMediow = ["loadeddata", "canplay", "canplaythrough"] as const;
+    const gesty = ["pointerdown", "touchend", "keydown"] as const;
+
+    const odepnijGesty = () => {
+      for (const nazwa of gesty) window.removeEventListener(nazwa, tryPlay);
+    };
+
+    for (const nazwa of zdarzeniaMediow) element.addEventListener(nazwa, tryPlay);
+    for (const nazwa of gesty) window.addEventListener(nazwa, tryPlay);
+    element.addEventListener("playing", odepnijGesty);
     document.addEventListener("visibilitychange", tryPlay);
-    // `once` wystarczy — po pierwszej interakcji polityka autoplay już nie blokuje.
-    window.addEventListener("pointerdown", tryPlay, { once: true });
 
     return () => {
       observer?.disconnect();
       element.removeEventListener("canplay", announceReady);
+      element.removeEventListener("playing", odepnijGesty);
+      for (const nazwa of zdarzeniaMediow) element.removeEventListener(nazwa, tryPlay);
+      odepnijGesty();
       document.removeEventListener("visibilitychange", tryPlay);
-      window.removeEventListener("pointerdown", tryPlay);
     };
   }, []);
 
   return (
     <video
-      ref={(element) => {
-        ref.current = element;
-        elementRef?.(element);
-      }}
+      ref={setNode}
       src={asset(video.src)}
       poster={asset(video.poster)}
       aria-label={ariaLabel}
