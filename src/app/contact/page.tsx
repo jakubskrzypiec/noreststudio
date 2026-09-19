@@ -28,9 +28,10 @@ export default function ContactPage() {
     <main className="relative flex min-h-dvh flex-col bg-paper">
       <Header />
 
+      {/* Blok z danymi stoi na środku ekranu, między postaciami - poprawki klienta. */}
       <div
-        className="fade-in relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col items-center px-5 md:px-10"
-        style={{ paddingTop: "calc(var(--header-h) + 6rem)" }}
+        className="fade-in relative z-10 mx-auto flex w-full max-w-[1600px] flex-1 flex-col items-center justify-center px-5 py-16 md:px-10"
+        style={{ paddingTop: "var(--header-h)" }}
       >
         <address className="flex flex-col items-center gap-6 not-italic">
           <div className="flex flex-col items-center gap-1 text-center">

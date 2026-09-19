@@ -51,7 +51,7 @@ export function Wordmark({ className, title = "NOREST STUDIO" }: LogoProps) {
   );
 }
 
-/** Sam znak graficzny — używany jako przycisk menu na telefonie. */
+/** Sam znak graficzny — przycisk menu na telefonie i wejście do slidera na desktopie. */
 export function Mark({ className, title = "NOREST STUDIO" }: LogoProps) {
   return <MaskedLogo src="/logo/mark.png" ratio={MARK_RATIO} className={className} title={title} />;
 }

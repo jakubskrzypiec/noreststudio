@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * Galeria spod logo — kafle jadące w poziomie, o różnych rozmiarach.
+ * Slider spod obracającego się znaku w nagłówku (tylko desktop — na telefonie nic tu
+ * nie prowadzi, klient kazał usunąć tę zakładkę) — kafle jadące w poziomie.
  *
  * Rytm daje zapętlony wzór **szerokości**; wysokość wychodzi z proporcji kadru,
  * więc nic nie jest przycinane. Odwrotnie niż wcześniej: sztywna wysokość plus

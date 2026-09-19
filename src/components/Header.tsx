@@ -8,10 +8,10 @@ import { Wordmark, Mark } from "./Logo";
 /**
  * Pasek obecny na każdej podstronie.
  *
- * Na desktopie: logo po lewej (prowadzi do galerii — na planszy "po kliknieciu w logo"),
- * pozycje menu po prawej.
- * Na telefonie: logo po lewej, a po prawej obracający się znak, który otwiera
- * pełnoekranowe menu.
+ * Logo po lewej prowadzi na stronę główną (poprawki klienta: "niech to będzie nasze
+ * home"). Na desktopie po prawej obracający się znak prowadzi do slidera z projektami,
+ * a obok są pozycje menu.
+ * Na telefonie po prawej ten sam znak otwiera pełnoekranowe menu; slidera tam nie ma.
  */
 export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,14 +35,21 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         style={{ height: "var(--header-h)" }}
       >
         <Link
-          href="/work"
-          aria-label={`${site.name} — przejdź do galerii`}
+          href="/"
+          aria-label={`${site.name} — strona główna`}
           className={`${colorClass} transition-opacity hover:opacity-60`}
         >
-          <Wordmark className="h-4 w-auto md:h-[1.1rem]" />
+          <Wordmark className="h-5 w-auto md:h-6" />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
+          <Link
+            href="/work"
+            aria-label="Slider z projektami"
+            className={`group ${colorClass} opacity-80 transition-opacity hover:opacity-100`}
+          >
+            <Mark className="h-6 w-auto transition-transform duration-500 group-hover:rotate-[135deg]" />
+          </Link>
           {site.nav.map((item) => (
             <NavLink
               key={item.label}

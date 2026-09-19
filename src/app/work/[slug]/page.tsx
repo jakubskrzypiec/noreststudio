@@ -46,21 +46,46 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         className="fade-in mx-auto max-w-[1600px] px-5 pb-24 md:px-10"
         style={{ paddingTop: "calc(var(--header-h) + 2rem)" }}
       >
-        <div className="mb-8 flex items-baseline justify-between gap-6">
+        <div className="mb-4 flex items-baseline justify-between gap-6">
           <h1 className="label text-ink">{project.title}</h1>
 
-          <div className="flex items-center gap-6">
-            {project.info && <span className="label text-muted">Info</span>}
-            {next && (
-              <Link
-                href={`/work/${next.slug}`}
-                className="label text-ink transition-opacity hover:opacity-60"
-              >
-                Next project &rarr;
-              </Link>
-            )}
-          </div>
+          {next && (
+            <Link
+              href={`/work/${next.slug}`}
+              className="label text-ink transition-opacity hover:opacity-60"
+            >
+              Next project &rarr;
+            </Link>
+          )}
         </div>
+
+        {/*
+         * Opis projektu pod tytułem, nad zdjęciami - jak na poprawkach klienta
+         * (INFO / CLIENT / DATE). Treści dostarcza klient do projects.json; puste pola
+         * się nie pokazują.
+         */}
+        {(project.info || project.client || project.date) && (
+          <dl className="mb-6 grid max-w-xl grid-cols-[5rem_1fr] gap-x-6 gap-y-1.5 md:grid-cols-[6rem_1fr]">
+            {project.info && (
+              <>
+                <dt className="label text-muted">Info</dt>
+                <dd className="text-sm leading-relaxed text-ink">{project.info}</dd>
+              </>
+            )}
+            {project.client && (
+              <>
+                <dt className="label text-muted">Client</dt>
+                <dd className="label text-ink">{project.client}</dd>
+              </>
+            )}
+            {project.date && (
+              <>
+                <dt className="label text-muted">Date</dt>
+                <dd className="label text-ink">{project.date}</dd>
+              </>
+            )}
+          </dl>
+        )}
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {placed.map((item) => (
@@ -72,20 +97,17 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
              */
             <div
               key={item.asset.id}
+              // Kadr na pełnej szerokości zajmuje cały wiersz, tak samo jak para obok
+              // siebie. Wcześniejsze limity (wysokość ekranu, rozdzielczość pliku)
+              // zwężały pojedyncze kadry i wystawały spod nich pary - klient prosił,
+              // żeby wszystkie obrazy pod sobą miały równą szerokość.
               className={`w-full overflow-hidden aspect-[var(--own)] md:aspect-[var(--row)] ${
-                item.full
-                  ? // Kadr na pełnej szerokości ma trzy ograniczenia szerokości:
-                    // szerokość kolumny, limit wysokości (pionowe ujęcie rozciągnięte
-                    // na 1345 px miało 1793 px i zjadało dwa ekrany) oraz rozdzielczość
-                    // źródła — kilka renderów ma tylko 1200 px i nie ma sensu ich rozdymać.
-                    "md:col-span-2 md:mx-auto md:w-[min(100%,calc(78vh*var(--own)),var(--src))]"
-                  : ""
+                item.full ? "md:col-span-2" : ""
               }`}
               style={
                 {
                   "--own": String(item.asset.aspectRatio),
                   "--row": String(item.rowRatio),
-                  "--src": `${item.asset.width}px`,
                 } as React.CSSProperties
               }
             >
@@ -107,25 +129,6 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
             </div>
           ))}
         </div>
-
-        <dl className="mt-16 grid grid-cols-[6rem_1fr] gap-y-2 md:grid-cols-[8rem_1fr]">
-          {project.client && (
-            <>
-              <dt className="label text-muted">Client</dt>
-              <dd className="label text-ink">{project.client}</dd>
-            </>
-          )}
-          {project.date && (
-            <>
-              <dt className="label text-muted">Date</dt>
-              <dd className="label text-ink">{project.date}</dd>
-            </>
-          )}
-        </dl>
-
-        {project.info && (
-          <p className="mt-8 max-w-prose text-sm leading-relaxed text-muted">{project.info}</p>
-        )}
       </div>
     </main>
   );
