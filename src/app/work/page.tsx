@@ -25,7 +25,7 @@ const WIDTH_PATTERN_VW = [32, 44, 36];
 
 export default function WorkPage() {
   return (
-    <main className="flex h-dvh flex-col bg-paper">
+    <main className="flex h-[100svh] flex-col bg-paper">
       <Header />
 
       <div className="flex-1 overflow-hidden" style={{ paddingTop: "var(--header-h)" }}>

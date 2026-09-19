@@ -11,7 +11,7 @@ export default function HomePage() {
   const { videos } = getHomeMedia();
 
   return (
-    <main className="relative h-dvh overflow-hidden">
+    <main className="relative h-[100svh] overflow-hidden">
       <HomeHero videos={videos} />
 
       <Header tone="light" />

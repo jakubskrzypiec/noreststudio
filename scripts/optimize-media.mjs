@@ -34,6 +34,14 @@ const IMAGE_QUALITY = 78;
 const VIDEO_MAX_WIDTH = 1920;
 const VIDEO_CRF = 24;
 
+/**
+ * Osobny, lzejszy wariant na telefon. Kadr 1920 px trzeba tam i tak zmniejszyc do
+ * szerokosci ekranu, a samo dekodowanie zjada baterie i potrafi zaciac przewijanie -
+ * przy dwoch filmach naraz (hero podmienia ujecia) bylo to widoczne golym okiem.
+ */
+const VIDEO_MOBILE_WIDTH = 900;
+const VIDEO_MOBILE_CRF = 26;
+
 /** ffmpeg z wingeta nie trafia do PATH kazdej powloki, wiec szukamy go tez recznie. */
 function resolveFfmpegBin(name) {
   const wingetBin = path.join(
@@ -196,6 +204,23 @@ async function processVideo(srcFile, outBase) {
     ]);
   }
 
+  const mobile = `${outBase}-mobile.mp4`;
+  const potrzebnyMobile = meta.width > VIDEO_MOBILE_WIDTH;
+  if (potrzebnyMobile && (FORCE || !existsSync(mobile))) {
+    await run(FFMPEG, [
+      "-y", "-i", srcFile,
+      "-an",
+      "-vf", `scale='min(${VIDEO_MOBILE_WIDTH},iw)':-2:flags=lanczos`,
+      "-c:v", "libx264",
+      "-preset", "slow",
+      "-crf", String(VIDEO_MOBILE_CRF),
+      "-profile:v", "main",
+      "-pix_fmt", "yuv420p",
+      "-movflags", "+faststart",
+      mobile,
+    ]);
+  }
+
   if (FORCE || !existsSync(poster)) {
     const tmpPng = `${outBase}-frame.png`;
     await run(FFMPEG, ["-y", "-i", srcFile, "-frames:v", "1", "-vf", `scale='min(1920,iw)':-2`, tmpPng]);
@@ -206,6 +231,7 @@ async function processVideo(srcFile, outBase) {
   const outMeta = await probeVideo(mp4);
   return {
     src: toPublicPath(mp4),
+    srcMobile: potrzebnyMobile ? toPublicPath(mobile) : toPublicPath(mp4),
     poster: toPublicPath(poster),
     width: outMeta.width,
     height: outMeta.height,

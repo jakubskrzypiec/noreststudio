@@ -165,7 +165,13 @@ export function HomeHero({ videos }: { videos: VideoAsset[] }) {
             } catch {
               /* przewijanie bywa odrzucane, zanim metadane dojdą — nie blokuje cięcia */
             }
-            element.play().catch(() => {});
+            // Kilka podejsc: na telefonie pierwsze `play()` po cieciu bywa odrzucane
+            // i kadr stal na pierwszej klatce do czasu dotkniecia ekranu.
+            const zagraj = (proba: number) => {
+              element.play().catch(() => {});
+              if (proba < 4) window.setTimeout(() => element.paused && zagraj(proba + 1), 200);
+            };
+            zagraj(0);
           }
           // Zdjęcie bieżącego tła odsłania nowy kadr — to jest samo cięcie.
           setLayers((current) => {

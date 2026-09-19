@@ -35,6 +35,17 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+ * Na telefonie stronę dało się ciągnąć na boki i cały kadr się wtedy telepał.
+ * Blokujemy poziome przewijanie i gumowe odbicie na krawędziach — pionowe
+ * przewijanie treści zostaje nietknięte.
+ */
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
 body {
   background: var(--paper);
   font-family: var(--font-sans);

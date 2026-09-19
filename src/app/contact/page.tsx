@@ -25,7 +25,7 @@ export default function ContactPage() {
   const { city, street, postalCode, phone, email, instagram } = site.contact;
 
   return (
-    <main className="relative flex min-h-dvh flex-col bg-paper">
+    <main className="relative flex min-h-[100svh] flex-col bg-paper">
       <Header />
 
       {/* Blok z danymi stoi na środku ekranu, między postaciami - poprawki klienta. */}

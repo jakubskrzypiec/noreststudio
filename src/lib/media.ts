@@ -33,6 +33,8 @@ export type VideoAsset = {
   id: string;
   sourceFile: string;
   src: string;
+  /** Lzejszy wariant (900 px) podawany telefonom; rowny `src`, gdy zrodlo jest male. */
+  srcMobile?: string;
   poster: string;
   width: number;
   height: number;

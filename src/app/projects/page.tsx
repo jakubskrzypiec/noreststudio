@@ -27,7 +27,7 @@ export default function ProjectsPage() {
   }
 
   return (
-    <main className="min-h-dvh bg-paper">
+    <main className="min-h-[100svh] bg-paper">
       <Header />
 
       <div

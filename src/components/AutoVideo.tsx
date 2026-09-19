@@ -79,6 +79,8 @@ export function AutoVideo({
     const element = ref.current;
     if (!element) return;
 
+    let ponowienie = 0;
+
     const tryPlay = () => {
       if (!visibleRef.current || document.hidden) return;
       // Zakonczony klip odtworzylby sie od pierwszej klatki - na hero to widoczny skok.
@@ -86,7 +88,15 @@ export function AutoVideo({
       // `muted` ustawiamy jeszcze raz z kodu: bez tego telefony traktuja film jak
       // dzwiekowy i odrzucaja autoodtwarzanie, pokazujac plakat z przyciskiem play.
       element.muted = true;
-      element.play().catch(() => {});
+      element.play().catch(() => {
+        // Telefon potrafi odrzucic pierwsze `play()` (dane jeszcze nie doszly, ekran
+        // dopiero sie budzi). Sama polityka autoodtwarzania nie zmienia sie w kilkaset
+        // milisekund, wiec probujemy tylko kilka razy - reszte zalatwiaja zdarzenia
+        // mediow i pierwszy gest.
+        if (ponowienie >= 4) return;
+        ponowienie += 1;
+        window.setTimeout(tryPlay, 250 * ponowienie);
+      });
     };
 
     let observer: IntersectionObserver | undefined;
@@ -143,7 +153,6 @@ export function AutoVideo({
   return (
     <video
       ref={setNode}
-      src={asset(video.src)}
       poster={asset(video.poster)}
       aria-label={ariaLabel}
       autoPlay
@@ -153,6 +162,16 @@ export function AutoVideo({
       preload={preload}
       className={className}
       style={style}
-    />
+    >
+      {/*
+       * Telefon dostaje wariant 900 px: mniej do pobrania i dużo mniej do dekodowania.
+       * Wybór robi przeglądarka przy starcie ładowania — dlatego źródła są tutaj,
+       * a nie w atrybucie `src`, który miałby nad nimi pierwszeństwo.
+       */}
+      {video.srcMobile && video.srcMobile !== video.src && (
+        <source src={asset(video.srcMobile)} type="video/mp4" media="(max-width: 768px)" />
+      )}
+      <source src={asset(video.src)} type="video/mp4" />
+    </video>
   );
 }

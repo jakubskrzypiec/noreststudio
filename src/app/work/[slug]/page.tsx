@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
   ]);
 
   return (
-    <main className="min-h-dvh bg-paper">
+    <main className="min-h-[100svh] bg-paper">
       <Header />
 
       <div
