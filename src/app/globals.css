@@ -76,6 +76,16 @@ body {
   }
 }
 
+/*
+ * Filmy są tu animowaną grafiką, nie odtwarzaczem. Gdy iOS odmówi autostartu
+ * (np. w trybie niskiego zużycia energii), Safari rysuje na kadrze wielki przycisk
+ * play. Chowamy go — zostaje czysty plakat, a film rusza przy pierwszym dotknięciu.
+ */
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 /* Poziomy slider projektów — chowamy pasek, ale zostawiamy natywne przewijanie. */
 .no-scrollbar {
   scrollbar-width: none;

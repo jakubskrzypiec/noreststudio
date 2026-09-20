@@ -79,6 +79,21 @@ export function AutoVideo({
     const element = ref.current;
     if (!element) return;
 
+    /*
+     * Safari nie wybiera źródła po `media` na <source> — bierze pierwsze, które umie
+     * odtworzyć. Bez tego Mac dostałby wariant telefonowy (900 px). Po starcie
+     * sprawdzamy więc, czy leci plik właściwy dla tej szerokości, i podmieniamy go.
+     */
+    const dobreZrodlo = () => {
+      const mobilny = video.srcMobile && video.srcMobile !== video.src ? asset(video.srcMobile) : null;
+      if (!mobilny) return;
+      const chceMobilny = window.matchMedia("(max-width: 768px)").matches;
+      const chciany = new URL(chceMobilny ? mobilny : asset(video.src), location.href).href;
+      if (!element.currentSrc || element.currentSrc === chciany) return;
+      element.src = chciany;
+      element.load();
+    };
+
     let ponowienie = 0;
 
     const tryPlay = () => {
@@ -102,6 +117,7 @@ export function AutoVideo({
     let observer: IntersectionObserver | undefined;
 
     // Pierwsza proba od razu, nie czekajac na obserwatora.
+    dobreZrodlo();
     tryPlay();
 
     if (typeof IntersectionObserver !== "undefined") {
@@ -129,12 +145,14 @@ export function AutoVideo({
      * gdy film naprawde gra, odpinamy nasluchy gestow.
      */
     const zdarzeniaMediow = ["loadeddata", "canplay", "canplaythrough"] as const;
-    const gesty = ["pointerdown", "touchend", "keydown"] as const;
+    const gesty = ["pointerdown", "touchstart", "touchend", "touchmove", "scroll", "keydown"] as const;
 
     const odepnijGesty = () => {
       for (const nazwa of gesty) window.removeEventListener(nazwa, tryPlay);
     };
 
+    // `currentSrc` bywa puste tuż po zamontowaniu, więc sprawdzamy je też, gdy plik ruszy.
+    element.addEventListener("loadedmetadata", dobreZrodlo);
     for (const nazwa of zdarzeniaMediow) element.addEventListener(nazwa, tryPlay);
     for (const nazwa of gesty) window.addEventListener(nazwa, tryPlay);
     element.addEventListener("playing", odepnijGesty);
@@ -143,11 +161,15 @@ export function AutoVideo({
     return () => {
       observer?.disconnect();
       element.removeEventListener("canplay", announceReady);
+      element.removeEventListener("loadedmetadata", dobreZrodlo);
       element.removeEventListener("playing", odepnijGesty);
       for (const nazwa of zdarzeniaMediow) element.removeEventListener(nazwa, tryPlay);
       odepnijGesty();
       document.removeEventListener("visibilitychange", tryPlay);
     };
+    // Każdy klip ma własny element (klucz w Reakcie), więc ścieżki plików nie zmieniają
+    // się w trakcie życia tego efektu — celowo uruchamiamy go tylko raz.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
