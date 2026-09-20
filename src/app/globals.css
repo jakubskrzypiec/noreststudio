@@ -42,7 +42,12 @@ html {
  */
 html,
 body {
-  overflow-x: hidden;
+  /*
+   * `clip`, nie `hidden`: `hidden` robi z <html> kontener przewijania i w części
+   * przeglądarek strona przestawała reagować na kółko myszy. `clip` tylko przycina,
+   * niczego nie przewija.
+   */
+  overflow-x: clip;
   overscroll-behavior: none;
 }
 
