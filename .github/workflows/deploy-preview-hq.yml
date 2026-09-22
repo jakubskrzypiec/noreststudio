@@ -1,0 +1,54 @@
+# Podglad w wysokiej jakosci - TYLKO build i publikacja na staging GitHub Pages.
+# Celowo BEZ kroku `npm run media`: ten skrypt kasuje wpis w manifescie, gdy
+# surowe zrodlo (PROJECTS/<x>, HOME/) nie jest wgrane do repo - a tutaj
+# wiekszosc surowcow celowo nie jest commitowana (za duzo miejsca). Ten
+# workflow buduje wprost z juz przeliczonych, scommitowanych plikow w
+# public/media, wiec nic nie zostanie nadpisane pustka.
+name: Podglad HQ (staging)
+
+on:
+  push:
+    branches: [preview-wysoka-jakosc]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build statycznego eksportu (bez przetwarzania mediow)
+        env:
+          NEXT_PUBLIC_BASE_PATH: /noreststudio
+          NEXT_PUBLIC_SITE_URL: https://jakubskrzypiec.github.io/noreststudio
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # Bez `environment: github-pages` - ta nazwa ma domyslna regule "tylko
+    # galaz main", a to jest galaz testowa.
+    steps:
+      - uses: actions/deploy-pages@v4

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T10:29:51.586Z",
+  "generatedAt": "2026-09-22T11:44:54.067Z",
   "home": {
     "images": [],
     "videos": [
@@ -19,7 +19,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 6451563,
-        "outputBytes": 766443
+        "outputBytes": 2047945
       },
       {
         "id": "animation-1",
@@ -37,7 +37,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 8684681,
-        "outputBytes": 1174441
+        "outputBytes": 3108839
       },
       {
         "id": "animation-6",
@@ -55,7 +55,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 15827076,
-        "outputBytes": 2719495
+        "outputBytes": 6527629
       },
       {
         "id": "animation",
@@ -63,9 +63,9 @@
         "src": "/media/home/animation.mp4",
         "srcMobile": "/media/home/animation-mobile.mp4",
         "poster": "/media/home/animation-poster.webp",
-        "width": 1920,
-        "height": 798,
-        "aspectRatio": 2.406,
+        "width": 2232,
+        "height": 928,
+        "aspectRatio": 2.4052,
         "color": {
           "L": 62.56,
           "a": 3.22,
@@ -73,7 +73,7 @@
         },
         "duration": 9.04,
         "sourceBytes": 17367625,
-        "outputBytes": 1322511
+        "outputBytes": 5826269
       },
       {
         "id": "animation4",
@@ -91,7 +91,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 8131225,
-        "outputBytes": 1339660
+        "outputBytes": 4052739
       },
       {
         "id": "kling-20251014-image-to-video-the-camer-5708-0",
@@ -109,7 +109,7 @@
         },
         "duration": 5.11,
         "sourceBytes": 8264248,
-        "outputBytes": 6642838
+        "outputBytes": 10902355
       },
       {
         "id": "rogerscorp-video-1",
@@ -117,9 +117,9 @@
         "src": "/media/home/rogerscorp-video-1.mp4",
         "srcMobile": "/media/home/rogerscorp-video-1-mobile.mp4",
         "poster": "/media/home/rogerscorp-video-1-poster.webp",
-        "width": 1920,
-        "height": 876,
-        "aspectRatio": 2.1918,
+        "width": 2132,
+        "height": 972,
+        "aspectRatio": 2.1934,
         "color": {
           "L": 60.69,
           "a": -0.86,
@@ -127,7 +127,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 753228636,
-        "outputBytes": 1025953
+        "outputBytes": 3230149
       },
       {
         "id": "rogerscorp-video-4",
@@ -145,7 +145,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 10397891,
-        "outputBytes": 2153096
+        "outputBytes": 5155543
       }
     ]
   },
@@ -472,7 +472,7 @@
           },
           "duration": 9.04,
           "sourceBytes": 17367625,
-          "outputBytes": 1322511
+          "outputBytes": 3817261
         },
         {
           "id": "10",
@@ -490,7 +490,7 @@
           },
           "duration": 9.04,
           "sourceBytes": 18716421,
-          "outputBytes": 2991508
+          "outputBytes": 7022468
         },
         {
           "id": "11",
@@ -508,7 +508,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 6451563,
-          "outputBytes": 766443
+          "outputBytes": 2047945
         }
       ]
     },
@@ -2457,7 +2457,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 8131225,
-          "outputBytes": 1339660
+          "outputBytes": 4052739
         },
         {
           "id": "12",
@@ -2475,7 +2475,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 4377806,
-          "outputBytes": 570081
+          "outputBytes": 1508532
         }
       ]
     },
@@ -4234,7 +4234,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 15827076,
-          "outputBytes": 2719495
+          "outputBytes": 6527629
         },
         {
           "id": "9",
@@ -4252,7 +4252,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 8684681,
-          "outputBytes": 1174441
+          "outputBytes": 3108839
         },
         {
           "id": "10",
@@ -4270,7 +4270,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 12689380,
-          "outputBytes": 1420089
+          "outputBytes": 3652993
         }
       ]
     },
@@ -4888,7 +4888,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 15718832,
-          "outputBytes": 2572496
+          "outputBytes": 6340281
         }
       ]
     },
@@ -5289,7 +5289,7 @@
           },
           "duration": 5.11,
           "sourceBytes": 4069446,
-          "outputBytes": 3046406
+          "outputBytes": 4853676
         }
       ]
     },
@@ -5783,7 +5783,7 @@
           },
           "duration": 5.15,
           "sourceBytes": 5268016,
-          "outputBytes": 4212854
+          "outputBytes": 6444795
         },
         {
           "id": "5",
@@ -5801,7 +5801,7 @@
           },
           "duration": 8.12,
           "sourceBytes": 1250961,
-          "outputBytes": 451211
+          "outputBytes": 1058729
         }
       ]
     },
@@ -6140,7 +6140,7 @@
           },
           "duration": 5.11,
           "sourceBytes": 8264248,
-          "outputBytes": 6642838
+          "outputBytes": 10902355
         }
       ]
     },
@@ -7104,7 +7104,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 5402346,
-          "outputBytes": 736723
+          "outputBytes": 1862541
         }
       ]
     },
@@ -7407,7 +7407,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 3372409,
-          "outputBytes": 455524
+          "outputBytes": 1169510
         }
       ]
     },

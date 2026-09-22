@@ -31,8 +31,8 @@ const IMAGE_WIDTHS = [640, 1280, 1920, 2560];
 const IMAGE_QUALITY = 78;
 
 /** Filmy sa tlem/petla - dzwiek jest zbedny, a bez niego plik jest wyraznie lzejszy. */
-const VIDEO_MAX_WIDTH = 1920;
-const VIDEO_CRF = 24;
+const VIDEO_MAX_WIDTH = 2560;
+const VIDEO_CRF = 18;
 
 /**
  * Osobny, lzejszy wariant na telefon. Kadr 1920 px trzeba tam i tak zmniejszyc do
@@ -40,7 +40,7 @@ const VIDEO_CRF = 24;
  * przy dwoch filmach naraz (hero podmienia ujecia) bylo to widoczne golym okiem.
  */
 const VIDEO_MOBILE_WIDTH = 900;
-const VIDEO_MOBILE_CRF = 26;
+const VIDEO_MOBILE_CRF = 22;
 
 /** ffmpeg z wingeta nie trafia do PATH kazdej powloki, wiec szukamy go tez recznie. */
 function resolveFfmpegBin(name) {
