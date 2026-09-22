@@ -683,6 +683,18 @@
         "1.jpg"
       ],
       "videos": []
+    },
+    {
+      "slug": "katowice",
+      "title": "KATOWICE",
+      "sourceDir": "PROJECTS/KATOWICE",
+      "client": "",
+      "date": "",
+      "info": "",
+      "images": [
+        "Rog-ulicy-Pocztowej-i-Mlynskiej.jpg"
+      ],
+      "videos": []
     }
   ]
 }

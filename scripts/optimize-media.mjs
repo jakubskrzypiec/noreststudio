@@ -292,9 +292,100 @@ async function processDir(srcDir, outSubdir, label) {
   return { images, videos };
 }
 
+/** "CLIENT FOO" / "DATE 01.02.2026" z pliku tekstowego opisu -> {client, date}. */
+function parseDescription(text) {
+  let client;
+  let date;
+  for (const line of text.split(/\r?\n/)) {
+    const c = line.match(/^CLIENT\s+(.+)$/i);
+    if (c) client = c[1].trim();
+    const d = line.match(/^DATE\s+(.+)$/i);
+    if (d) date = d[1].trim();
+  }
+  return { client, date };
+}
+
+/**
+ * Samoobsluga klienta: dopasowuje data/projects.json do tego, co faktycznie
+ * lezy w PROJECTS/. Nowy folder (wrzucony np. przez GitHub Desktop) dostaje
+ * wpis w liscie sam, bez recznej edycji JSON-a - to jedyny krok, ktory
+ * wczesniej trzeba bylo robic osobno.
+ *
+ * Zasady:
+ *  - Nowy folder -> nowy wpis (tytul = nazwa folderu, opis z pliku .txt jesli jest).
+ *  - Istniejacy projekt -> liste images/videos odswiezamy zawsze (ktos mogl
+ *    dolozyc zdjecia); client/date nadpisujemy TYLKO gdy w folderze faktycznie
+ *    lezy plik .txt z opisem - inaczej zostaje to, co juz bylo w JSON-ie
+ *    (dla starych projektow, ktorych opisy juz wklejono i pliki .txt usunieto).
+ */
+async function syncProjectsFromDisk(projectsFile) {
+  const PROJECTS_DIR = path.join(ROOT, "PROJECTS");
+  if (!existsSync(PROJECTS_DIR)) return;
+
+  const foldery = (await readdir(PROJECTS_DIR, { withFileTypes: true }))
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name)
+    .sort(naturalSort);
+
+  const bySourceDir = new Map(projectsFile.projects.map((p) => [p.sourceDir.replace(/\\/g, "/"), p]));
+  let zmieniono = false;
+
+  for (const nazwa of foldery) {
+    const sourceDir = `PROJECTS/${nazwa}`;
+    const absDir = path.join(PROJECTS_DIR, nazwa);
+    const pliki = (await readdir(absDir, { withFileTypes: true }))
+      .filter((e) => e.isFile())
+      .map((e) => e.name)
+      .sort(naturalSort);
+
+    const opisPlik = pliki.find((f) => f.toLowerCase().endsWith(".txt"));
+    const opis = opisPlik ? parseDescription(await readFile(path.join(absDir, opisPlik), "utf8")) : {};
+
+    const images = pliki.filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()));
+    const videos = pliki.filter((f) => VIDEO_EXT.has(path.extname(f).toLowerCase()));
+
+    const istniejacy = bySourceDir.get(sourceDir);
+    if (!istniejacy) {
+      projectsFile.projects.push({
+        slug: slugify(nazwa),
+        title: nazwa,
+        sourceDir,
+        client: opis.client ?? "",
+        date: opis.date ?? "",
+        info: "",
+        images,
+        videos,
+      });
+      zmieniono = true;
+      console.log(`  [auto] nowy projekt wykryty w PROJECTS/: ${nazwa}`);
+      continue;
+    }
+
+    if (JSON.stringify(istniejacy.images) !== JSON.stringify(images) ||
+        JSON.stringify(istniejacy.videos) !== JSON.stringify(videos)) {
+      istniejacy.images = images;
+      istniejacy.videos = videos;
+      zmieniono = true;
+      console.log(`  [auto] odswiezono liste plikow: ${nazwa}`);
+    }
+    if (opisPlik && (istniejacy.client !== (opis.client ?? "") || istniejacy.date !== (opis.date ?? ""))) {
+      istniejacy.client = opis.client ?? "";
+      istniejacy.date = opis.date ?? "";
+      zmieniono = true;
+      console.log(`  [auto] odswiezono opis (CLIENT/DATE): ${nazwa}`);
+    }
+  }
+
+  if (zmieniono) {
+    await writeFile(path.join(ROOT, "data", "projects.json"), JSON.stringify(projectsFile, null, 2) + "\n");
+  }
+}
+
 async function main() {
   const projectsFile = JSON.parse(await readFile(path.join(ROOT, "data", "projects.json"), "utf8"));
   await mkdir(OUT_DIR, { recursive: true });
+
+  await syncProjectsFromDisk(projectsFile);
 
   const manifest = { generatedAt: new Date().toISOString(), home: null, projects: {} };
 

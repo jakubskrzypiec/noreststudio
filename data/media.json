@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T10:29:51.586Z",
+  "generatedAt": "2026-09-22T11:13:10.135Z",
   "home": {
     "images": [],
     "videos": [
@@ -9354,6 +9354,62 @@
             }
           ],
           "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABQBACdASoUAAwAPu1iqU2ppaOiMAgBMB2JYgCdMoR4GCGvTGfd1GBiTVdAAP6+RUVvDX4Dl4Gtdr/FYfBHTkAIrdC2sV3UYeF1lecSAeEsf8SvrGbGFYl1XN1jcOIHXS16g8hh2AGkbDB4gAA="
+        }
+      ],
+      "videos": []
+    },
+    "test-samoobslugi": {
+      "images": [
+        {
+          "id": "1",
+          "sourceFile": "1.jpg",
+          "width": 1200,
+          "height": 800,
+          "aspectRatio": 1.5,
+          "color": {
+            "L": 0,
+            "a": 0,
+            "b": 0
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/test-samoobslugi/1-640.webp"
+            },
+            {
+              "width": 1200,
+              "src": "/media/projects/test-samoobslugi/1-1200.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAgCdASoUAA0APu1iqU2ppaOiMAgBMB2JaQAAt6gAAP7xRIAAAA=="
+        }
+      ],
+      "videos": []
+    },
+    "katowice": {
+      "images": [
+        {
+          "id": "rog-ulicy-pocztowej-i-mlynskiej",
+          "sourceFile": "Rog-ulicy-Pocztowej-i-Mlynskiej.jpg",
+          "width": 728,
+          "height": 540,
+          "aspectRatio": 1.3481,
+          "color": {
+            "L": 60.62,
+            "a": -0.85,
+            "b": -3.4
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/katowice/rog-ulicy-pocztowej-i-mlynskiej-640.webp"
+            },
+            {
+              "width": 728,
+              "src": "/media/projects/katowice/rog-ulicy-pocztowej-i-mlynskiej-728.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABQBACdASoUAA8APu1iqU2ppaOiMAgBMB2JYwCdH8ADBt/p1fx8bn6aZETAAP6xaUCjV3ApJfrce0skYYvKfsNuFik+TR1Q7UiFqDXt/LJfueOw7OP2I6wdd96xJouaXuGrEqxDMGKEraJuRDhnQepQhMCgAA=="
         }
       ],
       "videos": []
