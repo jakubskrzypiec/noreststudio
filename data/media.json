@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T10:29:51.586Z",
+  "generatedAt": "2026-09-22T13:03:13.957Z",
   "home": {
     "images": [],
     "videos": [
@@ -94,22 +94,22 @@
         "outputBytes": 1339660
       },
       {
-        "id": "kling-20251014-image-to-video-the-camer-5708-0",
-        "sourceFile": "kling_20251014_Image_to_Video_The__camer_5708_0.avi",
-        "src": "/media/home/kling-20251014-image-to-video-the-camer-5708-0.mp4",
-        "srcMobile": "/media/home/kling-20251014-image-to-video-the-camer-5708-0-mobile.mp4",
-        "poster": "/media/home/kling-20251014-image-to-video-the-camer-5708-0-poster.webp",
+        "id": "kling-20251014-sirene-poprawiony",
+        "sourceFile": "kling-20251014-sirene-poprawiony.mp4",
+        "src": "/media/home/kling-20251014-sirene-poprawiony.mp4",
+        "srcMobile": "/media/home/kling-20251014-sirene-poprawiony-mobile.mp4",
+        "poster": "/media/home/kling-20251014-sirene-poprawiony-poster.webp",
         "width": 1920,
         "height": 1080,
         "aspectRatio": 1.7778,
         "color": {
-          "L": 59.93,
-          "a": 3.21,
-          "b": 7.63
+          "L": 60.23,
+          "a": 3.52,
+          "b": 8.13
         },
-        "duration": 5.11,
-        "sourceBytes": 8264248,
-        "outputBytes": 6642838
+        "duration": 7.93,
+        "sourceBytes": 7820725,
+        "outputBytes": 6138245
       },
       {
         "id": "rogerscorp-video-1",
@@ -6126,7 +6126,7 @@
       "videos": [
         {
           "id": "2",
-          "sourceFile": "2.avi",
+          "sourceFile": "2.mp4",
           "src": "/media/projects/sirene/2.mp4",
           "srcMobile": "/media/projects/sirene/2-mobile.mp4",
           "poster": "/media/projects/sirene/2-poster.webp",
@@ -6134,13 +6134,13 @@
           "height": 1080,
           "aspectRatio": 1.7778,
           "color": {
-            "L": 59.93,
-            "a": 3.21,
-            "b": 7.63
+            "L": 60.23,
+            "a": 3.52,
+            "b": 8.13
           },
-          "duration": 5.11,
-          "sourceBytes": 8264248,
-          "outputBytes": 6642838
+          "duration": 7.93,
+          "sourceBytes": 7820725,
+          "outputBytes": 6138245
         }
       ]
     },
