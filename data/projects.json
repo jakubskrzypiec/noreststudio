@@ -671,6 +671,18 @@
         "15.jpg"
       ],
       "videos": []
+    },
+    {
+      "slug": "test-samoobslugi",
+      "title": "TEST SAMOOBSLUGI",
+      "sourceDir": "PROJECTS/TEST SAMOOBSLUGI",
+      "client": "TEST KLIENT",
+      "date": "22.09.2026",
+      "info": "",
+      "images": [
+        "1.jpg"
+      ],
+      "videos": []
     }
   ]
 }
