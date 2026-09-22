@@ -43,24 +43,6 @@
       "videos": []
     },
     {
-      "slug": "8a-harrier",
-      "title": "8A HARRIER",
-      "sourceDir": "PROJECTS/8A HARRIER",
-      "client": "",
-      "date": "",
-      "info": "",
-      "images": [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg"
-      ],
-      "videos": []
-    },
-    {
       "slug": "93-central-rode",
       "title": "93 CENTRAL RODE",
       "sourceDir": "PROJECTS/93 CENTRAL RODE",
@@ -207,23 +189,6 @@
         "2.jpg",
         "3.jpg",
         "4.jpg"
-      ],
-      "videos": []
-    },
-    {
-      "slug": "hattriet",
-      "title": "HATTRIET",
-      "sourceDir": "PROJECTS/HATTRIET",
-      "client": "",
-      "date": "",
-      "info": "",
-      "images": [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpg",
-        "5.jpg",
-        "6.jpg"
       ],
       "videos": []
     },
