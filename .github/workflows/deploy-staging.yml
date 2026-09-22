@@ -52,9 +52,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # Bez `environment: github-pages` - to srodowisko ma domyslnie regule
+    # "tylko galaz main", a to jest workflow specjalnie do testow na innej
+    # galezi. Publikacja i tak trafia pod ten sam adres staging.
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
