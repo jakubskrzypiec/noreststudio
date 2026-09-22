@@ -5,20 +5,41 @@
       "slug": "13-st-killda",
       "title": "13 ST KILLDA",
       "sourceDir": "PROJECTS/13 ST KILLDA",
-      "client": "",
-      "date": "",
+      "client": "STUDIO WORKSSHOP",
+      "date": "20.04.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","9.jpg","12.png","13.jpg"],
-      "videos": ["8.mp4","10.mp4","11.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "9.jpg",
+        "12.png",
+        "13.jpg"
+      ],
+      "videos": [
+        "8.mp4",
+        "10.mp4",
+        "11.mp4"
+      ]
     },
     {
       "slug": "500-fifth-ave",
       "title": "500 FIFTH AVE",
       "sourceDir": "PROJECTS/500 FIFTH AVE",
-      "client": "",
-      "date": "",
+      "client": "MARK GARDNER",
+      "date": "16.05.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","4.jpg","5.jpg","6.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg"
+      ],
       "videos": []
     },
     {
@@ -28,87 +49,165 @@
       "client": "",
       "date": "",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "93-central-rode",
       "title": "93 CENTRAL RODE",
       "sourceDir": "PROJECTS/93 CENTRAL RODE",
-      "client": "",
-      "date": "",
+      "client": "IPM PROPERTY",
+      "date": "11.01.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "bal-harbour",
       "title": "BAL HARBOUR",
       "sourceDir": "PROJECTS/BAL HARBOUR",
-      "client": "",
-      "date": "",
+      "client": "FOCL HOLDINGS",
+      "date": "16.01.2024",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "beaconsfield",
       "title": "BEACONSFIELD",
       "sourceDir": "PROJECTS/BEACONSFIELD",
-      "client": "",
-      "date": "",
+      "client": "ROGERSCORP",
+      "date": "02.01.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg","13.jpg","14.jpg","15.jpg","16.jpg","17.jpg","18.jpg","19.jpg","20.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg",
+        "16.jpg",
+        "17.jpg",
+        "18.jpg",
+        "19.jpg",
+        "20.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "brzegowa",
       "title": "BRZEGOWA",
       "sourceDir": "PROJECTS/BRZEGOWA",
-      "client": "",
-      "date": "",
+      "client": "BRZEGOWA RESIDENCE",
+      "date": "08.01.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "cs-development",
       "title": "CS DEVELOPMENT",
       "sourceDir": "PROJECTS/CS DEVELOPMENT",
-      "client": "",
-      "date": "",
+      "client": "CS DEVELOPMENT",
+      "date": "02.07.2024",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "donkin-st",
       "title": "DONKIN ST",
       "sourceDir": "PROJECTS/DONKIN ST",
-      "client": "",
-      "date": "",
+      "client": "HAPANDCO",
+      "date": "02.02.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg"],
-      "videos": ["11.mp4","12.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
+      "videos": [
+        "11.mp4",
+        "12.mp4"
+      ]
     },
     {
       "slug": "duncan-st",
       "title": "DUNCAN ST",
       "sourceDir": "PROJECTS/DUNCAN ST",
-      "client": "",
-      "date": "",
+      "client": "ZEN GROUP",
+      "date": "02.02.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "harbour",
       "title": "HARBOUR",
       "sourceDir": "PROJECTS/HARBOUR",
-      "client": "",
-      "date": "",
+      "client": "HARBOUR PTLD",
+      "date": "02.07.2024",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg"
+      ],
       "videos": []
     },
     {
@@ -118,177 +217,459 @@
       "client": "",
       "date": "",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "james",
       "title": "JAMES",
       "sourceDir": "PROJECTS/JAMES",
-      "client": "",
-      "date": "",
+      "client": "TALLOW PROPERTY",
+      "date": "02.02.2024",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "jefferson-reno",
       "title": "JEFFERSON RENO",
       "sourceDir": "PROJECTS/JEFFERSON RENO",
-      "client": "",
-      "date": "",
+      "client": "STUDIO WORKSHOP",
+      "date": "02.07.2025",
       "info": "",
-      "images": ["1.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","22.jpg"],
+      "images": [
+        "1.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "22.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "labrador",
       "title": "LABRADOR",
       "sourceDir": "PROJECTS/LABRADOR",
-      "client": "",
-      "date": "",
+      "client": "ROGERSCORP",
+      "date": "02.01.2025",
       "info": "",
-      "images": ["1.png","2.png","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","8.png","9.jpg","10.jpg","11.jpg","12.jpg","13.jpg","14.jpg","15.jpg"],
+      "images": [
+        "1.png",
+        "2.png",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "8.png",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "lilo",
       "title": "LILO",
       "sourceDir": "PROJECTS/LILO",
-      "client": "",
-      "date": "",
+      "client": "HAPANDCO",
+      "date": "02.05.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg"],
-      "videos": ["8.mp4","9.mp4","10.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "videos": [
+        "8.mp4",
+        "9.mp4",
+        "10.mp4"
+      ]
     },
     {
       "slug": "m59",
       "title": "M59",
       "sourceDir": "PROJECTS/M59",
-      "client": "",
-      "date": "",
+      "client": "GVD",
+      "date": "02.02.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "marlin",
       "title": "MARLIN",
       "sourceDir": "PROJECTS/MARLIN",
-      "client": "",
-      "date": "",
+      "client": "MARLIN SUPERLEGERA",
+      "date": "02.07.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","9.jpg","10.jpg"],
-      "videos": ["8.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
+      "videos": [
+        "8.mp4"
+      ]
     },
     {
       "slug": "mogilany-district",
       "title": "MOGILANY DISTRICT",
       "sourceDir": "PROJECTS/MOGILANY DISTRICT",
-      "client": "",
-      "date": "",
+      "client": "SMAGA ARCHITEKCI",
+      "date": "02.08.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "nlee-out",
       "title": "NLEE OUT",
       "sourceDir": "PROJECTS/NLEE OUT",
-      "client": "",
-      "date": "",
+      "client": "KILKEA LA LLC",
+      "date": "02.06.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg"],
-      "videos": ["10.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg"
+      ],
+      "videos": [
+        "10.mp4"
+      ]
     },
     {
       "slug": "oakride",
       "title": "OAKRIDE",
       "sourceDir": "PROJECTS/OAKRIDE",
-      "client": "",
-      "date": "",
+      "client": "NIVEN PAVILION TRUST",
+      "date": "01.09.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","11.jpg","AMENITY 1.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "AMENITY 1.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "oatland",
       "title": "OATLAND",
       "sourceDir": "PROJECTS/OATLAND",
-      "client": "",
-      "date": "",
+      "client": "STUDIO WORKSHOP",
+      "date": "01.02.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg"],
-      "videos": ["4.avi","5.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg"
+      ],
+      "videos": [
+        "4.avi",
+        "5.mp4"
+      ]
     },
     {
       "slug": "sana",
       "title": "SANA",
       "sourceDir": "PROJECTS/SANA",
-      "client": "",
-      "date": "",
+      "client": "SUNCOAST BUILDING",
+      "date": "01.08.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "sirene",
       "title": "SIRENE",
       "sourceDir": "PROJECTS/SIRENE",
-      "client": "",
-      "date": "",
+      "client": "SBK",
+      "date": "01.07.2025",
       "info": "",
-      "images": ["1.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg"],
-      "videos": ["2.avi"]
+      "images": [
+        "1.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg"
+      ],
+      "videos": [
+        "2.avi"
+      ]
     },
     {
       "slug": "solara",
       "title": "SOLARA",
       "sourceDir": "PROJECTS/SOLARA",
-      "client": "",
-      "date": "",
+      "client": "KINGS BEACH",
+      "date": "01.07.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "tedder-ave",
       "title": "TEDDER AVE",
       "sourceDir": "PROJECTS/TEDDER AVE",
-      "client": "",
-      "date": "",
+      "client": "TEDDER AVE",
+      "date": "01.04.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","LIVING ROOM1.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "LIVING ROOM1.jpg"
+      ],
       "videos": []
     },
     {
       "slug": "the-alfred",
       "title": "THE ALFRED",
       "sourceDir": "PROJECTS/THE ALFRED",
-      "client": "",
-      "date": "",
+      "client": "ROGERSCORP",
+      "date": "01.02.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","25_Unit K Bathroom Robe Ensuite.jpg"],
-      "videos": ["4.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "25_Unit K Bathroom Robe Ensuite.jpg"
+      ],
+      "videos": [
+        "4.mp4"
+      ]
     },
     {
       "slug": "vela-south-port",
       "title": "VELA SOUTH PORT",
       "sourceDir": "PROJECTS/VELA SOUTH PORT",
-      "client": "",
-      "date": "",
+      "client": "ZEN GROUP",
+      "date": "01.05.2026",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","9.jpg","10.jpg"],
-      "videos": ["8.mp4"]
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
+      "videos": [
+        "8.mp4"
+      ]
     },
     {
       "slug": "wybickiego-1-0",
       "title": "WYBICKIEGO 1.0",
       "sourceDir": "PROJECTS/WYBICKIEGO 1.0",
-      "client": "",
-      "date": "",
+      "client": "GVD",
+      "date": "01.03.2025",
       "info": "",
-      "images": ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg"],
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "slug": "samantha",
+      "title": "SAMANTHA",
+      "sourceDir": "PROJECTS/SAMANTHA",
+      "client": "SAMATNHA BESPOKE",
+      "date": "02.07.2025",
+      "info": "",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "slug": "taringa",
+      "title": "TARINGA",
+      "sourceDir": "PROJECTS/TARINGA",
+      "client": "BIRCH DEVELOPMENT",
+      "date": "01.01.2024",
+      "info": "",
+      "images": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "slug": "zamoyskiego",
+      "title": "ZAMOYSKIEGO",
+      "sourceDir": "PROJECTS/ZAMOYSKIEGO",
+      "client": "GVD",
+      "date": "01.06.2024",
+      "info": "",
+      "images": [
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg",
+        "16.jpg",
+        "17.jpg",
+        "18.jpg"
+      ],
+      "videos": []
+    },
+    {
+      "slug": "zenit",
+      "title": "ZENIT",
+      "sourceDir": "PROJECTS/ZENIT",
+      "client": "GVD",
+      "date": "01.02.2024",
+      "info": "",
+      "images": [
+        "1.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg"
+      ],
       "videos": []
     }
   ]

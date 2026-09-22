@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T22:10:25.411Z",
+  "generatedAt": "2026-09-22T10:29:51.586Z",
   "home": {
     "images": [],
     "videos": [
@@ -7722,6 +7722,1638 @@
             }
           ],
           "blurDataURL": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAABQBQCdASoUABgAPu1ur1IppiQiqAgBMB2JYgCdMtpBXAYAHWZsODGLNb4OeVdtLD38kYAA/nwlRj3kd7bJD08jquuZNnpbL/J1JsVVNxYgCN7HmEK6my4uOYtOLLPAL7pu9FhQKdsGmO60aM0auVTx78Slr69kHN7XGZ5OBw5VJ2/gnUjnIJz9o+FtH5AQs0eogPZ9jWggvyY4AAA="
+        }
+      ],
+      "videos": []
+    },
+    "samantha": {
+      "images": [
+        {
+          "id": "1",
+          "sourceFile": "1.jpg",
+          "width": 4500,
+          "height": 3375,
+          "aspectRatio": 1.3333,
+          "color": {
+            "L": 70.22,
+            "a": -3.59,
+            "b": 3.23
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/1-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/1-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/1-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/1-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoUAA8APu1iqU2ppaOiMAgBMB2JQBdgBH2orx1WS/9bLy3TAAD+366+0AcUJfSPEVna80HYlfkGZG4wNpuqZPOPBBa2pjw2dJP1tmuqYncwncLbpgkn2WFlTsXDxX8CR3yntM0NoPUi3Sj0Q+H0AAAA"
+        },
+        {
+          "id": "2",
+          "sourceFile": "2.jpg",
+          "width": 5000,
+          "height": 4082,
+          "aspectRatio": 1.2249,
+          "color": {
+            "L": 58.13,
+            "a": -6.62,
+            "b": -2.74
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/2-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/2-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/2-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/2-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQBACdASoUABAAPu1iqU2ppaOiMAgBMB2JQBOgBFS0xoGkvedFZ44wIAD+xW9JYSzMeH3JI73cILKaYYjzmNazpvL7+qOPCt4TUSXHGriNttfCqdvC4t0tceS3h3ybwRdiAkNS45qSTElTnEBWLwAA"
+        },
+        {
+          "id": "3",
+          "sourceFile": "3.jpg",
+          "width": 4500,
+          "height": 4160,
+          "aspectRatio": 1.0817,
+          "color": {
+            "L": 58.86,
+            "a": -5.13,
+            "b": -0.22
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/3-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/3-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/3-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/3-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAADQBACdASoUABMAPu1urlIppiQiqAgBMB2JYwCo9A3xcMgTylTAD93sEdWa3NsKgAD+6pbWuZ8RpI0B9XkDNCXA2ZHBaWrlb5FqDAWkQ15fsZT3QKUG71x/a9oa8Y7h+9MvxrLpHZgiHp8UrNBnEmfDar9AxqXjVIJUeIG7rAHKjaZzOHJVd7sXMAA="
+        },
+        {
+          "id": "4",
+          "sourceFile": "4.jpg",
+          "width": 5000,
+          "height": 3070,
+          "aspectRatio": 1.6287,
+          "color": {
+            "L": 66.11,
+            "a": -1.57,
+            "b": -6.8
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/4-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/4-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/4-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/4-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAwCdASoUAAwAPu1kqU4ppaOiMAgBMB2JYwCw7CHMuH9VR962/AAA/rISv1M1j6x5M345TaOhzScLth6kVkO1dcMUHV4cach8sODzhiJJobMRGDPwAA=="
+        },
+        {
+          "id": "5",
+          "sourceFile": "5.jpg",
+          "width": 5000,
+          "height": 2740,
+          "aspectRatio": 1.8248,
+          "color": {
+            "L": 75.7,
+            "a": 0.32,
+            "b": 2.88
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/5-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/5-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/5-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/5-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBACdASoUAAsAPu1iqU2ppaQiMAgBMB2JZQDG9CKqBY5wfjjSJtteAAD+w9tZdyoYRaZrexPdoyHfTM00vmflKupJ8DntE51ybKLm7mWUOxT5zQHjZTwhWVtwlAAA"
+        },
+        {
+          "id": "6",
+          "sourceFile": "6.jpg",
+          "width": 5000,
+          "height": 3628,
+          "aspectRatio": 1.3782,
+          "color": {
+            "L": 78.2,
+            "a": 0.52,
+            "b": 4.46
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/6-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/6-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/6-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/6-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoUAA4APu1iqU2ppaOiMAgBMB2JZQDG9CHc6Q/08YOgouu3wAD+6nrvhf0OUh7jgBAjkdFGz+m0z+Dl0Q7JsB5wY0tqrRfYguZ1QrJ8GBbMxl+l84YgE9xt5X5KC0XegAA="
+        },
+        {
+          "id": "7",
+          "sourceFile": "7.jpg",
+          "width": 5000,
+          "height": 2896,
+          "aspectRatio": 1.7265,
+          "color": {
+            "L": 81.94,
+            "a": 0.79,
+            "b": 5.69
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/7-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/7-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/7-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/7-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAwCdASoUAAwAPu1iqU2ppaOiMAgBMB2JZQCAAAiooRBRYe1pq9EAAP7uGz2LCaEVggXEi3MlMWwKkttdPPK5tGqraFNjVorBbS6H9mEtKHTL1td41XqD3hjxAAAA"
+        },
+        {
+          "id": "8",
+          "sourceFile": "8.jpg",
+          "width": 5000,
+          "height": 2771,
+          "aspectRatio": 1.8044,
+          "color": {
+            "L": 74.19,
+            "a": -0.76,
+            "b": -0.13
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/samantha/8-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/samantha/8-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/samantha/8-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/samantha/8-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JaQAAVHe/c2DYcfC2gAD+to0nhom5m7HGJ2aneWZFXV8s37gEUZ7KG/201qUcmPf7l8IiLrI/hltXjouBfDuQ2WDsYvCAAAA="
+        }
+      ],
+      "videos": []
+    },
+    "taringa": {
+      "images": [
+        {
+          "id": "1",
+          "sourceFile": "1.jpg",
+          "width": 5500,
+          "height": 1978,
+          "aspectRatio": 2.7806,
+          "color": {
+            "L": 64.94,
+            "a": 0.04,
+            "b": 4.54
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/1-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/1-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/1-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/1-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACwAwCdASoUAAcAPu1iqU2ppaQiMAgBMB2JZwDE2B6DRk5T/8w4wAD82XluSpk3sORl++SfktMpPyKjpYem6hfsKu0XKqyMkCygEqKowt/S+dl6ajfw/AnM3pv+f95WjSy6bWAA"
+        },
+        {
+          "id": "2",
+          "sourceFile": "2.jpg",
+          "width": 4800,
+          "height": 4724,
+          "aspectRatio": 1.0161,
+          "color": {
+            "L": 59.39,
+            "a": -0.86,
+            "b": 6.29
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/2-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/2-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/2-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/2-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAABQBQCdASoUABQAPu1ur1KppiQiqAgBMB2JYwDImYxsZ8fMznMQLte46H5vh6+Sc2HrmAAA/rQJPwcja7kDweccQGjNjAELRegIPAoafHW+LSTIeDVYOk0OMYDjxM3jcHnEAjvdppGesq4rxDOaU/LHnR2HM2dsdz87a1qlPnGS7j0mU9L+slst3qYNu4wHTtplgz3HhgJ+B6pSRPX8X4ow9B6a3cSz+XryF7p3PMHbVcyhAXBVrDdMQAA="
+        },
+        {
+          "id": "3",
+          "sourceFile": "3.jpg",
+          "width": 3502,
+          "height": 4000,
+          "aspectRatio": 0.8755,
+          "color": {
+            "L": 62.67,
+            "a": -0.54,
+            "b": 7.83
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/3-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/3-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/3-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/3-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAACwBQCdASoUABcAPu1ur1IppiQiqAgBMB2JZQC7Ad0jgdLiUB6b4cr/XfBHoI5L5ufcxzvAwuAA8oUnhnuu5gcLHxKU0jz0bxshUvQgQve9WTnGtcNLd44oDtPveeEaO6zHc4UKQF+/XXT8D19QLB2XVsPfHQsr9tmrTLqKcFmcjeW50Ak8R8pPUH3/eW10Q7QMOTjHmQUYCBGD2TEYhLBcoUpVMGKs46hRVuq2b+AHDf1j9718dBz62cjfBeD7kGalYGBqt5CSXmK3flOgXoyY6XSgAA=="
+        },
+        {
+          "id": "4",
+          "sourceFile": "4.jpg",
+          "width": 2717,
+          "height": 4000,
+          "aspectRatio": 0.6793,
+          "color": {
+            "L": 55.68,
+            "a": -2.57,
+            "b": 6.75
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/4-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/4-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/4-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/4-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4IOgAAADQBQCdASoUAB0APu1qrlCppaQiqAqpMB2JZQDGfzAoYAZWq0ORYKh9YqZtwOZlnHlh46iWhaAAAM47ACA6gG/56AGilttW3KAcpML46HUXIrg290rypaUgVI5DWi9F0IlWpsVUVP80fMyy9Mor8aCYhXuCH9J6vNdMQK4VbFuzu1yt6QgtAOWsakWWQYuMr+oWgIDZtO3RwdpW4NRcrlCXjtnCJBfVmW3NIUklHp8bTyaNSec35W6u9Yr6pGumMjAj/la4YqxBJ77YUN0RBRdsFcCxU0KJlcwL2qxCA1FsKLQDnOckAAAA"
+        },
+        {
+          "id": "5",
+          "sourceFile": "5.jpg",
+          "width": 4299,
+          "height": 2260,
+          "aspectRatio": 1.9022,
+          "color": {
+            "L": 72.95,
+            "a": 0.3,
+            "b": 7.08
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/5-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/5-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/5-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/5-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JYwCdAB6UQM9RJGp7q3TAAP7I5TLGxSByP3RHbv63DX28LNRxoA0tJ+oJvChWAOF00DcGzpbB6/Cj7wviOoUxhlhqA/cPvPOOupaq0XleEjmMt5cHl5tUAAA="
+        },
+        {
+          "id": "6",
+          "sourceFile": "6.jpg",
+          "width": 4000,
+          "height": 2220,
+          "aspectRatio": 1.8018,
+          "color": {
+            "L": 78.6,
+            "a": 0.68,
+            "b": 7.04
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/6-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/6-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/6-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/6-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JYwC06CHwXn2EJICPkIAAAP7qe4ZHVY2f5MnY/o1LT3lb1TiGdvnJgICs3d5Sv7QQlUpSUzyZeNWrkVVfstlgYDI/Mnx72uDLzlU0EYAAAA=="
+        },
+        {
+          "id": "7",
+          "sourceFile": "7.jpg",
+          "width": 4000,
+          "height": 2184,
+          "aspectRatio": 1.8315,
+          "color": {
+            "L": 72.54,
+            "a": 3.43,
+            "b": 10.28
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/7-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/7-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/7-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/7-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JZQCw7B9SRyrDCXH44wAAAP7Ib6up1q85CP+rUxHwTh1Wmx8LZ2aoaR21yDDJKR+N3C4MpuAXiUSYq1TLR/MxA1UWVoDqZnoEgIn0lUkC7r8G+tSNigGhwAA="
+        },
+        {
+          "id": "8",
+          "sourceFile": "8.jpg",
+          "width": 4000,
+          "height": 3473,
+          "aspectRatio": 1.1517,
+          "color": {
+            "L": 74.86,
+            "a": 1.17,
+            "b": 8.85
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/8-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/8-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/8-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/8-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACwBACdASoUABEAPu1sq1EppiOiqAqpMB2JZQDKABElG6VbUtWC6ttvGiJvHYpgAP7ehRtQg2m6643C4UK/UBx7bBjDw4CIuVcIWC+uilyudkp21fx+nIZzUXsHplUpT7U64Stlc9IgXEm4Jg+xqQcAAAA="
+        },
+        {
+          "id": "9",
+          "sourceFile": "9.jpg",
+          "width": 4000,
+          "height": 3040,
+          "aspectRatio": 1.3158,
+          "color": {
+            "L": 76.12,
+            "a": 1.23,
+            "b": 9.35
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/9-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/9-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/9-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/9-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAwBACdASoUAA8APu1iqU2ppaOiMAgBMB2JYwCw7B6Xke3thMWnYO/bObgA/pCa9XChGW7AyVIlgcWRIfbOpulvVIrqfxt2uHUmj2JLBS6TbdtgwgUHRVPdP/wspQfsoyz4JnvPK1bWQXaqLQVRmLwAAAA="
+        },
+        {
+          "id": "10",
+          "sourceFile": "10.jpg",
+          "width": 4000,
+          "height": 2718,
+          "aspectRatio": 1.4717,
+          "color": {
+            "L": 75.71,
+            "a": -0.54,
+            "b": 6.67
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/10-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/10-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/10-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/10-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAQBACdASoUAA4APu1iqU2ppaOiMAgBMB2JZwDCgB6W2aJRkBsMQnLpAAD+5942KAjZwn/pZX003wRJEEXAQ5SaHI8rzn62FrMVVPXdTC1Dtf7nF59mRZP57d6yCG/Ra8D788a2wT3V0tBnzzVwrIXJfa5a8fDS40AAAA=="
+        },
+        {
+          "id": "11",
+          "sourceFile": "11.jpg",
+          "width": 4000,
+          "height": 2902,
+          "aspectRatio": 1.3784,
+          "color": {
+            "L": 73.02,
+            "a": 0.11,
+            "b": 6.33
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/11-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/11-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/11-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/11-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQAwCdASoUAA4APu1iqU2ppaOiMAgBMB2JYwC2yCG3fxOtym1axsAA/uct7IumbzUBRX5y6bB/zrn/N5K0uwXuPjpWpuz5+HqKot7Jr/+09khsIZl5JPu0vGRE+TokgJB3NTM8vGW1XMk+QUlGQZrfkE0EzGSkhKOxz+oAAAA="
+        },
+        {
+          "id": "12",
+          "sourceFile": "12.jpg",
+          "width": 4400,
+          "height": 2975,
+          "aspectRatio": 1.479,
+          "color": {
+            "L": 73.35,
+            "a": -0.26,
+            "b": 8.88
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/12-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/12-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/12-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/12-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwAwCdASoUAA0APu1iqU2ppaQiMAgBMB2JYwC/OB6Xepq5EI28f15QAP7ffmaYLvneSGGDywGVp4RQtj1hCQYHTEQ60SkQdwjGoJRo7DAYGr3G7PjVvzRcuu9nlPU/1rdpcScVeToXe/LjL0Na3BRvQAA="
+        },
+        {
+          "id": "13",
+          "sourceFile": "13.jpg",
+          "width": 4400,
+          "height": 2975,
+          "aspectRatio": 1.479,
+          "color": {
+            "L": 56.06,
+            "a": 4.96,
+            "b": 14.06
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/taringa/13-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/taringa/13-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/taringa/13-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/taringa/13-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoUAA0APu1iqU2ppaOiMAgBMB2JQBOl4AA5J7ZGJP7PtZjKAAD2HtJBKKZ/SK+W9bA51uUnvij6xb4LpfCwyQiTeUdusKtHLLCSXmSDImv6yC3GwB+nFSZRj7xvJE5TE45vqWd/ttuR8aLkrBYRgAAA"
+        }
+      ],
+      "videos": []
+    },
+    "zamoyskiego": {
+      "images": [
+        {
+          "id": "2",
+          "sourceFile": "2.jpg",
+          "width": 5000,
+          "height": 3904,
+          "aspectRatio": 1.2807,
+          "color": {
+            "L": 59.69,
+            "a": -5.1,
+            "b": 7.12
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/2-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/2-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/2-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/2-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQAwCdASoUABAAPu1iqU2ppaOiMAgBMB2JQBUehDfKfiRtUEL7riAA/sXlgwsIr4nYwDm/kk37DT7ywQDQG8+iCv6/PrBQJQztZedqjH6vRZyyYfqHAAbRYaqPRoELflisdMKM3bweYns88LkzlQKg6qpKHBC3sAQbIVWAAAA="
+        },
+        {
+          "id": "3",
+          "sourceFile": "3.jpg",
+          "width": 4386,
+          "height": 2733,
+          "aspectRatio": 1.6048,
+          "color": {
+            "L": 49.1,
+            "a": -1.14,
+            "b": 4.4
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/3-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/3-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/3-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/3-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoUAAwAPu1iqU2ppaQiMAgBMB2JZwDKAB0/H9SKxBzAnG4AAAD+ycz7ylqm+JK/zioSDgYdOtI7cF+R56ln5qHu0BySupfWBE+FbPhnONRWvhGl3ztSmtH9XJQoA6GKvzqW7jz6WUAAAA=="
+        },
+        {
+          "id": "4",
+          "sourceFile": "4.jpg",
+          "width": 5000,
+          "height": 2724,
+          "aspectRatio": 1.8355,
+          "color": {
+            "L": 52.43,
+            "a": -2.49,
+            "b": -2.13
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/4-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/4-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/4-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/4-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAACwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwDCgBtnnfp9ACgWAAD+1LcolASGdFR6YAAHGc4F6DmDzCKH/DS/BFbm2plgKwd/uwJaAR7B7ZP+SavwksPB3Qgpm5bNcuAAAA=="
+        },
+        {
+          "id": "5",
+          "sourceFile": "5.jpg",
+          "width": 5000,
+          "height": 4230,
+          "aspectRatio": 1.182,
+          "color": {
+            "L": 56.38,
+            "a": -1.65,
+            "b": 2.56
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/5-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/5-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/5-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/5-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACwBACdASoUABEAPu1qr1AppaSiqAqpMB2JZwDLpBEcK5oR+US1wpxkPwPtc+cgAP7n9EuNFnz44ITdzmgiwaca+smWlBjVtyLj/0w0dCu4FmWCYSbs+o2mEAzFsMt+BllKlIVawHu0SfeR/RZwXUzrx6UuKaS932sHrb3MEbcTFBCzAAA="
+        },
+        {
+          "id": "6",
+          "sourceFile": "6.jpg",
+          "width": 5000,
+          "height": 4629,
+          "aspectRatio": 1.0801,
+          "color": {
+            "L": 48.9,
+            "a": -2.85,
+            "b": -5.1
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/6-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/6-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/6-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/6-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBQCdASoUABIAPu1urlKppiQiqAgBMB2JYwC/OA9o+HrqWlGrC8p0IC/bPeOXgBIgAP03VTsMIGB+xyG/3phEWz05Yys31Jf6CwQRVymP+HctYrDtjT/h2Isy7pG5AcabSl2nHeFi14C33qg7WyzK39t3Cs/Uw7dpRpkPXhOugqEZVTAAAA=="
+        },
+        {
+          "id": "7",
+          "sourceFile": "7.jpg",
+          "width": 4600,
+          "height": 4438,
+          "aspectRatio": 1.0365,
+          "color": {
+            "L": 58.28,
+            "a": -1.31,
+            "b": -2.91
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/7-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/7-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/7-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/7-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAAAQBQCdASoUABMAPu1eqU2ppKOiMBgMATAdiWMAvdAQ70z9kD84j8VeDRVHLYsTVFGAAP7UjGXZvZTiNLdOg9LgnrYqDbAHDH25bmGyl9Q4YK2UA9YSx46xH+Q38f1QlK5VBabh9nzVBnNYuQ2PcwBHK0GmczVo1VCMAEGtJdZwQfs0bdn4oIByVhjbu8LjyIzby5Y4xtsodB1vi58vF+kjLvQ1jCo5CwAAAA=="
+        },
+        {
+          "id": "8",
+          "sourceFile": "8.jpg",
+          "width": 6000,
+          "height": 4652,
+          "aspectRatio": 1.2898,
+          "color": {
+            "L": 54.64,
+            "a": -4.15,
+            "b": 4.86
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/8-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/8-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/8-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/8-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JYwCsACII3pv+nwcOK1UAAP63CT0N+3CjdvP7ePn8CLBloAHjjcFfyG6dvvbB1JWHidKLuwm9byl7z5X6pUQVxRIlsSiPhZcj5q4vPj40+XF+hmPrRPfTtKJZx6NE9AYjjNxxFe1RSAAA"
+        },
+        {
+          "id": "9",
+          "sourceFile": "9.jpg",
+          "width": 4000,
+          "height": 3850,
+          "aspectRatio": 1.039,
+          "color": {
+            "L": 48.07,
+            "a": 0.78,
+            "b": 5.28
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/9-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/9-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/9-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/9-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAADwBACdASoUABMAPu1urlIppiQiqAgBMB2JQBYj5fgwVGPl9I7c97ASBUcAqzCDo0AA8nPTyEC9Dd4Jnipw24r0805KtpgCU0xi29mdHlZyZH1VQMZNy+Nm1Ks4DOA0mEJghF/xN4pZOyq6rRSLvomZlqVTMV30SbIHJjmg5Y58x/m533gF/bQaZpACOLUR4mRVQoJjFw/B22LjJ1AAAAAA"
+        },
+        {
+          "id": "10",
+          "sourceFile": "10.jpg",
+          "width": 5480,
+          "height": 2897,
+          "aspectRatio": 1.8916,
+          "color": {
+            "L": 43.26,
+            "a": -3.89,
+            "b": 14.78
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/10-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/10-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/10-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/10-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JYgCsABtsfwLovLENRHQgAP7AUAK7P4fMC3p4fzgswRleqNha0LKmraBcQLDRZyPUSVIQHAVJ6ra8Q3mCqgDpshJYSKgoViOT7l9C7xCu6Vpghqq7T7OXLEMnanKKogAAAA=="
+        },
+        {
+          "id": "11",
+          "sourceFile": "11.jpg",
+          "width": 5000,
+          "height": 2805,
+          "aspectRatio": 1.7825,
+          "color": {
+            "L": 48.93,
+            "a": 2.6,
+            "b": 12.42
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/11-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/11-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/11-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/11-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JQBWABDabkKzqQhsO0AAA/q0+qvDcg1c+He2i8qWueUqevBX1mDRbHDu5bCSyUq6z5Rt64oBpF9UitVfZvQcz8AVZxXpU3wxPkSAufamOCb0pUeHSObwEUY6oAA=="
+        },
+        {
+          "id": "12",
+          "sourceFile": "12.jpg",
+          "width": 4000,
+          "height": 4769,
+          "aspectRatio": 0.8388,
+          "color": {
+            "L": 48.91,
+            "a": 2.66,
+            "b": 10.47
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/12-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/12-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/12-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/12-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAAAQBQCdASoUABgAPu1mqU2ppaQiMAgBMB2JYwCo9CHha1HEzgTJ5ls4f/Fgar8SmKxgAP7o2Y6gNyWiamaHm++2biwr+8IySTTR9VXcTCFNh0pvhNZKrl2sL72bjI73x/W03HFhgVLc4z9Qgi6ATMcLrA2WtEjjX1j7dZ4tauEaDjT7Vhv7eVyiSYZpfSS4Fkx3IfEXVUE4WnS13fSQAIVBXOrgk8OH1bC7EdKZgAA="
+        },
+        {
+          "id": "13",
+          "sourceFile": "13.jpg",
+          "width": 4000,
+          "height": 4859,
+          "aspectRatio": 0.8232,
+          "color": {
+            "L": 44.99,
+            "a": 0.23,
+            "b": 9.89
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/13-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/13-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/13-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/13-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAAAQBQCdASoUABgAPu1qrVCppaQiqAqpMB2JQBZwAiOu2ykMF6NDRharkKRCSi2BODkAAP7ukhZnaLwqb8sR+QHq0gvWolSdiyARsB1FW7OMCz80y8F/sAb4v93faqYMd2m+3moThKZsxhrU1LpEc0M+RQ9nvQ2Gi5T3Fu8KiUtMnvm9idvmt08vWcznbGngM55A/ssnTzQXRBSn5EV/5koDQXywU3aknXrxJlFCzB8RLmaHNSVikdyJaVj+sOA1GryLje45WpwAAA=="
+        },
+        {
+          "id": "14",
+          "sourceFile": "14.jpg",
+          "width": 1980,
+          "height": 1485,
+          "aspectRatio": 1.3333,
+          "color": {
+            "L": 51.24,
+            "a": 5.3,
+            "b": 15.6
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/14-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/14-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/14-1920.webp"
+            },
+            {
+              "width": 1980,
+              "src": "/media/projects/zamoyskiego/14-1980.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAwBACdASoUAA8APu1iqU2ppaOiMAgBMB2JQBOmUABCN62V9QmO/b6smIAA/kv8QrmW2XRFBg/bFSlYKElNkL7zsa3+f2uvuuSMf0HS4zSvB4x/iG0w1SnlVm8u6g7ZtDpxkEghHkjzTirM3KMZ3v9AplgCrHLmIXT1VvrUpQzJINmfS2TQYvpqUh/AAA=="
+        },
+        {
+          "id": "15",
+          "sourceFile": "15.jpg",
+          "width": 3200,
+          "height": 2137,
+          "aspectRatio": 1.4974,
+          "color": {
+            "L": 59.99,
+            "a": 2.86,
+            "b": 10.04
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/15-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/15-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/15-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/15-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAACwAwCdASoUAA0APu1iqU2ppaQiMAgBMB2JQBOgBDjwWH2NGVgxgAD5KxEJuDkM1D8VTWE7q/Z/KTozrVfk3TFlcKlvHfaNycdVWdRJKnyJTf+xZ3pgRMDsWtdW2DjFd9DWngw/R+s9wecoAu21aCM6WPLHM0o5GC1AAA=="
+        },
+        {
+          "id": "16",
+          "sourceFile": "16.jpg",
+          "width": 3200,
+          "height": 2247,
+          "aspectRatio": 1.4241,
+          "color": {
+            "L": 53.41,
+            "a": 4.93,
+            "b": 13.85
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/16-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/16-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/16-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/16-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADwAwCdASoUAA4APu1iqU2ppaOiMAgBMB2JQBOgBHuFFc49SYN09fYAAPu8kn5bbQKWslog4fz08uAJP0sfP/QG9VR3M4oBlwlL622hM5P0usex9M7xAdVrW624j/M1dq0m9wOiT1kUt81ZANfFAAAA"
+        },
+        {
+          "id": "17",
+          "sourceFile": "17.jpg",
+          "width": 3200,
+          "height": 2260,
+          "aspectRatio": 1.4159,
+          "color": {
+            "L": 57.34,
+            "a": 2.05,
+            "b": 10.06
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/17-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/17-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/17-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/17-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAA4APu1iqU2ppaOiMAgBMB2JYwCdMoABgn9SXEmewPFAAOFXWEGieyB84UfN9ac92UzyXqdhwB49z7Sin0Dk2I5vFZkqjOCg8fBNb9VTY/0Mqy9esSV+bTfNMTA3r7RHb7lE0t/b14bfEIXOvk0AAAA="
+        },
+        {
+          "id": "18",
+          "sourceFile": "18.jpg",
+          "width": 3500,
+          "height": 2017,
+          "aspectRatio": 1.7353,
+          "color": {
+            "L": 65.87,
+            "a": 0.16,
+            "b": 7.41
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zamoyskiego/18-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zamoyskiego/18-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zamoyskiego/18-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zamoyskiego/18-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAAwAPu1iqU2ppaQiMAgBMB2JZQCdAB7BGZxYJACgpKmWAPikQI6eIhZBXZoog/vC9syhB0qYnBsvnrx4l/FB+4iAo65DjLEEWiFGuHxLtlJ8Tyi8jvP5Gsk0lpIDWkx1tXXCwAA="
+        }
+      ],
+      "videos": []
+    },
+    "zenit": {
+      "images": [
+        {
+          "id": "1",
+          "sourceFile": "1.jpg",
+          "width": 5456,
+          "height": 4871,
+          "aspectRatio": 1.1201,
+          "color": {
+            "L": 57.82,
+            "a": -1.85,
+            "b": 7.49
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/1-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/1-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/1-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/1-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAAAQBQCdASoUABIAPu1ur1KppiQiqAgBMB2JYwDDNBIvsqrxiCdkxtdaD+1iPvjLgdjSAP6G+WzgmxK8E9WVCIDxScIiwXomVu8ad8AF+03293+eFRVna3iG8PfvW6fAuGHidYbsqdthhjj697kgKwX96eLWPxUBK7tNGkwGryTSmiIBBRI6tdqGa+JQSbb0oAA="
+        },
+        {
+          "id": "3",
+          "sourceFile": "3.jpg",
+          "width": 5500,
+          "height": 3246,
+          "aspectRatio": 1.6944,
+          "color": {
+            "L": 63.11,
+            "a": -0.86,
+            "b": 4.51
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/3-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/3-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/3-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/3-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoUAAwAPu1iqU2ppaQiMAgBMB2JQBadBDwWPMMPikth3JbkgAD+362pdLTV0cujN17RTz6a6TvB9WVMY8Aa7QA8Ed2GuX4swG+4LAiQSSVAHn/ikt3OtDoFF3OSD1UJMgUvjrwo7CAAAA=="
+        },
+        {
+          "id": "4",
+          "sourceFile": "4.jpg",
+          "width": 6000,
+          "height": 4978,
+          "aspectRatio": 1.2053,
+          "color": {
+            "L": 46.2,
+            "a": -2.77,
+            "b": 2.21
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/4-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/4-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/4-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/4-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACwBACdASoUABEAPu1usFIppiSiqAgBMB2JYwCxDTYBnNBSRi0y585AJSKTDiDAAParYhQapn3ncySljGezi9GVV2OaJXpGgh/ljZ04IeLE45lmsXiMhEI9b5gcZtxYD6HAeQj/GKWRj1VWmbNrm+CMN32s1Y0KM9cRv943zZ7N41C/eBE5E9xXTrB4HfoKKKYKLmmDflRTqlnxx4L0ggZwHJkCKwEXyfO/tGCURDQIAA=="
+        },
+        {
+          "id": "5",
+          "sourceFile": "5.jpg",
+          "width": 5000,
+          "height": 4609,
+          "aspectRatio": 1.0848,
+          "color": {
+            "L": 52.59,
+            "a": -0.11,
+            "b": 10.99
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/5-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/5-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/5-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/5-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAABwBQCdASoUABIAPu1urlIppiQiqAgBMB2JZQDKAYxEaHaLdT7DW7yRGmSXMUCUng6ML7AAAPfW0WdQ04tmwPkhqZUlE7SC+anTFKYXbvkba488LCrgaigKrGFdGVzyQqut+0BptzcQr/vlVngOzYt3B0q6TIYD7xe/4hstfI84ACPoVd/qBcptjYgEbGA8JbIIGQpFt4v4WBLQlnIa+8MLSo4KftwAAAA="
+        },
+        {
+          "id": "6",
+          "sourceFile": "6.jpg",
+          "width": 5000,
+          "height": 3920,
+          "aspectRatio": 1.2755,
+          "color": {
+            "L": 46.18,
+            "a": -2.02,
+            "b": 4.5
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/6-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/6-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/6-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/6-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwBACdASoUABAAPu1iqU2ppaOiMAgBMB2JYwDA3CP/+1TgxT6eAopPvsAA/undj0yUmw3C1xGyv4MdKDs+mIgTLureqBbdZcs+o+hFa0iK1f8Ep1c5G3wMTiqlUqkdPjGJuWXqOPTxVRkdWX6y1v31X+4wvn/DpUTTIAAA"
+        },
+        {
+          "id": "7",
+          "sourceFile": "7.jpg",
+          "width": 6000,
+          "height": 3305,
+          "aspectRatio": 1.8154,
+          "color": {
+            "L": 65.21,
+            "a": -1.13,
+            "b": 8.55
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/7-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/7-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/7-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/7-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwBACdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBdmUGVsiS/Ov19v9FvCgVAA/sX9KyutbVwWKyymnHMJl83MMVBVubQr/Hjx4zYppKzI/v/8kmvxUHOLauI5qmRup/l8a3tk0NJj4GaXYtLgvCALxAlQ86wuJWAA"
+        },
+        {
+          "id": "8",
+          "sourceFile": "8.jpg",
+          "width": 6000,
+          "height": 3376,
+          "aspectRatio": 1.7773,
+          "color": {
+            "L": 62.74,
+            "a": -2.27,
+            "b": 7.92
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/8-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/8-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/8-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/8-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JQBOgBDvXpj3NLddk66bgAP7U5NsCq9LYE8ZTVyT1ethczqZH6GZDFbPlS4l1ibDHsS5l5Ew3JZEHr54tF4aKOXuyNaDjM5VuQoZ4ri/uNHkAAAA="
+        },
+        {
+          "id": "9",
+          "sourceFile": "9.jpg",
+          "width": 5500,
+          "height": 2420,
+          "aspectRatio": 2.2727,
+          "color": {
+            "L": 37.24,
+            "a": 1.49,
+            "b": 5.76
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/9-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/9-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/9-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/9-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQBACdASoUAAkAPu1iqk2ppaQiMAgBMB2JZwC7Ef/gPfUoMnIc7/CEAAD+wPLqX8TTFr9ifcpjIv4lbop0x5jqGv9gp56YC4ZxuvcZ1HnvHzj28j8IDCBIdf0qwycyRwgAAA=="
+        },
+        {
+          "id": "10",
+          "sourceFile": "10.jpg",
+          "width": 5000,
+          "height": 3995,
+          "aspectRatio": 1.2516,
+          "color": {
+            "L": 39.23,
+            "a": 1.34,
+            "b": 5.21
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/10-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/10-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/10-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/10-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoUABAAPu1iqU2ppaOiMAgBMB2JZwCw7CE3UbfVMH95wSjyAAD+7tUyufgDmEBAWhxcIcEopGisA6qDKM3lioEubI0fRgvdok/s+mb8vg7J50gLlhu3ek41yk1wcT5EbGO8hfCLS/gAAA=="
+        },
+        {
+          "id": "11",
+          "sourceFile": "11.jpg",
+          "width": 5000,
+          "height": 2812,
+          "aspectRatio": 1.7781,
+          "color": {
+            "L": 37.24,
+            "a": 2.16,
+            "b": 7.18
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/11-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/11-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/11-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/11-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADQAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JZwAAUo4fw0xd8dOGSKgA/uksjZdop7kBOWWdkeVyPGst6BGRHHCO/x/ly1ldHj+faA1bKMotN5JZUL6JxWVMF2Se5Fdn9zCtXwN5hFtjXsAA"
+        },
+        {
+          "id": "12",
+          "sourceFile": "12.jpg",
+          "width": 5000,
+          "height": 2532,
+          "aspectRatio": 1.9747,
+          "color": {
+            "L": 52.1,
+            "a": 4.19,
+            "b": 10.82
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/12-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/12-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/12-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/12-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACwAwCdASoUAAoAPu1iqU2ppaOiMAgBMB2JQBYdg/B477/GoZsNAAD+0JMbOrBtS0VpJE8XIjIPpKCjuZsm8UzB+bN6n/c651hEKp7DMGj88Bq2bJ/Y4zXq5//FEYTrVTZlnnMNNgPPgn9bP8telqcAAAA="
+        },
+        {
+          "id": "13",
+          "sourceFile": "13.jpg",
+          "width": 3400,
+          "height": 4330,
+          "aspectRatio": 0.7852,
+          "color": {
+            "L": 38.78,
+            "a": 2.01,
+            "b": 9.49
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/13-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/13-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/13-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/13-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAAAwBQCdASoUABkAPu1irE+ppSQiMBgIATAdiWMAwoAQ48SckFwz4aShHHIm7FUb8VsIAAD+8NHPchLwJbH+CJfCbfbtTByTMdAanBr4x7LFdGSeaVPuN1ZWybhaCbYo6NRFdwu1dMS/NVTcKzsBUtAZqYdkbY1vsT0muGWFcyazaIdadrBNnDC5SiRDfBLB8WmSDmhvlUBJS7doftE58AAA"
+        },
+        {
+          "id": "14",
+          "sourceFile": "14.jpg",
+          "width": 5000,
+          "height": 2925,
+          "aspectRatio": 1.7094,
+          "color": {
+            "L": 30.67,
+            "a": 7.4,
+            "b": 15.11
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/14-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/14-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/14-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/14-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAACwBACdASoUAAwAPu1iqU2ppaOiMAgBMB2JYgCdMoMjkn/AfIpfDdu98PkDUhAAAP2nq9KafOIU2FG9ukdH9LE+Mcq14tmdxGqCGP1u0COGe/qgpZOoBZjPKnQ67VbSZvnO46nO4zLjvsPmtbn//ug+YIwuLJh9T3RozXm6hhrYvUcdWoEXiAAA"
+        },
+        {
+          "id": "15",
+          "sourceFile": "15.jpg",
+          "width": 5000,
+          "height": 2958,
+          "aspectRatio": 1.6903,
+          "color": {
+            "L": 37.08,
+            "a": 6.36,
+            "b": 16.69
+          },
+          "sources": [
+            {
+              "width": 640,
+              "src": "/media/projects/zenit/15-640.webp"
+            },
+            {
+              "width": 1280,
+              "src": "/media/projects/zenit/15-1280.webp"
+            },
+            {
+              "width": 1920,
+              "src": "/media/projects/zenit/15-1920.webp"
+            },
+            {
+              "width": 2560,
+              "src": "/media/projects/zenit/15-2560.webp"
+            }
+          ],
+          "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABQBACdASoUAAwAPu1iqU2ppaOiMAgBMB2JYgCdMoR4GCGvTGfd1GBiTVdAAP6+RUVvDX4Dl4Gtdr/FYfBHTkAIrdC2sV3UYeF1lecSAeEsf8SvrGbGFYl1XN1jcOIHXS16g8hh2AGkbDB4gAA="
         }
       ],
       "videos": []
