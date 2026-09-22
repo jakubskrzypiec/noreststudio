@@ -1,24 +1,22 @@
-name: Deploy na GitHub Pages
+# Przy kazdym push na main: przetwarzamy nowe zdjecia/filmy (npm run media),
+# budujemy statyczny eksport pod domene glowna i wysylamy go przez FTP na
+# hosting klienta (noreststudio.com). Strona NIE stoi na GitHub Pages -
+# GitHub jest tylko repozytorium kodu i miejscem, gdzie odpala sie ten proces.
+name: Publikacja na serwer klienta
 
 on:
   push:
     branches: [main]
-  # Pozwala odpalić deploy ręcznie z zakładki Actions.
+  # Pozwala odpalic publikacje recznie z zakladki Actions, bez nowego commita.
   workflow_dispatch:
 
-# Uprawnienia wymagane przez actions/deploy-pages.
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Nie przerywamy trwającego wdrożenia, ale kolejkujemy tylko jedno następne.
+# Nie przerywamy trwajacej publikacji, ale kolejkujemy tylko jedno nastepne wgranie.
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,25 +28,36 @@ jobs:
 
       - run: npm ci
 
+      # Wymagane przez scripts/optimize-media.mjs (konwersja filmow).
+      - name: Instalacja ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      # Przetwarza tylko NOWE pliki w PROJECTS/ - juz gotowe zostaja bez zmian
+      # (public/media jest w repo, wiec `existsSync` w skrypcie je pomija).
+      - name: Przetworzenie zdjec i filmow
+        run: npm run media
+
       - name: Build statycznego eksportu
-        # Pages serwuje projekt pod /noreststudio, nie pod korzeniem domeny.
+        # Strona stoi pod korzeniem domeny klienta, nie pod /noreststudio jak
+        # na wczesniejszym, roboczym podgladzie na GitHub Pages.
         env:
-          NEXT_PUBLIC_BASE_PATH: /noreststudio
-          NEXT_PUBLIC_SITE_URL: https://jakubskrzypiec.github.io/noreststudio
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://noreststudio.com
         run: npm run build
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      - name: Wyslanie na serwer (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          path: ./out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./out/
+          # Puste - konto FTP ma juz ustawiony katalog domowy na katalog strony
+          # (public_html/noreststudio.com). Jesli kiedys to sie zmieni, dopisac
+          # tutaj wlasciwa sciezke wzgledem katalogu domowego konta.
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**

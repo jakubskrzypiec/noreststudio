@@ -1,6 +1,9 @@
-# --- Materiały źródłowe (surowe rendery, ~2,8 GB) ---
-# Zostają lokalnie; do repo trafiają dopiero zoptymalizowane pliki w public/
-/PROJECTS/
+# --- Materiały źródłowe ---
+# PROJECTS/ jest ŚWIADOMIE śledzone (nie ignorowane) — to jest folder, do
+# którego klient dokłada nowe realizacje przez GitHub Desktop. CI samo
+# przetwarza nowe pliki (npm run media) i publikuje stronę.
+# HOME/ (klipy na hero) i reszta zostają lokalne — kuratorskie, nie
+# self-service; zoptymalizowane pliki trafiają do repo przez public/.
 /HOME/
 /SLIDER PROJECTS/
 /IKONKI/
