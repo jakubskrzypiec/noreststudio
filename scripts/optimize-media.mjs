@@ -330,7 +330,13 @@ function parseDescription(text) {
  *    dolozyc zdjecia); client/date nadpisujemy TYLKO gdy w folderze faktycznie
  *    lezy plik .txt z opisem - inaczej zostaje to, co juz bylo w JSON-ie
  *    (dla starych projektow, ktorych opisy juz wklejono i pliki .txt usunieto).
+ *  - Folder przemianowany na "USUN <nazwa>" -> projekt znika ze strony.
+ *    Same zniknięcie folderu NIE usuwa projektu (CI i tak nie widzi wiekszosci
+ *    surowych folderow, wiec brak folderu nie moze znaczyc "usun" - patrz
+ *    fallback w processDir). Zmiana nazwy to jawny, niedwuznaczny sygnal.
  */
+const USUN_PREFIX = /^usu[nń]\s+/i;
+
 async function syncProjectsFromDisk(projectsFile) {
   const PROJECTS_DIR = path.join(ROOT, "PROJECTS");
   if (!existsSync(PROJECTS_DIR)) return;
@@ -340,10 +346,22 @@ async function syncProjectsFromDisk(projectsFile) {
     .map((e) => e.name)
     .sort(naturalSort);
 
-  const bySourceDir = new Map(projectsFile.projects.map((p) => [p.sourceDir.replace(/\\/g, "/"), p]));
   let zmieniono = false;
 
   for (const nazwa of foldery) {
+    if (USUN_PREFIX.test(nazwa)) {
+      const slug = slugify(nazwa.replace(USUN_PREFIX, ""));
+      const idx = projectsFile.projects.findIndex((p) => p.slug === slug);
+      if (idx !== -1) {
+        const [usuniety] = projectsFile.projects.splice(idx, 1);
+        zmieniono = true;
+        console.log(`  [auto] usunieto projekt (folder "${nazwa}"): ${usuniety.title}`);
+      } else {
+        console.log(`  [auto] folder "${nazwa}" oznaczony do usuniecia, ale nie znaleziono projektu "${slug}"`);
+      }
+      continue;
+    }
+
     const sourceDir = `PROJECTS/${nazwa}`;
     const absDir = path.join(PROJECTS_DIR, nazwa);
     const pliki = (await readdir(absDir, { withFileTypes: true }))
@@ -357,7 +375,7 @@ async function syncProjectsFromDisk(projectsFile) {
     const images = pliki.filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()));
     const videos = pliki.filter((f) => VIDEO_EXT.has(path.extname(f).toLowerCase()));
 
-    const istniejacy = bySourceDir.get(sourceDir);
+    const istniejacy = projectsFile.projects.find((p) => p.sourceDir.replace(/\\/g, "/") === sourceDir);
     if (!istniejacy) {
       projectsFile.projects.push({
         slug: slugify(nazwa),
