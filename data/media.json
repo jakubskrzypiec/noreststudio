@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T13:49:08.872Z",
+  "generatedAt": "2026-09-25T06:49:12.982Z",
   "home": {
     "images": [],
     "videos": [
@@ -19,7 +19,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 6451563,
-        "outputBytes": 766443
+        "outputBytes": 2047945
       },
       {
         "id": "animation-1",
@@ -37,7 +37,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 8684681,
-        "outputBytes": 1174441
+        "outputBytes": 3108839
       },
       {
         "id": "animation-6",
@@ -45,9 +45,9 @@
         "src": "/media/home/animation-6.mp4",
         "srcMobile": "/media/home/animation-6-mobile.mp4",
         "poster": "/media/home/animation-6-poster.webp",
-        "width": 1920,
-        "height": 1020,
-        "aspectRatio": 1.8824,
+        "width": 1972,
+        "height": 1048,
+        "aspectRatio": 1.8817,
         "color": {
           "L": 48.85,
           "a": 1.5,
@@ -55,7 +55,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 15827076,
-        "outputBytes": 2719495
+        "outputBytes": 8106733
       },
       {
         "id": "animation",
@@ -63,9 +63,9 @@
         "src": "/media/home/animation.mp4",
         "srcMobile": "/media/home/animation-mobile.mp4",
         "poster": "/media/home/animation-poster.webp",
-        "width": 1920,
-        "height": 798,
-        "aspectRatio": 2.406,
+        "width": 2232,
+        "height": 928,
+        "aspectRatio": 2.4052,
         "color": {
           "L": 62.56,
           "a": 3.22,
@@ -73,7 +73,7 @@
         },
         "duration": 9.04,
         "sourceBytes": 17367625,
-        "outputBytes": 1322511
+        "outputBytes": 5826269
       },
       {
         "id": "animation4",
@@ -91,7 +91,7 @@
         },
         "duration": 7.04,
         "sourceBytes": 8131225,
-        "outputBytes": 1339660
+        "outputBytes": 4052739
       },
       {
         "id": "kling-20251014-sirene-poprawiony",
@@ -109,7 +109,7 @@
         },
         "duration": 7.93,
         "sourceBytes": 7820725,
-        "outputBytes": 6138245
+        "outputBytes": 9901341
       },
       {
         "id": "rogerscorp-video-1",
@@ -117,9 +117,9 @@
         "src": "/media/home/rogerscorp-video-1.mp4",
         "srcMobile": "/media/home/rogerscorp-video-1-mobile.mp4",
         "poster": "/media/home/rogerscorp-video-1-poster.webp",
-        "width": 1920,
-        "height": 876,
-        "aspectRatio": 2.1918,
+        "width": 2132,
+        "height": 972,
+        "aspectRatio": 2.1934,
         "color": {
           "L": 60.69,
           "a": -0.86,
@@ -127,7 +127,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 753228636,
-        "outputBytes": 1025953
+        "outputBytes": 3230149
       },
       {
         "id": "rogerscorp-video-4",
@@ -145,7 +145,7 @@
         },
         "duration": 5.04,
         "sourceBytes": 10397891,
-        "outputBytes": 2153096
+        "outputBytes": 5155543
       }
     ]
   },
@@ -462,9 +462,9 @@
           "src": "/media/projects/13-st-killda/8.mp4",
           "srcMobile": "/media/projects/13-st-killda/8-mobile.mp4",
           "poster": "/media/projects/13-st-killda/8-poster.webp",
-          "width": 1920,
-          "height": 798,
-          "aspectRatio": 2.406,
+          "width": 2232,
+          "height": 928,
+          "aspectRatio": 2.4052,
           "color": {
             "L": 62.56,
             "a": 3.22,
@@ -472,7 +472,7 @@
           },
           "duration": 9.04,
           "sourceBytes": 17367625,
-          "outputBytes": 1322511
+          "outputBytes": 5826269
         },
         {
           "id": "10",
@@ -490,7 +490,7 @@
           },
           "duration": 9.04,
           "sourceBytes": 18716421,
-          "outputBytes": 2991508
+          "outputBytes": 7022468
         },
         {
           "id": "11",
@@ -508,7 +508,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 6451563,
-          "outputBytes": 766443
+          "outputBytes": 2047945
         }
       ]
     },
@@ -2235,7 +2235,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 8131225,
-          "outputBytes": 1339660
+          "outputBytes": 4052739
         },
         {
           "id": "12",
@@ -2253,7 +2253,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 4377806,
-          "outputBytes": 570081
+          "outputBytes": 1508532
         }
       ]
     },
@@ -3334,37 +3334,6 @@
           "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADQAwCdASoUAAkAPu1iqU2ppaOiMAgBMB2JYwDCgCHo7hl7r1MNCVwA/tYpm+IglXJa8GzyVWz+WPfl+pMaCHgMSO74tI0NprR0WM69nrdKbv//PH3akg4TyV/TPGGWY+DB/wzRy2N+AAAA"
         },
         {
-          "id": "8",
-          "sourceFile": "8.png",
-          "width": 5000,
-          "height": 3174,
-          "aspectRatio": 1.5753,
-          "color": {
-            "L": 67.99,
-            "a": -2.17,
-            "b": 3.85
-          },
-          "sources": [
-            {
-              "width": 640,
-              "src": "/media/projects/labrador/8-640.webp"
-            },
-            {
-              "width": 1280,
-              "src": "/media/projects/labrador/8-1280.webp"
-            },
-            {
-              "width": 1920,
-              "src": "/media/projects/labrador/8-1920.webp"
-            },
-            {
-              "width": 2560,
-              "src": "/media/projects/labrador/8-2560.webp"
-            }
-          ],
-          "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JQBOgBFml0H0YO/b3db8AAPhWBe66OJTEo+RaoNbFPg+3Ks2FyuRZAbCNg96rFLl+H4g8f7Gn+sJuoLIhsO5J5CFFg+jIF9MHg1nmQReP+tGOAMLzxLdsiGCtegAA"
-        },
-        {
           "id": "9",
           "sourceFile": "9.jpg",
           "width": 4501,
@@ -3811,9 +3780,9 @@
           "src": "/media/projects/lilo/8.mp4",
           "srcMobile": "/media/projects/lilo/8-mobile.mp4",
           "poster": "/media/projects/lilo/8-poster.webp",
-          "width": 1920,
-          "height": 1020,
-          "aspectRatio": 1.8824,
+          "width": 1972,
+          "height": 1048,
+          "aspectRatio": 1.8817,
           "color": {
             "L": 48.85,
             "a": 1.5,
@@ -3821,7 +3790,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 15827076,
-          "outputBytes": 2719495
+          "outputBytes": 8106733
         },
         {
           "id": "9",
@@ -3839,7 +3808,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 8684681,
-          "outputBytes": 1174441
+          "outputBytes": 3108839
         },
         {
           "id": "10",
@@ -3857,7 +3826,7 @@
           },
           "duration": 7.04,
           "sourceBytes": 12689380,
-          "outputBytes": 1420089
+          "outputBytes": 3652993
         }
       ]
     },
@@ -4475,7 +4444,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 15718832,
-          "outputBytes": 2572496
+          "outputBytes": 6340281
         }
       ]
     },
@@ -4876,7 +4845,7 @@
           },
           "duration": 5.11,
           "sourceBytes": 4069446,
-          "outputBytes": 3046406
+          "outputBytes": 4853676
         }
       ]
     },
@@ -5370,7 +5339,7 @@
           },
           "duration": 5.15,
           "sourceBytes": 5268016,
-          "outputBytes": 4212854
+          "outputBytes": 6444795
         },
         {
           "id": "5",
@@ -5388,7 +5357,7 @@
           },
           "duration": 8.12,
           "sourceBytes": 1250961,
-          "outputBytes": 451211
+          "outputBytes": 1058729
         }
       ]
     },
@@ -5727,7 +5696,7 @@
           },
           "duration": 7.93,
           "sourceBytes": 7820725,
-          "outputBytes": 6138245
+          "outputBytes": 9901341
         }
       ]
     },
@@ -6691,7 +6660,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 5402346,
-          "outputBytes": 736723
+          "outputBytes": 1862541
         }
       ]
     },
@@ -6994,7 +6963,7 @@
           },
           "duration": 5.04,
           "sourceBytes": 3372409,
-          "outputBytes": 455524
+          "outputBytes": 1169510
         }
       ]
     },
