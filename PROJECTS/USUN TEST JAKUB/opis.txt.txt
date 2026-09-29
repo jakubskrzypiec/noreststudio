@@ -1,0 +1,2 @@
+CLIENT Testowy Klient
+DATE 29.09.2026
