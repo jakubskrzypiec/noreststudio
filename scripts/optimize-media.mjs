@@ -280,6 +280,9 @@ async function processDir(srcDir, outSubdir, label, fallback) {
   const videos = [];
 
   for (const name of entries) {
+    // Plik "USUN <nazwa>" to znacznik usuniecia (patrz scalHome) - sam nie jest materialem.
+    if (USUN_PREFIX.test(name)) continue;
+
     const ext = path.extname(name).toLowerCase();
     const stem = slugify(path.basename(name, path.extname(name)));
     const srcFile = path.join(absSrc, name);
@@ -412,6 +415,42 @@ async function syncProjectsFromDisk(projectsFile) {
   }
 }
 
+/**
+ * HOME to wspolna pula klipow tla, a nie lista projektow - klient dorzuca do niej
+ * pojedyncze pliki, a reszty surowych klipow w jego repo nie ma. Dlatego wynik
+ * przerobki folderu scalamy z poprzednim manifestem, zamiast nim go zastepowac
+ * (inaczej jeden nowy klip wypychalby wszystkie dotychczasowe z rotacji).
+ *
+ * Usuniecie klipu: plik w HOME o nazwie "USUN <nazwa klipu>.<dowolne rozszerzenie>"
+ * (np. "USUN animation-4.txt"). Brak pliku w folderze nic nie znaczy, bo CI
+ * i tak nie widzi wiekszosci surowych klipow - dlatego znacznik musi byc jawny.
+ */
+async function scalHome(poprzednie, swieze) {
+  const absHome = path.join(ROOT, "HOME");
+  const usuniete = new Set();
+  if (existsSync(absHome)) {
+    for (const e of await readdir(absHome, { withFileTypes: true })) {
+      if (e.isFile() && USUN_PREFIX.test(e.name)) {
+        usuniete.add(slugify(path.basename(e.name.replace(USUN_PREFIX, ""), path.extname(e.name))));
+      }
+    }
+  }
+
+  const scal = (stare = [], nowe = []) => {
+    const wynik = new Map(stare.map((x) => [x.id, x]));
+    for (const x of nowe) wynik.set(x.id, x);
+    for (const id of usuniete) {
+      if (wynik.delete(id)) console.log(`  [auto] usunieto klip z HOME: ${id}`);
+    }
+    return [...wynik.values()];
+  };
+
+  return {
+    images: scal(poprzednie?.images, swieze.images),
+    videos: scal(poprzednie?.videos, swieze.videos),
+  };
+}
+
 async function main() {
   const projectsFile = JSON.parse(await readFile(path.join(ROOT, "data", "projects.json"), "utf8"));
   await mkdir(OUT_DIR, { recursive: true });
@@ -432,7 +471,10 @@ async function main() {
   const manifest = { generatedAt: new Date().toISOString(), home: null, projects: {} };
 
   console.log("HOME (animacje tla)");
-  manifest.home = await processDir("HOME", "home", "HOME", poprzedniManifest.home);
+  manifest.home = await scalHome(
+    poprzedniManifest.home,
+    await processDir("HOME", "home", "HOME", { images: [], videos: [] }),
+  );
 
   for (const project of projectsFile.projects) {
     console.log(project.title);
